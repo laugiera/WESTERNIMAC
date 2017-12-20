@@ -8,6 +8,7 @@
 #include <glimac/Program.hpp>
 #include <glimac/Image.hpp>
 #include <glimac/SDL2WindowManager.hpp>
+#include <glimac/Geometry.hpp>
 
 using namespace glimac;
 
