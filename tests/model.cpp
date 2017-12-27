@@ -20,20 +20,13 @@
 #include <Texture.hpp>
 #include <vector>
 
-/***
- * La map fait un carré de 100 par 100
- *
- *
- */
-
-
 using namespace glimac;
 
 
 int main(int argc, char** argv) {
     /***** SDL THINGY *****/
     // Initialize SDL and open a window
-    SDLWindowManager windowManager(800, 600, "GLImac");
+    SDLWindowManager windowManager(1000, 800, "GLImac");
     // Initialize glew for OpenGL3+ support
     GLenum glewInitError = glewInit();
     if(GLEW_OK != glewInitError) {
@@ -47,9 +40,8 @@ int main(int argc, char** argv) {
 
     /***** GPU PROGRAM *****/
 
-    glcustom::GPUProgram program(applicationPath, "light",  "directLight");
-    std::vector<std::string> uniform_variables = {"MV", "MVP","V","M","LightPosition_worldspace",
-                                                 "rotation"};
+    glcustom::GPUProgram program(applicationPath, "3D2",  "pointlight");
+    std::vector<std::string> uniform_variables = {"uMVPMatrix", "uMVMatrix","uNormalMatrix","uKd","uKs","uShininess","uLightPos_vs","uLightIntensity"};
     program.addUniforms(uniform_variables);
     program.use();
 
@@ -57,7 +49,7 @@ int main(int argc, char** argv) {
     glm::mat4 ProjMat, MVMatrix, NormalMatrix;
 
     Geometry teapot;
-    teapot.loadOBJ("../imacman/models/teapot.obj","",true);
+    teapot.loadOBJ("../imacman/models/cube.obj","../imacman/models/cube.mtl",false);
 
     glimac::ShapeVertex vertices[teapot.getVertexCount()];
     for (int i = 0; i < teapot.getVertexCount(); ++i) {
@@ -65,10 +57,10 @@ int main(int argc, char** argv) {
         vertices[i].normal = teapot.getVertexBuffer()[i].m_Normal;
         vertices[i].texCoords = teapot.getVertexBuffer()[i].m_TexCoords;
     }
-    std::vector<glimac::ShapeVertex> vertices_vector(vertices, vertices+teapot.getVertexCount()-1);
+    std::vector<glimac::ShapeVertex> vertices_vector(vertices, vertices+teapot.getVertexCount());
 
     uint32_t indices[teapot.getIndexCount()];
-    std::vector<uint32_t> indices_vector(teapot.getIndexBuffer(), teapot.getIndexBuffer()+teapot.getIndexCount()-1);
+    std::vector<uint32_t> indices_vector(teapot.getIndexBuffer(), teapot.getIndexBuffer()+teapot.getIndexCount());
     for (int i = 0; i < teapot.getIndexCount(); ++i) {
         indices[i] = teapot.getIndexBuffer()[i];
     }
@@ -134,23 +126,28 @@ int main(int argc, char** argv) {
         glClear(GL_COLOR_BUFFER_BIT);
 
 
-        ProjMat = glm::perspective(glm::radians(70.f), 800.f/600.f, 0.1f, 100.f);
-        glm::mat4 MobelMatrix = glm::translate(glm::mat4(1.0f) , glm::vec3(0.f,-5.f,-10.f));
+        ProjMat = glm::perspective(glm::radians(70.f), 1000.f/800.f, 0.1f, 100.f);
+        glm::mat4 ModelMatrix = glm::translate(glm::mat4(1.0f),glm::vec3(0,0,50));
         glm::mat4 ViewMatrix = Camera.getViewMatrix();
-        glm::mat4 MV = ViewMatrix * MobelMatrix;
+        glm::mat4 MV = ViewMatrix * ModelMatrix;
+        //MV = glm::rotate(MV, windowManager.getTime(), glm::vec3(0, 1, 0));
         glm::mat4 MVP = ProjMat * MV;
 
-        glm::vec4 lightPos = glm::vec4(200,200,500,1);
-        glm::mat4 rotation = glm::rotate(glm::mat4(1),windowManager.getTime(),glm::vec3(0,1,0));
-        //lightPos = lightPos * rotation;
 
         //send uniform variables
-        program.sendUniformMat4("V", ViewMatrix);
-        program.sendUniformMat4("M", MobelMatrix);
-        program.sendUniformMat4("MV", MV);
-        program.sendUniformMat4("MVP", MVP);
-        program.sendUniformVec4("LightPosition_worldspace", lightPos);
-        program.sendUniformMat4("rotation",rotation);
+        program.sendUniformMat4("uMVPMatrix", MVP);
+        program.sendUniformMat4("uMVMatrix", MV);
+        program.sendUniformMat4("uNormalMatrix", glm::transpose(glm::inverse(MV)));
+
+        glm::vec4 lightPosition = glm::vec4(1,1,1,1);
+        glm::mat4 rotation = glm::rotate(glm::mat4(1),windowManager.getTime()+50,glm::vec3(0,1,0));
+        //lightPosition = rotation * lightPosition;
+        lightPosition = ViewMatrix * lightPosition;
+
+        program.sendUniform1f("uShininess", 64);
+        program.sendUniformVec4("uLighDir_vs",lightPosition);
+        program.sendUniformVec3("uKd",glm::vec3(1.f));
+        program.sendUniformVec3("uKs",glm::vec3(0.8));
 
         //draw
         vao.bind();
