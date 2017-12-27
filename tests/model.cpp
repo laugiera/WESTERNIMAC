@@ -86,16 +86,16 @@ int main(int argc, char** argv) {
         while(windowManager.pollEvent(e)) {
             if(e.type == SDL_KEYDOWN){
                 if(e.key.keysym.sym == SDLK_LEFT){
-                    Camera.rotateLeft(5.0);
+                    Camera.moveLeft(2.0);
                 }
                 else if(e.key.keysym.sym == SDLK_RIGHT){
-                    Camera.rotateLeft(-5.0);
+                    Camera.moveLeft(-2.0);
                 }
                 else if(e.key.keysym.sym == SDLK_UP){
-                    Camera.rotateUp(5.0);
+                    Camera.moveFront(2.0);
                 }
                 else if(e.key.keysym.sym == SDLK_DOWN){
-                    Camera.rotateUp(-5.0);
+                    Camera.moveFront(-2.0);
                 }
             }
             else if(e.type == SDL_MOUSEBUTTONDOWN) {
