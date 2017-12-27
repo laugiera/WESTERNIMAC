@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
     //variables globales
     glm::mat4 ProjMat, MVMatrix, NormalMatrix;
 
-    Geometry teapot;
+/*    Geometry teapot;
     teapot.loadOBJ("../imacman/models/cube.obj","../imacman/models/cube.mtl",false);
 
     glimac::ShapeVertex vertices[teapot.getVertexCount()];
@@ -63,16 +63,25 @@ int main(int argc, char** argv) {
     std::vector<uint32_t> indices_vector(teapot.getIndexBuffer(), teapot.getIndexBuffer()+teapot.getIndexCount());
     for (int i = 0; i < teapot.getIndexCount(); ++i) {
         indices[i] = teapot.getIndexBuffer()[i];
+    }*/
+
+    Sphere* s = new Sphere(1,32,16);
+    glimac::ShapeVertex vertices2[s->getVertexCount()];
+    for (int i = 0; i < s->getVertexCount(); ++i) {
+        vertices2[i].position = s->getDataPointer()[i].position;
+        vertices2[i].normal = s->getDataPointer()[i].normal;
+        vertices2[i].texCoords = s->getDataPointer()[i].texCoords;
     }
+    std::vector<glimac::ShapeVertex> vertices_vector2(vertices2, vertices2 + s->getVertexCount());
 
     /***** BUFFERS *****/
     glcustom::VBO vbo = glcustom::VBO();
-    glcustom::IBO ibo = glcustom::IBO();
+    //glcustom::IBO ibo = glcustom::IBO();
     glcustom::VAO vao = glcustom::VAO();
 
-    vbo.fillBuffer(vertices_vector);
-    ibo.fillBuffer(indices_vector);
-    vao.fillBuffer(vertices_vector, &vbo, &ibo);
+    vbo.fillBuffer(vertices_vector2);
+    //ibo.fillBuffer(indices_vector);
+    vao.fillBuffer(vertices_vector2, &vbo);
 
     /***CAMERA***/
     FreeflyCamera Camera;
@@ -151,7 +160,7 @@ int main(int argc, char** argv) {
 
         //draw
         vao.bind();
-        glDrawElements(GL_TRIANGLES, indices_vector.size(), GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, s->getVertexCount(), GL_UNSIGNED_INT, 0);
         vao.debind();
 
 

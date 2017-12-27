@@ -38,6 +38,6 @@ vec3 blinnPhong(){
 
 void main() {
 
-   //color = blinnPhong();
-   color = vec3(1,0,0);
+   color = vNormal_vs;
+   //color = vec3(1,0,0);
 }
