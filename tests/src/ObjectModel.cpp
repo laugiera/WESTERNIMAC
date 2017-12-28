@@ -16,7 +16,7 @@ ObjectModel::ObjectModel(const std::string &_path):objPath(_path+".obj"),mtlPath
         indices_vector = std::vector<uint32_t>(object.getIndexBuffer(), object.getIndexBuffer()+object.getIndexCount());
     }catch (std::runtime_error e){
        // Print::printErrorMessage(e.what());
-        std::cout<<"error" <<std::endl;
+        std::cout<<"error sa mere" <<std::endl;
     }
 }
 

@@ -91,9 +91,9 @@ int main(int argc, char** argv) {
                 }
             }
             else if(e.wheel.y == 1 )
-                Camera.moveFront(-1);
-            else if(e.wheel.y == -1)
                 Camera.moveFront(1);
+            else if(e.wheel.y == -1)
+                Camera.moveFront(-1);
             else if(e.type == SDL_MOUSEBUTTONUP) {
                 if(e.button.button == SDL_BUTTON_RIGHT){
                     rightPressed = 0;
@@ -114,11 +114,11 @@ int main(int argc, char** argv) {
 
 
         ProjMat = glm::perspective(glm::radians(70.f), 1000.f/800.f, 0.1f, 100.f);
-        glm::mat4 ModelMatrix = glm::translate(glm::mat4(1.0f),glm::vec3(0,0,10));
-        ModelMatrix = glm::scale(ModelMatrix,glm::vec3(15));
+        glm::mat4 ModelMatrix = glm::translate(glm::mat4(1.0f),glm::vec3(0,0,30));
+        ModelMatrix = glm::scale(ModelMatrix,glm::vec3(0.2f));
         glm::mat4 ViewMatrix = Camera.getViewMatrix();
         glm::mat4 MV = ViewMatrix * ModelMatrix;
-        //MV = glm::rotate(MV, windowManager.getTime(), glm::vec3(0, 1, 0));
+        MV = glm::rotate(MV, windowManager.getTime(), glm::vec3(0, 1, 0));
         glm::mat4 MVP = ProjMat * MV;
 
 
@@ -127,7 +127,7 @@ int main(int argc, char** argv) {
         program.sendUniformMat4("uMVMatrix", MV);
         program.sendUniformMat4("uNormalMatrix", glm::transpose(glm::inverse(MV)));
 
-        glm::vec4 lightPosition = glm::vec4(1,1,1,1);
+        glm::vec4 lightPosition = glm::vec4(1,2,1,1);
         glm::vec4 lightDirection = glm::vec4(1,1,1,0);
         glm::mat4 rotation = glm::rotate(glm::mat4(1),windowManager.getTime()+50,glm::vec3(0,1,0));
         //lightPosition = rotation * lightPosition;
