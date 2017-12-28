@@ -7,7 +7,7 @@
 #include <glimac/Geometry.hpp>
 #include <glimac/common.hpp>
 
-#include "../imacman/include/Print.hpp"
+#include "../../imacman/include/Print.hpp"
 
 class ObjectModel {
 public:
