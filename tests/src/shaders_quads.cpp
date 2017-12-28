@@ -23,7 +23,7 @@ struct Vertex2DColor{
         color = c;
     }
 };
-
+/*
 int main(int argc, char** argv) {
     // Initialize SDL and open a window
     SDLWindowManager windowManager(800, 600, "GLImac");
@@ -132,3 +132,4 @@ int main(int argc, char** argv) {
 
     return EXIT_SUCCESS;
 }
+*/

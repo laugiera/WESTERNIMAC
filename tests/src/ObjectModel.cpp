@@ -15,7 +15,8 @@ ObjectModel::ObjectModel(const std::string &_path):objPath(_path+".obj"),mtlPath
         vertices_vector = std::vector<glimac::ShapeVertex>(vertices, vertices+object.getVertexCount());
         indices_vector = std::vector<uint32_t>(object.getIndexBuffer(), object.getIndexBuffer()+object.getIndexCount());
     }catch (std::runtime_error e){
-        Print::printErrorMessage(e.what());
+       // Print::printErrorMessage(e.what());
+        std::cout<<"error" <<std::endl;
     }
 }
 
