@@ -2,7 +2,6 @@
 // Created by natshez on 28/12/2017.
 //
 
-#include <glimac/common.hpp>
 #include "ObjectModel.hpp"
 ObjectModel::ObjectModel(const std::string &_path):objPath(_path+".obj"),mtlPath(_path+".mtl"), object(){
     try{

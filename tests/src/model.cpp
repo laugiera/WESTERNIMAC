@@ -9,6 +9,7 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
 #include <memory>
+#include "ObjectModel.hpp"
 #include <glimac/Sphere.hpp>
 #include <glimac/Program.hpp>
 #include <glimac/Image.hpp>
@@ -19,7 +20,6 @@
 #include <GPUProgram.hpp>
 #include <Texture.hpp>
 #include <vector>
-#include "../imacman/include/ObjectModel.hpp"
 
 using namespace glimac;
 

@@ -5,7 +5,9 @@
 #ifndef IMACMAN_OBJECTMODEL_H
 #define IMACMAN_OBJECTMODEL_H
 #include <glimac/Geometry.hpp>
-#include "Print.hpp"
+#include <glimac/common.hpp>
+
+#include "../imacman/include/Print.hpp"
 
 class ObjectModel {
 public:
