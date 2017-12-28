@@ -10,11 +10,11 @@ out vec3 color;
 uniform vec3 uKd;
 uniform vec3 uKs;
 uniform float uShininess;
-uniform  vec3 uLightPos_vs;
+uniform  vec3 uLightDir_vs;
 uniform vec3 uLightIntensity;
 
 vec3 blinnPhong(){
-    vec3 wi = (normalize(uLightPos_vs - vPosition_vs));
+    vec3 wi = normalize(uLightDir_vs);
     vec3 w0 = normalize(-vPosition_vs);
     vec3 halfVector = normalize((w0+wi)/2.0);
     vec3 normals = normalize(vNormal_vs);
@@ -29,17 +29,13 @@ vec3 blinnPhong(){
     vec3 kS_powShininess = uKs*powShininess;
     vec3 kd_wiN = uKd*wiN;
 
-    float d = distance(uLightPos_vs,vPosition_vs);
-    //uLightIntensity = (uLightIntensity / (d * d));
+   // vec3 res = uLightIntensity * (kd_wiN + kS_powShininess);
+    vec3 res = uLightIntensity * (kd_wiN );
 
-    vec3 res = (uLightIntensity / (d * d)) * (kd_wiN );
-
-    return  res;
+    return res;
 }
 
 void main() {
 
-
    color = blinnPhong();
-   //color = vec3(1,0,0);
 }

@@ -33,7 +33,7 @@ bool Geometry::loadOBJ(const FilePath& filepath, const FilePath& mtlBasePath, bo
 
     if (!objErr.empty()) {
         std::cerr << objErr << std::endl;
-        return false;
+        throw(std::runtime_error(objErr));
     }
 
     std::clog << "Load materials" << std::endl;

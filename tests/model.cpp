@@ -19,6 +19,7 @@
 #include <GPUProgram.hpp>
 #include <Texture.hpp>
 #include <vector>
+#include "../imacman/include/ObjectModel.hpp"
 
 using namespace glimac;
 
@@ -40,48 +41,25 @@ int main(int argc, char** argv) {
 
     /***** GPU PROGRAM *****/
 
-    glcustom::GPUProgram program(applicationPath, "3D2",  "pointlight");
-    std::vector<std::string> uniform_variables = {"uMVPMatrix", "uMVMatrix","uNormalMatrix","uKd","uKs","uShininess","uLightPos_vs","uLightIntensity"};
+    glcustom::GPUProgram program(applicationPath, "3D2",  "directionallight");
+    std::vector<std::string> uniform_variables = {"uMVPMatrix", "uMVMatrix","uNormalMatrix","uKd","uKs","uShininess","uLightDir_vs","uLightIntensity"};
     program.addUniforms(uniform_variables);
     program.use();
 
     //variables globales
     glm::mat4 ProjMat, MVMatrix, NormalMatrix;
 
-/*    Geometry teapot;
-    teapot.loadOBJ("../imacman/models/cube.obj","../imacman/models/cube.mtl",false);
-
-    glimac::ShapeVertex vertices[teapot.getVertexCount()];
-    for (int i = 0; i < teapot.getVertexCount(); ++i) {
-        vertices[i].position = teapot.getVertexBuffer()[i].m_Position;
-        vertices[i].normal = teapot.getVertexBuffer()[i].m_Normal;
-        vertices[i].texCoords = teapot.getVertexBuffer()[i].m_TexCoords;
-    }
-    std::vector<glimac::ShapeVertex> vertices_vector(vertices, vertices+teapot.getVertexCount());
-
-    uint32_t indices[teapot.getIndexCount()];
-    std::vector<uint32_t> indices_vector(teapot.getIndexBuffer(), teapot.getIndexBuffer()+teapot.getIndexCount());
-    for (int i = 0; i < teapot.getIndexCount(); ++i) {
-        indices[i] = teapot.getIndexBuffer()[i];
-    }*/
-
-    Sphere* s = new Sphere(1,32,16);
-    glimac::ShapeVertex vertices2[s->getVertexCount()];
-    for (int i = 0; i < s->getVertexCount(); ++i) {
-        vertices2[i].position = s->getDataPointer()[i].position;
-        vertices2[i].normal = s->getDataPointer()[i].normal;
-        vertices2[i].texCoords = s->getDataPointer()[i].texCoords;
-    }
-    std::vector<glimac::ShapeVertex> vertices_vector2(vertices2, vertices2 + s->getVertexCount());
+    ObjectModel cube1 = ObjectModel("sould raise exception");
+    ObjectModel cube = ObjectModel("../imacman/models/cube");
 
     /***** BUFFERS *****/
     glcustom::VBO vbo = glcustom::VBO();
-    //glcustom::IBO ibo = glcustom::IBO();
+    glcustom::IBO ibo = glcustom::IBO();
     glcustom::VAO vao = glcustom::VAO();
 
-    vbo.fillBuffer(vertices_vector2);
-    //ibo.fillBuffer(indices_vector);
-    vao.fillBuffer(vertices_vector2, &vbo);
+    vbo.fillBuffer(cube.getVertices_vector());
+    ibo.fillBuffer(cube.getIndices_vector());
+    vao.fillBuffer(cube.getVertices_vector(), &vbo, &ibo);
 
     /***CAMERA***/
     FreeflyCamera Camera;
@@ -95,16 +73,16 @@ int main(int argc, char** argv) {
         while(windowManager.pollEvent(e)) {
             if(e.type == SDL_KEYDOWN){
                 if(e.key.keysym.sym == SDLK_LEFT){
-                    Camera.rotateLeft(5.0);
+                    Camera.moveLeft(2.0);
                 }
                 else if(e.key.keysym.sym == SDLK_RIGHT){
-                    Camera.rotateLeft(-5.0);
+                    Camera.moveLeft(-2.0);
                 }
                 else if(e.key.keysym.sym == SDLK_UP){
-                    Camera.rotateUp(5.0);
+                    Camera.moveFront(2.0);
                 }
                 else if(e.key.keysym.sym == SDLK_DOWN){
-                    Camera.rotateUp(-5.0);
+                    Camera.moveFront(-2.0);
                 }
             }
             else if(e.type == SDL_MOUSEBUTTONDOWN) {
@@ -136,7 +114,8 @@ int main(int argc, char** argv) {
 
 
         ProjMat = glm::perspective(glm::radians(70.f), 1000.f/800.f, 0.1f, 100.f);
-        glm::mat4 ModelMatrix = glm::translate(glm::mat4(1.0f),glm::vec3(0,0,50));
+        glm::mat4 ModelMatrix = glm::translate(glm::mat4(1.0f),glm::vec3(0,0,10));
+        ModelMatrix = glm::scale(ModelMatrix,glm::vec3(15));
         glm::mat4 ViewMatrix = Camera.getViewMatrix();
         glm::mat4 MV = ViewMatrix * ModelMatrix;
         //MV = glm::rotate(MV, windowManager.getTime(), glm::vec3(0, 1, 0));
@@ -149,18 +128,22 @@ int main(int argc, char** argv) {
         program.sendUniformMat4("uNormalMatrix", glm::transpose(glm::inverse(MV)));
 
         glm::vec4 lightPosition = glm::vec4(1,1,1,1);
+        glm::vec4 lightDirection = glm::vec4(1,1,1,0);
         glm::mat4 rotation = glm::rotate(glm::mat4(1),windowManager.getTime()+50,glm::vec3(0,1,0));
         //lightPosition = rotation * lightPosition;
         lightPosition = ViewMatrix * lightPosition;
+        lightDirection = ViewMatrix * lightDirection;
 
         program.sendUniform1f("uShininess", 64);
-        program.sendUniformVec4("uLighDir_vs",lightPosition);
-        program.sendUniformVec3("uKd",glm::vec3(1.f));
+        //program.sendUniformVec4("uLightPos_vs",lightPosition);
+        program.sendUniformVec4("uLightDir_vs",lightDirection);
+        program.sendUniformVec3("uKd",glm::vec3(1));
         program.sendUniformVec3("uKs",glm::vec3(0.8));
+        program.sendUniformVec3("uLightIntensity",glm::vec3(2,1,1));
 
         //draw
         vao.bind();
-        glDrawElements(GL_TRIANGLES, s->getVertexCount(), GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES,cube.getIndices_vector().size(), GL_UNSIGNED_INT, 0);
         vao.debind();
 
 
