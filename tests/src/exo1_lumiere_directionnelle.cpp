@@ -1,3 +1,4 @@
+/*
 #include <glimac/SDL2WindowManager.hpp>
 #include <glimac/Sphere.hpp>
 #include <GL/glew.h>
@@ -33,9 +34,11 @@ int disablemain(int argc, char** argv) {
     program.use();
 
 
-    /*********************************
+    */
+/*********************************
      * HERE SHOULD COME THE INITIALIZATION CODE
-     *********************************/
+     *********************************//*
+
 
     FreeflyCamera camera = FreeflyCamera();
     Sphere sphere = Sphere(1, 32, 16);
@@ -99,9 +102,11 @@ int disablemain(int argc, char** argv) {
 
         }
 
-        /*********************************
+        */
+/*********************************
          * HERE SHOULD COME THE RENDERING CODE
-         *********************************/
+         *********************************//*
+
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(0.01f,0.01f,0.03f,1.f);
 
@@ -139,6 +144,7 @@ int disablemain(int argc, char** argv) {
 
         glDrawArrays(GL_TRIANGLES, 0, sphere.getVertexCount());
 
+*/
 /*
         for(int i = 0; i< 32; i++) {
             M_matrix = glm::mat4(1.0);
@@ -156,7 +162,8 @@ int disablemain(int argc, char** argv) {
             program.sendUniformMat4("uNormalMatrix",normal_matrix);
             glDrawArrays(GL_TRIANGLES, 0, sphere.getVertexCount());
         }
-*/
+*//*
+
         vao2.debind();
 
         // Update the display
@@ -167,3 +174,4 @@ int disablemain(int argc, char** argv) {
 
     return EXIT_SUCCESS;
 }
+*/
