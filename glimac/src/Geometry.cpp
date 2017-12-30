@@ -170,4 +170,8 @@ bool Geometry::loadOBJ(const FilePath& filepath, const FilePath& mtlBasePath, bo
     return true;
 }
 
+    const std::vector<Geometry::Material> &Geometry::getM_Materials() const {
+        return m_Materials;
+    }
+
 }

@@ -12,8 +12,7 @@
 
 class Light {
 public:
-    Light(const glm::vec3 &_ks, const glm::vec3 &_kd,
-          const glm::vec3 &_intensity);
+    Light(const glm::vec3 &_intensity);
     void transform(const glm::mat4 &transformation);
     void addLightUniforms(glcustom::GPUProgram &program);
     void sendLightUniforms(glcustom::GPUProgram &program);
@@ -22,9 +21,6 @@ public:
 
 private:
     glm::vec4 direction;
-    float shininess;
-    glm::vec3 ks;
-    glm::vec3 kd;
     glm::vec3 intensity;
 
 };

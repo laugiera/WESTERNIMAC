@@ -7,7 +7,8 @@
 #include <glimac/Geometry.hpp>
 #include <glimac/common.hpp>
 
-#include "../../imacman/include/Print.hpp"
+#include "Print.hpp"
+
 
 class ObjectModel {
 public:
@@ -21,12 +22,24 @@ public:
 
     void setIndices_vector(const std::vector<uint32_t> &indices_vector);
 
+    std::vector<float> getShininess() const;
+
+    const std::vector<glm::vec3>  &getKs() const;
+
+    const std::vector<glm::vec3>  &getKd() const;
+
+    const glm::vec3 &getColor() const;
+
 private:
     glimac::Geometry object;
     std::string objPath;
     std::string mtlPath;
     std::vector<glimac::ShapeVertex> vertices_vector;
     std::vector<uint32_t> indices_vector;
+//    std::vector<float> shininess;
+//    std::vector<glm::vec3> ks;
+//    std::vector<glm::vec3> kd;
+    glm::vec3 color;
 
 
 };

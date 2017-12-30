@@ -2,7 +2,7 @@
 // Created by natshez on 08/12/2017.
 //
 
-#include "Print.hpp"
+#include "../include/Print.hpp"
 
 void Print::printErrorMessage(std::string error){
     std::cerr<<"ERROR : "<<error<<std::endl;

@@ -3,52 +3,30 @@
 //
 
 #define GLEW_STATIC
-#include <glimac/SDL2WindowManager.hpp>
 #include <iostream>
 #include <fstream>
 #include <GL/glew.h>
 #include <GL/glut.h>
 #include <memory>
-#include <glimac/Sphere.hpp>
-#include <glimac/Image.hpp>
+#include <vector>
 #include <glimac/TrackballCamera.hpp>
 #include <glimac/FreeflyCamera.hpp>
-#include <Texture.hpp>
-#include <vector>
-#include "RenderModel.h"
-#include "Light.h"
+#include <glimac/SDL2WindowManager.hpp>
+
+
+#include "OpenGlManager.h"
 
 using namespace glimac;
 
-
 int main(int argc, char** argv) {
-    /***** SDL THINGY *****/
-    // Initialize SDL and open a window
-    SDLWindowManager windowManager(1000, 800, "GLImac");
-    // Initialize glew for OpenGL3+ support
-    GLenum glewInitError = glewInit();
-    if(GLEW_OK != glewInitError) {
-        std::cerr << glewGetErrorString(glewInitError) << std::endl;
-        return EXIT_FAILURE;
-    }
-    std::cout << "OpenGL Version : " << glGetString(GL_VERSION) << std::endl;
-    std::cout << "GLEW Version : " << glewGetString(GLEW_VERSION) << std::endl;
+    glimac::FilePath applicationPath(argv[0]);
+    glimac::SDLWindowManager windowManager(Utils::windowWidth, Utils::windowHeight, "GLImac");
+    RenderModel renderCube = RenderModel("../imacman/models/cubeandspherewithcolors",applicationPath,"3D2", "directionallight");
+    std::vector<RenderModel*> models;
+    models.push_back(&renderCube);
+    OpenGlManager manager = OpenGlManager(models);
+    manager.init(argv[0]);
 
-    FilePath applicationPath(argv[0]);
-    glEnable(GL_DEPTH_TEST);
-
-
-    /***** VARIABLES *****/
-    glcustom::GPUProgram program = glcustom::GPUProgram(applicationPath,"3D2", "directionallight");
-    RenderModel renderCube = RenderModel("../imacman/models/cube");
-    Light light = Light(glm::vec3(0.8),glm::vec3(1),glm::vec3(1));
-
-    light.addLightUniforms(program);
-    renderCube.addModelUniforms(program);
-
-    program.use();
-
-    /***CAMERA***/
     TrackballCamera camera;
 
     /**APPLICATION LOOP***/
@@ -95,29 +73,8 @@ int main(int argc, char** argv) {
                 done = true; // Leave the loop after this iteration
             }
         }
-
-
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glClearColor(0.5, 0.5, 0.5, 1);
-
-        //transformation
-        renderCube.setModelMatrix();
-
-        glm::mat4 rotation = glm::rotate(glm::mat4(1.f), windowManager.getTime(), glm::vec3(0, 1, 0));
-        glm::mat4 scale = glm::scale(glm::mat4(1.f),glm::vec3(0.1f));
         glm::mat4 viewMatrix = camera.getViewMatrix();
-
-        light.setDirection();
-        rotation = glm::rotate(glm::mat4(1.f), windowManager.getTime()+100, glm::vec3(0, 1, 0));
-        light.transform(rotation);
-        light.transform(viewMatrix);
-        light.sendLightUniforms(program);
-
-        renderCube.transform(scale * rotation);
-        renderCube.render(viewMatrix,program);
-
-        // Update the display
-        windowManager.swapBuffers();
+        manager.drawAll(windowManager,viewMatrix);
     }
 
     //everything is deleted automatically
