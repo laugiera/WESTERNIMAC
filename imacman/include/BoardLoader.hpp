@@ -15,7 +15,7 @@ class BoardLoader {
 public:
     BoardLoader() = default;
 
-    std::vector<std::vector<Tile>> createGameBoard(std::string filePath);
+    std::vector<std::vector<Tile>> createTileMatrix(std::string filePath);
 
 private:
     std::vector<std::string> load(std::string filePath);

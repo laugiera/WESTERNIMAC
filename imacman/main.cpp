@@ -39,7 +39,8 @@ int main(int argc, char** argv) {
 
 
     BoardLoader loader;
-    std::vector<std::vector<Tile>> tiles = loader.createGameBoard("/Users/Lou/GoogleDrive/travail/IMAC2/S1/Programmation/Projets/WESTERNIMAC/tests/data/board01.txt");
+    std::vector<std::vector<Tile>> tiles = loader.createTileMatrix(
+            "/Users/Lou/GoogleDrive/travail/IMAC2/S1/Programmation/Projets/WESTERNIMAC/tests/data/board01.txt");
     for(int i = 0; i<tiles.size(); i++){
         for(int j = 0; j<tiles[0].size(); j++){
             std::cout << tiles[i][j] << " ";

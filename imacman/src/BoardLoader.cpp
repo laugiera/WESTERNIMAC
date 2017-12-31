@@ -28,11 +28,11 @@ std::vector<std::string> BoardLoader::load(std::string filePath) {
 }
 
 /**
- * Creates a gameboard from a file
+ * Creates a vector of tiles from a file
  * @param filePath path to the file
  * @return matrix of Tiles
  */
-std::vector<std::vector<Tile>> BoardLoader::createGameBoard(std::string filePath) {
+std::vector<std::vector<Tile>> BoardLoader::createTileMatrix(std::string filePath) {
     std::vector<std::vector<Tile>> gameBoard;
     float tileSize = 1;
     float offset = tileSize/2;

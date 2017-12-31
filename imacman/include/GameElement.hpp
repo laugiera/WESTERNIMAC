@@ -6,6 +6,7 @@
 #define IMACMAN_GAMEELEMENT_HPP
 
 #include <glm/vec2.hpp>
+#include "../../tests/include/CactusMan.h"
 
 class GameElement {
 public:
@@ -13,7 +14,7 @@ public:
 
     virtual void render(glm::vec2 position) = 0;
 
-    virtual void collide(/*CactusMan * player*/);
+    virtual void collide(CactusMan &player) = 0;
 
 };
 

@@ -9,8 +9,9 @@
 #include <vector>
 #include <iostream>
 #include "GameElement.hpp"
+#include "../../tests/include/CactusMan.h"
 
-enum {WALL, EMPTY, GHOST, PACMAN, GUM, SUPERGUM, FRUIT};
+enum {WALL, EMPTY, GHOST, PACMAN, GUM, SUPERGUM, FRUIT, ELEVATOR};
 
 
 class Tile {
@@ -20,6 +21,12 @@ public:
     Tile(int id, const glm::vec2 &center, const std::vector<Tile *> &neighbours, const int &initiateState);
 
     friend std::ostream & operator<<(std::ostream & stream, Tile & tile);
+
+    void changeElement(int elementType);
+
+    void render();
+
+    void collision(CactusMan &player);
 
 private:
     int id;
