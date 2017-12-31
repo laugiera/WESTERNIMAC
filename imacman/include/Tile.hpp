@@ -7,20 +7,26 @@
 
 #include <glm/vec2.hpp>
 #include <vector>
+#include <iostream>
+#include "GameElement.hpp"
 
+enum {WALL, EMPTY, GHOST, PACMAN, GUM, SUPERGUM, FRUIT};
 
 
 class Tile {
 public:
     Tile() = default;
 
-    Tile(int id, const glm::vec2 &center, float size, const std::vector<int> &neighboors);
+    Tile(int id, const glm::vec2 &center, const std::vector<Tile *> &neighbours, const int &initiateState);
+
+    friend std::ostream & operator<<(std::ostream & stream, Tile & tile);
 
 private:
     int id;
     glm::vec2 center; // x and y coordinates relative to the gameboard
-    float size;
-    std::vector<int> neighboors;
+    std::vector<Tile *> neighbours;
+    int initialState;
+    GameElement * element;
 
 };
 

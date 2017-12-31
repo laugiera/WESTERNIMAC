@@ -12,11 +12,14 @@
 #include <glimac/Program.hpp>
 #include <glimac/Image.hpp>
 #include <glimac/SDL2WindowManager.hpp>
-#include "include/BL_transform.hpp"
+#include "include/BoardLoader.hpp"
+
+
 
 using namespace glimac;
 
 int main(int argc, char** argv) {
+/*
     // Initialize SDL and open a window
     SDLWindowManager windowManager(800, 600, "GLImac");
 
@@ -35,7 +38,15 @@ int main(int argc, char** argv) {
      *********************************/
 
 
-
+    BoardLoader loader;
+    std::vector<std::vector<Tile>> tiles = loader.createGameBoard("/Users/Lou/GoogleDrive/travail/IMAC2/S1/Programmation/Projets/WESTERNIMAC/tests/data/board01.txt");
+    for(int i = 0; i<tiles.size(); i++){
+        for(int j = 0; j<tiles[0].size(); j++){
+            std::cout << tiles[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+/*
     // Application loop:
     bool done = false;
     while(!done) {
@@ -52,9 +63,9 @@ int main(int argc, char** argv) {
          *********************************/
         //std::cout << "test 1" << std::endl;
         // Update the display
-        windowManager.swapBuffers();
+//        windowManager.swapBuffers();
         //std::cout << "test 2" << std::endl;
-    }
+ //   }
 
     return EXIT_SUCCESS;
 }

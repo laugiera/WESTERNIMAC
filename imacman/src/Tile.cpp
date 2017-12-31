@@ -4,6 +4,19 @@
 
 #include "Tile.hpp"
 
-Tile::Tile(int id, const glm::vec2 &center, float size, const std::vector<int> &neighboors) : id(id), center(center),
-                                                                                              size(size),
-                                                                                              neighboors(neighboors) {}
+Tile::Tile(int id, const glm::vec2 &center, const std::vector<Tile *> &neighbours, const int &initiateState)
+        : id(id), center(center),
+          neighbours(neighbours), initialState(initiateState) {}
+
+std::ostream &operator<<(std::ostream &stream, Tile &tile) {
+    std::string symbol;
+    if(tile.initialState == WALL){
+        symbol = "=";
+    } else if (tile.initialState == GUM){
+        symbol = ".";
+    } else if (tile.initialState == SUPERGUM){
+        symbol = "*";
+    }
+    stream << symbol;
+    return stream;
+}
