@@ -11,14 +11,17 @@
 #include <VAO.hpp>
 #include <GPUProgram.hpp>
 #include "Utils.h"
+#include "Light.h"
 
 class RenderModel {
 public :
-    RenderModel(const std::string &_modelPath);
-    void addModelUniforms(glcustom::GPUProgram &program);
+    RenderModel(const std::string &_modelPath,
+                const glimac::FilePath appPath, const std::string &vertexShader, const std::string &fragmentShader);
+    void addProgramUniforms( Light &light);
     void transform(const glm::mat4 &transformation);
-    void render(const glm::mat4 &viewMatrix, glcustom::GPUProgram &program);
+    void render(const glm::mat4 &viewMatrix, Light &light);
     void setModelMatrix();
+
 
 private:
     ObjectModel model;
@@ -26,6 +29,7 @@ private:
     glcustom::VAO vao;
     glcustom::IBO ibo;
     glm::mat4 modelMatrix;
+    glcustom::GPUProgram program;
 };
 
 
