@@ -9,6 +9,7 @@
 #include <string>
 #include "BoardLoader.hpp"
 #include "Ghost.hpp"
+#include "CactusMan.hpp"
 
 
 class GameBoard {

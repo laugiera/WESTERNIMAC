@@ -8,9 +8,14 @@ CactusMan::CactusMan(){
     pos_x= 0;
     pos_y=0;
     pos_z=0;
-    score=0;
-    lives = 5;
+    _score=0;
+    _lives = 5;
     canMove=true;
+}
+
+CactusMan::~CactusMan(){
+
+
 }
 
 void CactusMan::moveFront(float step){

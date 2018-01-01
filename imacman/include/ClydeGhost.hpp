@@ -8,7 +8,7 @@
 #include "Ghost.hpp"
 
 
-class ClydeGhost : public Ghost
+class ClydeGhost : public Ghost{
 
 public:
     ClydeGhost();
