@@ -9,7 +9,7 @@
 #include <vector>
 #include <iostream>
 #include "GameElement.hpp"
-#include "../../tests/include/CactusMan.h"
+#include "CactusMan.h"
 
 enum {WALL, EMPTY, GHOST, PACMAN, GUM, SUPERGUM, FRUIT, ELEVATOR};
 

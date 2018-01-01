@@ -6,7 +6,7 @@
 #define IMACMAN_GAMEELEMENT_HPP
 
 #include <glm/vec2.hpp>
-#include "../../tests/include/CactusMan.h"
+#include "CactusMan.h"
 
 class GameElement {
 public:

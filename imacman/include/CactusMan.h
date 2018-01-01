@@ -8,6 +8,15 @@
 
 class CactusMan {
 
+public:
+    CactusMan();
+    ~CactusMan();
+    void moveFront(float step);
+    void moveLeft();
+
+private :
+    float pos_x, pos_y, pos_z, rot_x, rot_y, rot_z;
+
 };
 
 
