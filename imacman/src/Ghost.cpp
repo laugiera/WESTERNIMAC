@@ -11,6 +11,10 @@ Ghost::Ghost(){}
 
 Ghost::~Ghost(){}
 
+void Ghost::move(CactusMan &Player){
+
+}
+
 void Ghost::Drop(CactusMan &Player){
     int currentLives =Player.getLives();
     Player.setLives(currentLives-1);
