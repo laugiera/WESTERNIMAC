@@ -1,7 +1,19 @@
 //
-// Created by Lou Landry on 01/01/2018.
+// Created by Amel on 1/1/2018.
 //
 
 #include "Ghost.hpp"
 
+
 Ghost::Ghost(Tile *tile) : tile(tile) {}
+
+Ghost::Ghost(){}
+
+Ghost::~Ghost(){}
+
+void Ghost::Drop(CactusMan &Player){
+    int currentLives =Player.getLives();
+    Player.setLives(currentLives-1);
+
+}
+
