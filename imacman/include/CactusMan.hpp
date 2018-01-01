@@ -15,9 +15,15 @@ public:
     void moveLeft();
     void collision();
 
+    const int &getLives() {return _lives;}
+
+    void setLives(int lives) {_lives =lives ;}
+    const int &getScore() {return _score;}
+    void setScore(int score){_score=score ;}
+
 private :
     float pos_x, pos_y, pos_z, rot_x, rot_y, rot_z;
-    int score, lives;
+    int _score, _lives;
     bool canMove; // false when he is facing a wall
 
 };

@@ -4,9 +4,15 @@
 
 #ifndef IMACMAN_INKYGHOST_HPP
 #define IMACMAN_INKYGHOST_HPP
+#include "Ghost.hpp"
 
 
-class InkyGhost {
+class InkyGhost : public Ghost{
+
+public:
+    InkyGhost();
+    ~InkyGhost();
+    void move(CactusMan &Player);
 
 };
 

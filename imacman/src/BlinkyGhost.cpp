@@ -3,3 +3,17 @@
 //
 
 #include "BlinkyGhost.hpp"
+
+
+BlinkyGhost::BlinkyGhost(){
+
+
+}
+BlinkyGhost::~BlinkyGhost(){
+
+
+}
+void BlinkyGhost::move(CactusMan &Player){
+
+
+}
