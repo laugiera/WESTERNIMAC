@@ -14,7 +14,7 @@ public:
 
     virtual void render(glm::vec2 position) = 0;
 
-    virtual void collide(CactusMan &player) = 0;
+    virtual void drop(CactusMan &player) = 0;
 
 };
 

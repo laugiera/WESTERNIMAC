@@ -26,7 +26,11 @@ public:
 
     void render();
 
-    void collision(CactusMan &player);
+    void drop(CactusMan &player);
+
+    int getInitialState() const;
+
+    const glm::vec2 &getCenter() const;
 
 private:
     int id;

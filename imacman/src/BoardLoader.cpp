@@ -110,7 +110,7 @@ Tile BoardLoader::createTile(std::string type, int id, glm::vec2 center, std::ve
         return Tile(id, center, neighbours, GHOST);
     } else if (type == "PACMAN") {
         return Tile(id, center, neighbours, PACMAN);
-    } else throw std::runtime_error("Tile initial state data incorrect");
+    } else throw std::runtime_error("In file : Tile (id:"+ std::to_string(id) +") initial state data empty or incorrect");
 }
 
 /**
@@ -126,16 +126,16 @@ std::vector<Tile *> BoardLoader::findNeighbours(int i, int j, std::vector<std::v
     std::vector<Tile *> neighbours;
 
     if(dataMatrix[i][j] != "WALL"){
-        if(dataMatrix[i-1][j] != "WALL"){
+        if(i-1 >= 0 && dataMatrix[i-1][j] != "WALL"){
             neighbours.push_back(&tiles[i-1][j]);
         }
-        if(dataMatrix[i+1][j] != "WALL"){
+        if(i+1 < tiles.size() && dataMatrix[i+1][j] != "WALL"){
             neighbours.push_back(&tiles[i+1][j]);
         }
-        if(dataMatrix[i][j-1] != "WALL"){
+        if(j-1 >=0 && dataMatrix[i][j-1] != "WALL"){
             neighbours.push_back(&tiles[i][j-1]);
         }
-        if(dataMatrix[i][j+1] != "WALL"){
+        if(j+1 < tiles[i].size() && dataMatrix[i][j+1] != "WALL"){
             neighbours.push_back(&tiles[i][j+1]);
         }
     }

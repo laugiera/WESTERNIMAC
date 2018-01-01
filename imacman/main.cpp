@@ -12,7 +12,7 @@
 #include <glimac/Program.hpp>
 #include <glimac/Image.hpp>
 #include <glimac/SDL2WindowManager.hpp>
-#include "include/BoardLoader.hpp"
+#include "GameBoard.hpp"
 
 
 
@@ -38,6 +38,11 @@ int main(int argc, char** argv) {
      *********************************/
 
 
+    GameBoard board = GameBoard(Tools::getFolderPath(argv[0]) + "/data/board01.txt");
+
+
+
+    /*
     BoardLoader loader;
     std::vector<std::vector<Tile>> tiles = loader.createTileMatrix(
             "/Users/Lou/GoogleDrive/travail/IMAC2/S1/Programmation/Projets/WESTERNIMAC/tests/data/board01.txt");
@@ -47,6 +52,7 @@ int main(int argc, char** argv) {
         }
         std::cout << std::endl;
     }
+     */
 /*
     // Application loop:
     bool done = false;

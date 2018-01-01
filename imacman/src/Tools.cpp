@@ -92,6 +92,11 @@ std::vector<std::string> Tools::stringToVector(std::string _data, std::string de
     return content_vector;
 }
 
+std::string Tools::getFolderPath(const std::string & filePath) {
+    size_t pos = filePath.find_last_of('/');
+    return filePath.substr(0, pos); //return substring from beginning to last '/' separator
+}
+
 
 
 

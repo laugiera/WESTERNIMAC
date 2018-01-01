@@ -8,6 +8,6 @@ void Wall::render(glm::vec2) {
 
 }
 
-void Wall::collide(CactusMan &player) {
+void Wall::drop(CactusMan &player) {
 
 }

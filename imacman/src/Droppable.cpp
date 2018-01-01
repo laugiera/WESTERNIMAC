@@ -8,6 +8,6 @@ void Droppable::render(glm::vec2) {
 
 }
 
-void Droppable::collide(CactusMan &player) {
+void Droppable::drop(CactusMan &player) {
 
 }

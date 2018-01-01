@@ -29,6 +29,8 @@ static std::string toUpperCase(const std::string & s);
 
 //separate a string using a character as delimitor, puts all the substrings in a vector
 static std::vector<std::string> stringToVector(std::string data, std::string delimitor);
+
+static std::string getFolderPath(const std::string & filePath);
 };
 
 

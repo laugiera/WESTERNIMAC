@@ -76,9 +76,17 @@ void Tile::render() {
  * Those effects depends on the Tile's owned gameElement which is why element.collide() is called
  * @param player
  */
-void Tile::collision(CactusMan &player) {
-    element->collide(player);
+void Tile::drop(CactusMan &player) {
+    element->drop(player);
     if(initialState != WALL){
         changeElement(EMPTY);
     }
+}
+
+int Tile::getInitialState() const {
+    return initialState;
+}
+
+const glm::vec2 &Tile::getCenter() const {
+    return center;
 }

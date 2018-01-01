@@ -8,6 +8,6 @@ void Elevator::render(glm::vec2) {
 
 }
 
-void Elevator::collide(CactusMan &player) {
+void Elevator::drop(CactusMan &player) {
 
 }

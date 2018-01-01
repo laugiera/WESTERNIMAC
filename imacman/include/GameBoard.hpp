@@ -8,18 +8,24 @@
 #include "Tile.hpp"
 #include <string>
 #include "BoardLoader.hpp"
+#include "Ghost.hpp"
 
 
-class Gameboard {
+class GameBoard {
 public:
-    Gameboard(const std::string &boardPath);
+    GameBoard(const std::string &boardPath);
 
     void loadBoard();
 
+    void createGhosts();
+
+    void createCactusman();
+
 private:
-    //Player player;
+    CactusMan player;
     std::vector<std::vector<Tile>> tiles;
     std::string boardPath;
+    std::vector<Ghost*> ghosts;
 
 };
 
