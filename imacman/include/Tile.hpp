@@ -28,9 +28,13 @@ public:
 
     void drop(CactusMan &player);
 
+    int type(); //returns tile type
+
     int getInitialState() const;
 
     const glm::vec2 &getCenter() const;
+
+    const std::vector<Tile *> &getNeighbours() const;
 
 private:
     int id;

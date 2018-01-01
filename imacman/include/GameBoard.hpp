@@ -22,6 +22,8 @@ public:
 
     void createCactusman();
 
+    void collision(Tile &tile, CactusMan &player);
+
 private:
     CactusMan player;
     std::vector<std::vector<Tile>> tiles;
