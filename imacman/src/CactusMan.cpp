@@ -13,6 +13,14 @@ CactusMan::CactusMan(){
     _lives = 5;
 }
 
+CactusMan::CactusMan(Tile *tile) : tile(tile) {
+    position = glm::vec2(tile->getCenter().x, tile->getCenter().y);
+    rotation= glm::vec2(0, 0);
+
+    _score=0;
+    _lives = 5;
+}
+
 CactusMan::~CactusMan(){
 
 
@@ -22,14 +30,10 @@ void CactusMan::moveFront(float step){
     position.y+=step;
 }
 
-void CactusMan::moveLeft(){
+void CactusMan::rotateLeft(){
     rotation.y=-90;
 }
 
-CactusMan::CactusMan(Tile *tile) : tile(tile) {
-    position= glm::vec2(tile->getCenter().x,tile->getCenter().y);
-    rotation= glm::vec2(0,0);
-
-    _score=0;
-    _lives = 5;
+void CactusMan::moveLeft(float step){
+    position.x+=step;
 }

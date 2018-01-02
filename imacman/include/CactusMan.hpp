@@ -17,8 +17,8 @@ public:
 
     ~CactusMan();
     void moveFront(float step);
-    void moveLeft();
-
+    void moveLeft(float step);
+    void rotateLeft();
     const int &getLives() {return _lives;}
     void setLives(int lives) {_lives =lives ;}
 
