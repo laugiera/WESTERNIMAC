@@ -80,3 +80,43 @@ void GameBoard::createCactusman() {
 
 }
 
+float  SquareDistance(glm::vec2 v1, glm::vec2 v2){ //check the square to avoid using roots
+
+    return pow((v2.x-v2.x),2) - pow((v1.y-v1.y),2);
+
+}
+void GameBoard::collision(Tile &tile, CactusMan &player){
+
+    if (player.getPosition().y > 1){
+        //tile.getNeighbours()
+        //check if up neighbours is not a wall
+    }
+    else if (player.getPosition().y < 0){
+        //check if buttom neighbours is not a wall
+    }
+    else if (player.getPosition().x > 1){
+        //check if right neighbours is not a wall
+    }
+    else if (player.getPosition().x < 0){
+        //check if left neighbours is not a wall
+    }
+    else
+    {
+        if(tile.type() == GUM || tile.type() == SUPERGUM || tile.type() == FRUIT){
+            if (SquareDistance(player.getPosition(),tile.getCenter()) < 0.04 ){
+                tile.drop(player);
+            }
+        }
+        else if(tile.type() == ELEVATOR){
+            //load up gameboard
+
+        } else if(tile.type() == EMPTY){
+            //do nothing
+        }
+    }
+
+    // need to also check if dude is out of the map
+    // freeze the y if y>board.height and freeze x if x>board.width
+
+}
+

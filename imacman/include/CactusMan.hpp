@@ -4,7 +4,8 @@
 
 #ifndef IMACMAN_CACTUSMAN_HPP
 #define IMACMAN_CACTUSMAN_HPP
-
+#include<cmath>
+#include <glm/vec3.hpp>
 
 class CactusMan {
 
@@ -13,18 +14,20 @@ public:
     ~CactusMan();
     void moveFront(float step);
     void moveLeft();
-    void collision();
 
     const int &getLives() {return _lives;}
-
     void setLives(int lives) {_lives =lives ;}
+
     const int &getScore() {return _score;}
     void setScore(int score){_score=score ;}
 
+    const glm::vec2 &getPosition() {return position;}
+    void setPosition(glm::vec2 pos){position=pos ;}
+
 private :
-    float pos_x, pos_y, pos_z, rot_x, rot_y, rot_z;
+    glm::vec2 position;
+    glm::vec2 rotation;
     int _score, _lives;
-    bool canMove; // false when he is facing a wall
 
 };
 

@@ -83,10 +83,21 @@ void Tile::drop(CactusMan &player) {
     }
 }
 
+
+
+int Tile::type(){
+
+    return 0; //need to add later
+}
+
 int Tile::getInitialState() const {
     return initialState;
 }
 
 const glm::vec2 &Tile::getCenter() const {
     return center;
+}
+
+const std::vector<Tile *> &Tile::getNeighbours() const {
+    return neighbours;
 }
