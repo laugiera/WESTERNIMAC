@@ -97,6 +97,22 @@ std::string Tools::getFolderPath(const std::string & filePath) {
     return filePath.substr(0, pos); //return substring from beginning to last '/' separator
 }
 
+bool Tools::WaitForSeconds(double secondsToWait){
+
+    clock_t startTime = clock(); //Start timer
+    double secondsPassed;
+
+    bool wait =true;
+    while(wait)
+    {
+        secondsPassed = (clock() - startTime) / CLOCKS_PER_SEC;
+        if(secondsPassed >= secondsToWait)
+        {
+            wait = false;
+        }
+    }
+}
+
 
 
 

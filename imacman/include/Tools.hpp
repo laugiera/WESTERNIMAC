@@ -31,6 +31,9 @@ static std::string toUpperCase(const std::string & s);
 static std::vector<std::string> stringToVector(std::string data, std::string delimitor);
 
 static std::string getFolderPath(const std::string & filePath);
+
+//waits for x seconds
+bool WaitForSeconds(double secondsToWait);
 };
 
 

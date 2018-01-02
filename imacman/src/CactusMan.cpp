@@ -10,7 +10,7 @@ CactusMan::CactusMan(){
     rotation= glm::vec2(0,0);
 
     _score=0;
-    _lives = 5;
+    _lives = 3;
 }
 
 CactusMan::CactusMan(Tile *tile) : tile(tile) {
