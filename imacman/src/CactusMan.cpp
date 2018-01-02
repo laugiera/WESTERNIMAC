@@ -22,6 +22,10 @@ void CactusMan::moveFront(float step){
     position.y+=step;
 }
 
-void CactusMan::moveLeft(){
+void CactusMan::rotateLeft(){
     rotation.y=-90;
+}
+
+void CactusMan::moveLeft(float step){
+    position.x+=step;
 }
