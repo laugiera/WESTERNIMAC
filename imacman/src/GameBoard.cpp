@@ -87,36 +87,35 @@ float  SquareDistance(glm::vec2 v1, glm::vec2 v2){ //check the square to avoid u
 }
 void GameBoard::collision(Tile &tile, CactusMan &player){
 
-    if (player.getPosition().y > 1){
-        //tile.getNeighbours()
-        //check if up neighbours is not a wall
-    }
-    else if (player.getPosition().y < 0){
-        //check if buttom neighbours is not a wall
-    }
-    else if (player.getPosition().x > 1){
-        //check if right neighbours is not a wall
-    }
-    else if (player.getPosition().x < 0){
-        //check if left neighbours is not a wall
-    }
-    else
-    {
-        if(tile.type() == GUM || tile.type() == SUPERGUM || tile.type() == FRUIT){
-            if (SquareDistance(player.getPosition(),tile.getCenter()) < 0.04 ){
-                tile.drop(player);
-            }
-        }
-        else if(tile.type() == ELEVATOR){
-            //load up gameboard
+    std::vector<Tile *> neighbours= tile.getNeighbours();
 
-        } else if(tile.type() == EMPTY){
-            //do nothing
+    for(unsigned int i;i<neighbours.size();i++){
+
+        if (SquareDistance(player.getPosition(),neighbours[i]->getCenter())< 0.25){ //distance less than (0.5)²
+            tile=*(neighbours[i]);
+            break;
         }
     }
+    if(tile.type() == GUM || tile.type() == SUPERGUM || tile.type() == FRUIT){
+        if (SquareDistance(player.getPosition(),tile.getCenter()) < 0.04 ){ //distance less than 0.2
+            tile.drop(player);
+        }
+    }
+    else if(tile.type() == ELEVATOR){
+        //load upstairs gameboard
 
-    // need to also check if dude is out of the map
-    // freeze the y if y>board.height and freeze x if x>board.width
+    } else if(tile.type() == EMPTY){
+        //do nothing
+    }
+    else {
 
+        // need to also check if dude is out of the map
+        // freeze the y if y>board.height and freeze x if x>board.width
+    }
 }
+
+
+
+
+
 
