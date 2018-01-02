@@ -25,3 +25,11 @@ void CactusMan::moveFront(float step){
 void CactusMan::moveLeft(){
     rotation.y=-90;
 }
+
+CactusMan::CactusMan(Tile *tile) : tile(tile) {
+    position= glm::vec2(tile->getCenter().x,tile->getCenter().y);
+    rotation= glm::vec2(0,0);
+
+    _score=0;
+    _lives = 5;
+}

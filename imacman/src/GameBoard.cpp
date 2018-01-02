@@ -3,12 +3,14 @@
 //
 
 #include "GameBoard.hpp"
+#include "OpenGlManager.hpp"
 
 GameBoard::GameBoard(const std::string &boardPath) : boardPath(boardPath) {
     try {
         loadBoard();
         createGhosts();
         createCactusman();
+        //OpenGlManager renderEngine();
     } catch (std::runtime_error &e){
         std::string message("GameBoard has not been properly initialized : ");
         message += e.what();
@@ -49,10 +51,10 @@ void GameBoard::createGhosts() {
     if(startingTiles.size() < 4){
         throw std::runtime_error("No starting position has been set for the ghosts");
     } else {
-        ghosts.push_back(new Ghost(startingTiles[0])); // change for Blinky
-        ghosts.push_back(new Ghost(startingTiles[1])); // change for Pinky
-        ghosts.push_back(new Ghost(startingTiles[2])); // change for Inky
-        ghosts.push_back(new Ghost(startingTiles[3])); // change for Clide
+        ghosts.push_back(new BlinkyGhost(startingTiles[0])); // change for Blinky
+        ghosts.push_back(new PinkyGhost(startingTiles[1])); // change for Pinky
+        ghosts.push_back(new InkyGhost(startingTiles[2])); // change for Inky
+        ghosts.push_back(new ClydeGhost(startingTiles[3])); // change for Clide
     }
 
 }
@@ -75,9 +77,8 @@ void GameBoard::createCactusman() {
     if(!startingTile){
         throw std::runtime_error("No starting position has been set for Cactusman");
     } else {
-        //player = CactusMan(startingTile);
+        player = CactusMan(startingTile);
     }
-
 }
 
 float  SquareDistance(glm::vec2 v1, glm::vec2 v2){ //check the square to avoid using roots

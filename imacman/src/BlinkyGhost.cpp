@@ -17,3 +17,5 @@ void BlinkyGhost::move(CactusMan &Player){
 
 
 }
+
+BlinkyGhost::BlinkyGhost(Tile *tile) : Ghost(tile) {}

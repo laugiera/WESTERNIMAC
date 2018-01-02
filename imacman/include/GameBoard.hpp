@@ -8,7 +8,10 @@
 #include "Tile.hpp"
 #include <string>
 #include "BoardLoader.hpp"
-#include "Ghost.hpp"
+#include "InkyGhost.hpp"
+#include "PinkyGhost.hpp"
+#include "BlinkyGhost.hpp"
+#include "ClydeGhost.hpp"
 #include "CactusMan.hpp"
 
 

@@ -6,11 +6,15 @@
 #define IMACMAN_CACTUSMAN_HPP
 #include<cmath>
 #include <glm/vec3.hpp>
+#include "Tile.hpp"
 
 class CactusMan {
 
 public:
     CactusMan();
+
+    CactusMan(Tile *tile);
+
     ~CactusMan();
     void moveFront(float step);
     void moveLeft();
@@ -25,6 +29,7 @@ public:
     void setPosition(glm::vec2 pos){position=pos ;}
 
 private :
+    Tile * tile;
     glm::vec2 position;
     glm::vec2 rotation;
     int _score, _lives;

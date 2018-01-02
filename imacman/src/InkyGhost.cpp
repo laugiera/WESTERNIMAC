@@ -17,3 +17,5 @@ void InkyGhost::move(CactusMan &Player){
 
 
 }
+
+InkyGhost::InkyGhost(Tile *tile) : Ghost(tile) {}

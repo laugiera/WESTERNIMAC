@@ -7,6 +7,7 @@
 
 #include "Tile.hpp"
 #include "CactusMan.hpp"
+#include <glm/vec2.hpp>
 
 class Ghost {
 public:
@@ -18,6 +19,8 @@ public:
 
 private:
     Tile * tile;
+    glm::vec2 position;
+    float angle;
 
 };
 

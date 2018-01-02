@@ -17,3 +17,5 @@ void ClydeGhost::move(CactusMan &Player){
 
 
 }
+
+ClydeGhost::ClydeGhost(Tile *tile) : Ghost(tile) {}
