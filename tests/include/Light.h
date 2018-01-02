@@ -13,7 +13,7 @@
 class Light {
 public:
     Light(const glm::vec3 &_intensity);
-    void transform(const glm::mat4 &transformation);
+    void transform(const glm::vec3 &translation, const float angle, const glm::vec3 &axesRotation, const glm::vec3 &scale);
     void addLightUniforms(glcustom::GPUProgram &program);
     void sendLightUniforms(glcustom::GPUProgram &program);
 

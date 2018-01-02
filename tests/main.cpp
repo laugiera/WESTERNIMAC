@@ -21,7 +21,7 @@ using namespace glimac;
 int main(int argc, char** argv) {
     glimac::FilePath applicationPath(argv[0]);
     glimac::SDLWindowManager windowManager(Utils::windowWidth, Utils::windowHeight, "GLImac");
-    RenderModel renderCube = RenderModel("../imacman/models/cubeandspherewithcolors",applicationPath,"3D2", "directionallight");
+    RenderModel renderCube = RenderModel("../../tests/models/cube",applicationPath,"3D2", "directionallight");
     std::vector<RenderModel*> models;
     models.push_back(&renderCube);
     OpenGlManager manager = OpenGlManager(models);

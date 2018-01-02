@@ -20,7 +20,7 @@ public :
     void addProgramUniforms( Light &light);
     void transform(const glm::vec3 &translation, const float angle, const glm::vec3 &axesRotation, const glm::vec3 &scale);
     void render(const glm::mat4 &viewMatrix, Light &light);
-    void setModelMatrix();
+    void setModelMatrix(const glm::mat4 _modelMatrix = glm::mat4(1.f));
 
 
 private:

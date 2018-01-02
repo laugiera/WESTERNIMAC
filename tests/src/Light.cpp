@@ -13,7 +13,11 @@ void Light::setDirection() {
     direction = glm::vec4(1,1,0,0);
 }
 
-void Light::transform(const glm::mat4 &transformation){
+void Light::transform(const glm::vec3 &translation, const float angle, const glm::vec3 &axesRotation, const glm::vec3 &scale){
+    glm::mat4 transformation = glm::mat4(1.f);
+    transformation = glm::scale(transformation,scale);
+    transformation = glm::rotate(transformation,angle,axesRotation);
+    transformation = glm::translate(transformation, translation);
     direction = transformation * direction;
 }
 

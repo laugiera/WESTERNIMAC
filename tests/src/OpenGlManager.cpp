@@ -37,17 +37,11 @@ void OpenGlManager::drawAll(glimac::SDLWindowManager &windowManager, glm::mat4 &
         models[it]->setModelMatrix();
     }
 
-    glm::mat4 rotation = glm::rotate(glm::mat4(1.f), windowManager.getTime(), glm::vec3(0, 1, 0));
-    glm::mat4 scale = glm::scale(glm::mat4(1.f),glm::vec3(0.1f));
-
-
     light.setDirection();
-    rotation = glm::rotate(glm::mat4(1.f), windowManager.getTime()+100, glm::vec3(0, 1, 0));
-    light.transform(rotation);
-    light.transform(viewMatrix);
+    light.transform(glm::vec3(0),windowManager.getTime()+100,glm::vec3(0, 1, 0),glm::vec3(1));
 
     for (int it = 0; it <= models.size() ; ++it) {
-        models[it]->transform(scale * rotation);
+        models[it]->transform(glm::vec3(0),windowManager.getTime(),glm::vec3(0, 1, 0),glm::vec3(1));
         models[it]->render(viewMatrix,light);
 
     }

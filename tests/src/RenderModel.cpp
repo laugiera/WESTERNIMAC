@@ -6,9 +6,11 @@
 
 RenderModel::RenderModel(const std::string &_modelPath,
                          const glimac::FilePath appPath, const std::string &vertexShader, const std::string &fragmentShader)
-        : model(ObjectModel(_modelPath)), program(glcustom::GPUProgram(appPath,vertexShader,fragmentShader)),
-          vbo(glcustom::VBO()),ibo(glcustom::IBO()),vao(glcustom::VAO())
+        : model(ObjectModel(_modelPath)), program(glcustom::GPUProgram(appPath,vertexShader,fragmentShader))
 {
+    vbo = glcustom::VBO();
+    ibo = glcustom::IBO();
+    vao = glcustom::VAO();
     vbo.fillBuffer(model.getVertices_vector());
     ibo.fillBuffer(model.getIndices_vector());
     vao.fillBuffer(model.getVertices_vector(), &vbo, &ibo);
@@ -31,8 +33,8 @@ void RenderModel::addProgramUniforms(Light &light){
     light.addLightUniforms(program);
 }
 
-void RenderModel::setModelMatrix(){
-    modelMatrix = glm::mat4(1.0f);
+void RenderModel::setModelMatrix(const glm::mat4 _modelMatrix){
+    modelMatrix = _modelMatrix;
 }
 void RenderModel::render(const glm::mat4 &viewMatrix, Light &light){
     glm::mat4 projMatrix = glm::perspective(glm::radians(70.f), Utils::windowWidth/Utils::windowHeight, 0.1f, 100.f);
