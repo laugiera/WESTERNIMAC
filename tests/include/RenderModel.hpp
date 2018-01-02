@@ -10,8 +10,8 @@
 #include "ObjectModel.hpp"
 #include <VAO.hpp>
 #include <GPUProgram.hpp>
-#include "Utils.h"
-#include "Light.h"
+#include "Utils.hpp"
+#include "Light.hpp"
 
 class RenderModel {
 public :

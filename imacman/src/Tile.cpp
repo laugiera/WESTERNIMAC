@@ -3,7 +3,7 @@
 //
 
 #include "Tile.hpp"
-#include "../../tests/include/OpenGlManager.h"
+#include "../../tests/include/OpenGlManager.hpp"
 #include "Wall.hpp"
 #include "Gum.hpp"
 #include "SuperGum.hpp"

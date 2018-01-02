@@ -2,7 +2,7 @@
 // Created by natshez on 29/12/2017.
 //
 
-#include "Light.h"
+#include "Light.hpp"
 
 Light::Light(const glm::vec3 &_intensity) : intensity(_intensity)
 {

@@ -14,18 +14,17 @@
 #include <glimac/SDL2WindowManager.hpp>
 
 
-#include "OpenGlManager.h"
+#include "OpenGlManager.hpp"
 
 using namespace glimac;
 
 int main(int argc, char** argv) {
     glimac::FilePath applicationPath(argv[0]);
     glimac::SDLWindowManager windowManager(Utils::windowWidth, Utils::windowHeight, "GLImac");
-    RenderModel renderCube = RenderModel("../../tests/models/cube",applicationPath,"3D2", "directionallight");
-    std::vector<RenderModel*> models;
-    models.push_back(&renderCube);
-    OpenGlManager manager = OpenGlManager(models);
+    OpenGlManager manager = OpenGlManager();
     manager.init(argv[0]);
+    RenderModel renderCube = RenderModel("../../tests/models/cube",applicationPath,"3D2", "directionallight");
+    manager.addRenderModel(&renderCube);
 
     TrackballCamera camera;
 

@@ -2,12 +2,9 @@
 // Created by natshez on 30/12/2017.
 //
 
-#include "OpenGlManager.h"
+#include "OpenGlManager.hpp"
 
-OpenGlManager::OpenGlManager(std::vector<RenderModel*> _models):light(glm::vec3(1))
-{
-models = _models;
-}
+OpenGlManager::OpenGlManager() : light(glm::vec3(1)), models() {}
 int OpenGlManager::init(char* argv0){
 
     // Initialize glew for OpenGL3+ support
@@ -22,10 +19,12 @@ int OpenGlManager::init(char* argv0){
     glEnable(GL_DEPTH_TEST);
 
     /***** VARIABLES *****/
+    /*
     Light light = Light(glm::vec3(1));
-    for (int it = 0; it <= models.size() ; ++it) {
+    for (int it = 0; it < models.size() ; ++it) {
         models[it]->addProgramUniforms(light);
     }
+     */
 
 }
 void OpenGlManager::drawAll(glimac::SDLWindowManager &windowManager, glm::mat4 &viewMatrix){
@@ -33,19 +32,24 @@ void OpenGlManager::drawAll(glimac::SDLWindowManager &windowManager, glm::mat4 &
     glClearColor(0.5, 0.5, 0.5, 1);
 
     //transformation
-    for (int it = 0; it <= models.size() ; ++it) {
+    for (int it = 0; it < models.size() ; ++it) {
         models[it]->setModelMatrix();
     }
 
     light.setDirection();
     light.transform(glm::vec3(0),windowManager.getTime()+100,glm::vec3(0, 1, 0),glm::vec3(1));
 
-    for (int it = 0; it <= models.size() ; ++it) {
-        models[it]->transform(glm::vec3(0),windowManager.getTime(),glm::vec3(0, 1, 0),glm::vec3(1));
+    for (int it = 0; it < models.size() ; ++it) {
+        models[it]->transform(glm::vec3(0,0,-5),windowManager.getTime(),glm::vec3(0, 1, 0),glm::vec3(1));
         models[it]->render(viewMatrix,light);
 
     }
 
     // Update the display
     windowManager.swapBuffers();
+}
+
+void OpenGlManager::addRenderModel(RenderModel *model) {
+    model->addProgramUniforms(light);
+    models.push_back(model);
 }

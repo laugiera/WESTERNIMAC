@@ -2,15 +2,17 @@
 // Created by natshez on 29/12/2017.
 //
 
-#include "RenderModel.h"
+#include "RenderModel.hpp"
 
 RenderModel::RenderModel(const std::string &_modelPath,
                          const glimac::FilePath appPath, const std::string &vertexShader, const std::string &fragmentShader)
-        : model(ObjectModel(_modelPath)), program(glcustom::GPUProgram(appPath,vertexShader,fragmentShader))
+        : model(ObjectModel(_modelPath)), vbo(), ibo(), vao(), program(glcustom::GPUProgram(appPath,vertexShader,fragmentShader))
 {
+    /*
     vbo = glcustom::VBO();
     ibo = glcustom::IBO();
     vao = glcustom::VAO();
+     */
     vbo.fillBuffer(model.getVertices_vector());
     ibo.fillBuffer(model.getIndices_vector());
     vao.fillBuffer(model.getVertices_vector(), &vbo, &ibo);

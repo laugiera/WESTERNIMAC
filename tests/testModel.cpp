@@ -20,11 +20,12 @@
 #include <GPUProgram.hpp>
 #include <Texture.hpp>
 #include <vector>
+#include "RenderModel.hpp"
 
 using namespace glimac;
 
 
-int disablemain(int argc, char** argv) {
+int Dmain(int argc, char** argv) {
     /***** SDL THINGY *****/
     // Initialize SDL and open a window
     SDLWindowManager windowManager(1000, 800, "GLImac");
@@ -40,6 +41,8 @@ int disablemain(int argc, char** argv) {
     FilePath applicationPath(argv[0]);
 
     /***** GPU PROGRAM *****/
+
+    RenderModel renderCube = RenderModel("../../tests/models/cube",applicationPath,"3D2", "directionallight");
 
     glcustom::GPUProgram program(applicationPath, "3D2",  "directionallight");
     std::vector<std::string> uniform_variables = {"uMVPMatrix", "uMVMatrix","uNormalMatrix","uKd","uKs","uShininess","uLightDir_vs","uLightIntensity"};
@@ -61,9 +64,11 @@ int disablemain(int argc, char** argv) {
 
 
     /***** BUFFERS *****/
-    glcustom::VBO vbo = glcustom::VBO();
+    glcustom::VBO vbo; // = glcustom::VBO();
     glcustom::IBO ibo = glcustom::IBO();
     glcustom::VAO vao = glcustom::VAO();
+
+
 
 
     vbo.fillBuffer(cube.getVertices_vector());

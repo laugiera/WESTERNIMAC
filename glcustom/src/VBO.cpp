@@ -6,7 +6,7 @@
 #include <vector>
 
 
-glcustom::VBO::VBO(){
+glcustom::VBO::VBO() :Buffer() {
     glGenBuffers(1, &m_id);
 }
 

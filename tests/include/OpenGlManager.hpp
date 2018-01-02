@@ -13,14 +13,15 @@
 #include <GL/glut.h>
 #include <memory>
 #include <vector>
-#include "RenderModel.h"
-#include "Light.h"
+#include "RenderModel.hpp"
+#include "Light.hpp"
 
 class OpenGlManager {
 public:
-    OpenGlManager(std::vector<RenderModel*> _models);
+    OpenGlManager();
     int init(char* argv0);
     void drawAll(glimac::SDLWindowManager &windowManager, glm::mat4 &viewMatrix);
+    void addRenderModel(RenderModel * model);
 
 private :
     Light light;
