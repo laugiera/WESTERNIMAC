@@ -82,8 +82,6 @@ public:
     const BBox3f& getBoundingBox() const {
         return m_BBox;
     }
-
-    const std::vector<Material> &getM_Materials() const;
 };
 
 }

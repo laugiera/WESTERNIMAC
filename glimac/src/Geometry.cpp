@@ -33,7 +33,7 @@ bool Geometry::loadOBJ(const FilePath& filepath, const FilePath& mtlBasePath, bo
 
     if (!objErr.empty()) {
         std::cerr << objErr << std::endl;
-        throw(std::runtime_error(objErr));
+        return false;
     }
 
     std::clog << "Load materials" << std::endl;
@@ -169,9 +169,5 @@ bool Geometry::loadOBJ(const FilePath& filepath, const FilePath& mtlBasePath, bo
 
     return true;
 }
-
-    const std::vector<Geometry::Material> &Geometry::getM_Materials() const {
-        return m_Materials;
-    }
 
 }

@@ -7,13 +7,14 @@
 #include <fstream>
 #include <memory>
 #include <glimac/common.hpp>
-#include <Buffer.hpp>
-#include <vector>
+#include "Buffer.hpp"
 
 
 namespace glcustom{
 
     class VBO : public Buffer {
+    protected:
+        //std::vector<type> m_content;
     public:
         VBO();
 

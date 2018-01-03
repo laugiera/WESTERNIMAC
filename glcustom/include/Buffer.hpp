@@ -15,10 +15,6 @@ class Buffer {
 protected:
     GLuint m_id;
 public:
-    Buffer() {
-        //m_id = 1;
-    }
-
     template <typename type>
     void fillBuffer(const std::vector<type> &elements){
         std::cerr << "Buffer::fillBuffer method has not been implemented in child class" ;
