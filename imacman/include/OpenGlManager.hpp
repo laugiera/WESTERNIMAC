@@ -18,14 +18,23 @@
 
 class OpenGlManager {
 public:
-    OpenGlManager();
     int init(char* argv0);
     void drawAll(glimac::SDLWindowManager &windowManager, glm::mat4 &viewMatrix);
     void addRenderModel(RenderModel * model);
+    OpenGlManager(OpenGlManager const&)= delete; //removed
+    void operator=(OpenGlManager const&)= delete; //removed
+    static OpenGlManager& getInstance()
+    {
+        static OpenGlManager    instance;
+        // Instantiated on first use.
+        return instance;
+    }
 
 private :
     Light light;
     std::vector<RenderModel*> models;
+    OpenGlManager();
+    ~OpenGlManager();
 
 };
 

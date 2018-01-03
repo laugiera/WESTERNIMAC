@@ -18,14 +18,6 @@ int OpenGlManager::init(char* argv0){
 
     glEnable(GL_DEPTH_TEST);
 
-    /***** VARIABLES *****/
-    /*
-    Light light = Light(glm::vec3(1));
-    for (int it = 0; it < models.size() ; ++it) {
-        models[it]->addProgramUniforms(light);
-    }
-     */
-
 }
 void OpenGlManager::drawAll(glimac::SDLWindowManager &windowManager, glm::mat4 &viewMatrix){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -52,4 +44,8 @@ void OpenGlManager::drawAll(glimac::SDLWindowManager &windowManager, glm::mat4 &
 void OpenGlManager::addRenderModel(RenderModel *model) {
     model->addProgramUniforms(light);
     models.push_back(model);
+}
+
+OpenGlManager::~OpenGlManager(){
+    models.erase(models.begin(),models.end());
 }
