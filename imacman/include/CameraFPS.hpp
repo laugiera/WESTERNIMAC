@@ -12,6 +12,7 @@ public:
     CameraFPS();
     void moveLeft(float t);
     void moveFront(float t);
+    //void alignOnPacman(float x, float y, float angle);
 
     glm::mat4 getViewMatrix() const;
 private:
