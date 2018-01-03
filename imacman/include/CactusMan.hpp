@@ -9,6 +9,7 @@
 #include "Tile.hpp"
 
 class Tile;  //temp
+class RenderModel;
 
 class CactusMan {
 public:
@@ -16,6 +17,8 @@ public:
     CactusMan(Tile *tile);
 
     ~CactusMan();
+    void createRenderModel();
+    void render();
     void moveFront(float step);
     void moveLeft(float step);
     void rotateLeft();
@@ -33,6 +36,7 @@ private :
     glm::vec2 position;
     glm::vec2 rotation;
     int _score, _lives;
+    RenderModel * renderModel;
 
 };
 

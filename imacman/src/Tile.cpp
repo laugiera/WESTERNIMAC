@@ -115,3 +115,12 @@ const int &Tile::getId() const {
     return id;
 }
 
+Tile::~Tile() {
+    /*
+    if(renderModel){
+        OpenGlManager::getInstance().removeRenderModel(renderModel);
+        delete renderModel;
+    }
+     */
+}
+

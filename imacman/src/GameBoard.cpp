@@ -41,8 +41,8 @@ void GameBoard::loadBoard() {
 void GameBoard::createGhosts() {
     //look for tiles in the tileMatrix which have GHOST for initialState
     std::vector<Tile*> startingTiles;
-    for (auto& tileLine: tiles) {
-        for(auto & tile: tileLine ){
+    for (std::vector<Tile>& tileLine: tiles) {
+        for(Tile & tile: tileLine ){
             if(tile.getInitialState() == GHOST){
                 startingTiles.push_back(&tile);
             }
@@ -116,10 +116,14 @@ void GameBoard::collision(Tile &tile, CactusMan &player){
 }
 
 void GameBoard::render() {
-    for (auto& tileLine: tiles) {
-        for(auto & tile: tileLine ){
+    for (std::vector<Tile>& tileLine: tiles) {
+        for(Tile & tile: tileLine ){
             tile.render();
         }
+    }
+    player.render();
+    for (Ghost* & ghost : ghosts){
+        ghost->render();
     }
 }
 

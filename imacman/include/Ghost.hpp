@@ -15,11 +15,14 @@ public:
     virtual ~Ghost();
     virtual void move(CactusMan &Player);
     void Drop(CactusMan &Player);
+    void createRenderModel();
+    void render();
 
 private:
     Tile * tile;
     glm::vec2 position;
     float angle;
+    RenderModel * renderModel;
 
 };
 

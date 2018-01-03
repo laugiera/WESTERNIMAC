@@ -21,6 +21,8 @@ class Tile {
 public:
     Tile() = default;
 
+    virtual ~Tile();
+
     Tile(int id, const glm::vec2 &center, const std::vector<Tile *> &neighbours, const int &initiateState);
 
     friend std::ostream & operator<<(std::ostream & stream, Tile & tile);

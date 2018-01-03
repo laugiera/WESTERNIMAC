@@ -7,6 +7,8 @@
 
 GameElement::~GameElement() {
     //removes the model from vector of models to render
-    OpenGlManager::getInstance().removeRenderModel(renderModel);
-    delete renderModel;
+    if(renderModel){
+        OpenGlManager::getInstance().removeRenderModel(renderModel);
+        delete renderModel;
+    }
 }
