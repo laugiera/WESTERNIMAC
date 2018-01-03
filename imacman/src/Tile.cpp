@@ -109,3 +109,9 @@ void Tile::createRenderModel() {
 
 
 }
+
+
+const int &Tile::getId() const {
+    return id;
+}
+

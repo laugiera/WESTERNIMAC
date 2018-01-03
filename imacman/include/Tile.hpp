@@ -35,7 +35,10 @@ public:
 
     int getInitialState() const;
 
+    const int &getId() const;
+
     const glm::vec2 &getCenter() const;
+
 
     const std::vector<Tile *> &getNeighbours() const;
 
