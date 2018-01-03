@@ -101,3 +101,8 @@ const glm::vec2 &Tile::getCenter() const {
 const std::vector<Tile *> &Tile::getNeighbours() const {
     return neighbours;
 }
+
+
+const int &Tile::getId() const {
+    return id;
+}

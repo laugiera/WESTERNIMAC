@@ -7,8 +7,10 @@
 
 #include <string>
 #include <regex>
+#include <vector>
 #include <iostream>
 #include <cstring>
+#include "Tile.hpp"
 
 class Tools {
 public:
@@ -34,7 +36,12 @@ static std::string getFolderPath(const std::string & filePath);
 
 //waits for x seconds
 bool WaitForSeconds(double secondsToWait);
+//returns vector of path from s to d
+std::vector<Tile *> isReachable(Tile s, Tile d, std::vector<std::vector<Tile>> tiles);
+
 };
+
+
 
 
 
