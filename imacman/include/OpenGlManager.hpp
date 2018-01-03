@@ -15,12 +15,14 @@
 #include <vector>
 #include "RenderModel.hpp"
 #include "Light.hpp"
+#include "Tools.hpp"
 
 class OpenGlManager {
 public:
-    int init(char* argv0);
+    int init(const char* argv0);
     void drawAll(glimac::SDLWindowManager &windowManager, glm::mat4 &viewMatrix);
     void addRenderModel(RenderModel * model);
+    void removeRenderModel(RenderModel * model);
     OpenGlManager(OpenGlManager const&)= delete; //removed
     void operator=(OpenGlManager const&)= delete; //removed
     static OpenGlManager& getInstance()
@@ -29,12 +31,15 @@ public:
         // Instantiated on first use.
         return instance;
     }
+    const std::string &getAppFolderPath() const;
 
 private :
     Light light;
     std::vector<RenderModel*> models;
+    std::string appFolderPath;
     OpenGlManager();
     ~OpenGlManager();
+
 
 };
 

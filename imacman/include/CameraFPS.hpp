@@ -5,7 +5,7 @@
 #ifndef IMACMAN_CAMERAFPS_H
 #define IMACMAN_CAMERAFPS_H
 
-#include "Camera.h"
+#include "Camera.hpp"
 
 class CameraFPS : public  Camera{
 public:

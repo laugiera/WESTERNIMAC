@@ -8,10 +8,11 @@
 #include <glm/vec2.hpp>
 #include "Tile.hpp"
 
+class Tile;  //temp
+
 class CactusMan {
-
 public:
-
+    CactusMan() = default;
     CactusMan(Tile *tile);
 
     ~CactusMan();

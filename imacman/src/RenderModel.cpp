@@ -63,10 +63,12 @@ void RenderModel::render(const glm::mat4 &viewMatrix, Light &light){
 
 }
 
-void RenderModel::transform(const glm::vec3 &translation, const float angle, const glm::vec3 &axesRotation, const glm::vec3 &scale){
+void RenderModel::transform(const glm::vec3 &translate, const float angle, const glm::vec3 &axesRotation,
+                            const glm::vec3 &scale) {
     glm::mat4 transformation = glm::mat4(1.f);
-    transformation = glm::scale(transformation,scale);
+    float conversionFactor = 9.5;
+    transformation = glm::translate(transformation, translate *conversionFactor);
     transformation = glm::rotate(transformation,angle,axesRotation);
-    transformation = glm::translate(transformation, translation);
-    modelMatrix = transformation * modelMatrix;
+    transformation = glm::scale(transformation,scale);
+    modelMatrix = transformation/* * modelMatrix*/;
 }

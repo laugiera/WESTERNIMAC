@@ -17,6 +17,8 @@
 
 class GameBoard {
 public:
+    GameBoard() = default;
+
     GameBoard(const std::string &boardPath);
 
     void loadBoard();
@@ -26,6 +28,8 @@ public:
     void createCactusman();
 
     void collision(Tile &tile, CactusMan &player);
+
+    void render();
 
 private:
     CactusMan player;

@@ -11,6 +11,7 @@ class Wall : public GameElement{
 public:
     void render(glm::vec2);
     void drop(CactusMan &player);
+    void createRenderModel();
 };
 
 

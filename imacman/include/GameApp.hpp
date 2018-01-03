@@ -10,10 +10,17 @@
 
 class GameApp {
 public:
-    GameApp();
+    GameApp() = default;
+
+    GameApp(const std::string &appPath);
+
+    void gameLoop();
+
 
 private:
     GameBoard gameboard;
+    std::string boardPath;
+    std::string appPath;
 
 };
 

@@ -5,7 +5,7 @@
 #ifndef IMACMAN_CAMERA2D_H
 #define IMACMAN_CAMERA2D_H
 
-#include "Camera.h"
+#include "Camera.hpp"
 
 class Camera2D : public Camera{
 public:

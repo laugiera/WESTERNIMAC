@@ -12,6 +12,7 @@
 
 class ObjectModel {
 public:
+    ObjectModel() = default;
     ObjectModel(const std::string &_objPath);
     ~ObjectModel();
 

@@ -2,7 +2,7 @@
 // Created by natshez on 03/01/2018.
 //
 
-#include "Camera2D.h"
+#include "Camera2D.hpp"
 
 Camera2D::Camera2D(){
     m_fDistance = 100;

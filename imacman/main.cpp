@@ -12,67 +12,64 @@
 #include <glimac/Program.hpp>
 #include <glimac/Image.hpp>
 #include <glimac/SDL2WindowManager.hpp>
-#include "GameBoard.hpp"
-
-
+#include "GameApp.hpp"
+#include "Camera2D.hpp"
+#include "CameraFPS.hpp"
 
 using namespace glimac;
 
 int main(int argc, char** argv) {
-/*
-    // Initialize SDL and open a window
-    SDLWindowManager windowManager(800, 600, "GLImac");
 
-    // Initialize glew for OpenGL3+ support
-    GLenum glewInitError = glewInit();
-    if(GLEW_OK != glewInitError) {
-        std::cerr << glewGetErrorString(glewInitError) << std::endl;
-        return EXIT_FAILURE;
-    }
+    glimac::SDLWindowManager windowManager(Utils::windowWidth, Utils::windowHeight, "GLImac");
+    GameApp app(argv[0]);
 
-    std::cout << "OpenGL Version : " << glGetString(GL_VERSION) << std::endl;
-    std::cout << "GLEW Version : " << glewGetString(GLEW_VERSION) << std::endl;
+    CameraFPS *cameraFPS = new CameraFPS();
+    Camera2D *camera2D = new Camera2D();
+    Camera *currentCamera = cameraFPS;
 
-    /*********************************
-     * HERE SHOULD COME THE INITIALIZATION CODE
-     *********************************/
-
-
-    GameBoard board = GameBoard(Tools::getFolderPath(argv[0]) + "/data/board01.txt");
-
-
-
-    /*
-    BoardLoader loader;
-    std::vector<std::vector<Tile>> tiles = loader.createTileMatrix(
-            "/Users/Lou/GoogleDrive/travail/IMAC2/S1/Programmation/Projets/WESTERNIMAC/tests/data/board01.txt");
-    for(int i = 0; i<tiles.size(); i++){
-        for(int j = 0; j<tiles[0].size(); j++){
-            std::cout << tiles[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
-     */
-/*
-    // Application loop:
+    /**APPLICATION LOOP***/
+    int rightPressed = 0;
     bool done = false;
     while(!done) {
         // Event loop:
-        SDL_Event e{};
+        SDL_Event e;
         while(windowManager.pollEvent(e)) {
-            if(e.type == SDL_QUIT) {
+            if(e.type == SDL_KEYDOWN){
+                if(e.key.keysym.sym == SDLK_LEFT){
+                    currentCamera->moveLeft(2.0);
+                }
+                else if(e.key.keysym.sym == SDLK_RIGHT){
+                    currentCamera->moveLeft(-2.0);
+                }
+                else if(e.key.keysym.sym == SDLK_UP){
+                    currentCamera->moveFront(2.0);
+                }
+                else if(e.key.keysym.sym == SDLK_DOWN){
+                    currentCamera->moveFront(-2.0);
+                }
+                else if(e.key.keysym.sym == SDLK_c){
+                    if(currentCamera == camera2D)
+                        currentCamera = cameraFPS;
+                    else if(currentCamera == cameraFPS)
+                        currentCamera = camera2D;
+                }
+            }
+            else if(e.wheel.y == 1 )
+                currentCamera->moveFront(1);
+            else if(e.wheel.y == -1)
+                currentCamera->moveFront(-1);
+            else if(e.type == SDL_QUIT) {
                 done = true; // Leave the loop after this iteration
             }
         }
+        app.gameLoop();
+        glm::mat4 viewMatrix = currentCamera->getViewMatrix();
+        OpenGlManager::getInstance().drawAll(windowManager,viewMatrix);
+    }
 
-        /*********************************
-         * HERE SHOULD COME THE RENDERING CODE
-         *********************************/
-        //std::cout << "test 1" << std::endl;
-        // Update the display
-//        windowManager.swapBuffers();
-        //std::cout << "test 2" << std::endl;
- //   }
+    currentCamera = nullptr;
+    delete(camera2D);
+    delete(cameraFPS);
 
     return EXIT_SUCCESS;
 }

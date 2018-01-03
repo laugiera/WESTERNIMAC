@@ -2,7 +2,7 @@
 // Created by natshez on 03/01/2018.
 //
 
-#include "CameraFPS.h"
+#include "CameraFPS.hpp"
 
 void CameraFPS::computeDirectionVectors()
 {

@@ -3,7 +3,7 @@
 //
 
 #include "Tile.hpp"
-#include "../../tests/include/OpenGlManager.hpp"
+#include "OpenGlManager.hpp"
 #include "Wall.hpp"
 #include "Gum.hpp"
 #include "SuperGum.hpp"
@@ -12,7 +12,8 @@
 
 Tile::Tile(int id, const glm::vec2 &center, const std::vector<Tile *> &neighbours, const int &initiateState)
         : id(id), center(center),
-          neighbours(neighbours), initialState(initiateState) {
+          neighbours(neighbours), initialState(initiateState)
+{
     changeElement(initiateState);
 }
 
@@ -49,6 +50,7 @@ void Tile::changeElement(int elementType) {
     } else {
         element = nullptr;
     }
+    createRenderModel();
 }
 
 
@@ -57,18 +59,11 @@ void Tile::changeElement(int elementType) {
  * If the Tile owns a gemeElement triggers the same method for said element
  */
 void Tile::render() {
-
-    /*
-     * Deux possibilités?
-     * 1 : avoir un object renderModel par objet à rendre (ex Tile, Element etc)
-     * -> resultat : 20 cases = 20 object renderCase de géométrie identique mais avec des coordonnées différentes
-     * 2 : un object rendermodel par géométrie différente à rendre
-     * -> 20 cases = 1 object renderCase rendu plusieurs fois mais modifié entre chaque -> une file de matrices des transformation par exemple
-    OpenGlManager::getInstance().getRenderModel(EMPTY).renderInstance(center.x, center.y, 0);
+    renderModel->transform(glm::vec3(center.x, 0, center.y), 0, glm::vec3(0,1,0), glm::vec3(1, 0.05, 1));
     if(element){
         element->render(center);
     }
-     */
+
 }
 
 /**
@@ -82,8 +77,6 @@ void Tile::drop(CactusMan &player) {
         changeElement(EMPTY);
     }
 }
-
-
 
 int Tile::type(){
 
@@ -100,4 +93,19 @@ const glm::vec2 &Tile::getCenter() const {
 
 const std::vector<Tile *> &Tile::getNeighbours() const {
     return neighbours;
+}
+
+void Tile::createRenderModel() {
+    std::string appFolderPath = OpenGlManager::getInstance().getAppFolderPath();
+    try {
+        renderModel = new RenderModel(appFolderPath + "/models/cube", appFolderPath + "/imacman", "3D2", "directionallight");
+        OpenGlManager::getInstance().addRenderModel(renderModel);
+        if(element){
+            element->createRenderModel();
+        }
+    } catch (std::runtime_error &e){
+        std::cerr << e.what() << std::endl;
+    }
+
+
 }

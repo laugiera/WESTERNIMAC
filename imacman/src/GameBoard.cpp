@@ -115,6 +115,14 @@ void GameBoard::collision(Tile &tile, CactusMan &player){
     }
 }
 
+void GameBoard::render() {
+    for (auto& tileLine: tiles) {
+        for(auto & tile: tileLine ){
+            tile.render();
+        }
+    }
+}
+
 
 
 

@@ -11,6 +11,7 @@ class Droppable : public GameElement{
 public:
     void render(glm::vec2);
     virtual void drop(CactusMan &player);
+    virtual void createRenderModel();
 };
 
 

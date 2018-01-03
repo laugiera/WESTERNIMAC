@@ -19,7 +19,7 @@ std::vector<std::string> BoardLoader::load(std::string filePath) {
         }
         file.close();
     } else {
-        throw std::runtime_error("File doesn't exist or could not be opened");
+        throw std::runtime_error(filePath + " : File doesn't exist or could not be opened");
     }
     if(fileContent.empty()){
         throw std::runtime_error("File is empty");

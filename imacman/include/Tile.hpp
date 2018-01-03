@@ -10,9 +10,12 @@
 #include <iostream>
 #include "GameElement.hpp"
 #include "CactusMan.hpp"
+#include "OpenGlManager.hpp"
 
 enum {WALL, EMPTY, GHOST, PACMAN, GUM, SUPERGUM, FRUIT, ELEVATOR};
 
+class CactusMan;
+class GameElement;
 
 class Tile {
 public:
@@ -36,12 +39,15 @@ public:
 
     const std::vector<Tile *> &getNeighbours() const;
 
+    void createRenderModel();
+
 private:
     int id;
     glm::vec2 center; // x and y coordinates relative to the gameboard
     std::vector<Tile *> neighbours;
     int initialState;
     GameElement * element;
+    RenderModel * renderModel;
 
 };
 
