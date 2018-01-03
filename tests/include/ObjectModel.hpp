@@ -13,6 +13,7 @@
 class ObjectModel {
 public:
     ObjectModel(const std::string &_objPath);
+    ~ObjectModel();
 
     const std::vector<glimac::ShapeVertex> &getVertices_vector() const;
 

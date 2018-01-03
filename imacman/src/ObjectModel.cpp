@@ -23,6 +23,11 @@ ObjectModel::ObjectModel(const std::string &_path):objPath(_path+".obj"),mtlPath
         Print::printErrorMessage(e.what());
     }
 }
+ObjectModel::~ObjectModel(){
+    vertices_vector.clear();
+    indices_vector.clear();
+
+}
 
 const glm::vec3 &ObjectModel::getColor() const {
     return color;
