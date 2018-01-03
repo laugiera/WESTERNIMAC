@@ -11,6 +11,7 @@
 class Tile;  //temp
 class RenderModel;
 
+
 class CactusMan {
 public:
     CactusMan() = default;
@@ -22,14 +23,18 @@ public:
     void moveFront(float step);
     void moveLeft(float step);
     void rotateLeft();
-    const int &getLives() {return _lives;}
+
+    //getters setters
+    const int &getLives() const {return _lives;}
     void setLives(int lives) {_lives =lives ;}
 
-    const int &getScore() {return _score;}
+    const int &getScore() const {return _score;}
     void setScore(int score){_score=score ;}
 
-    const glm::vec2 &getPosition() {return position;}
+    const glm::vec2 &getPosition() const {return position;}
     void setPosition(glm::vec2 pos){position=pos ;}
+
+    const glm::vec2 &getRotation() const;
 
 private :
     Tile * tile;

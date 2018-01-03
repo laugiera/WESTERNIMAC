@@ -10,7 +10,7 @@
 #include <vector>
 #include <iostream>
 #include <cstring>
-#include "Tile.hpp"
+//#include "Tile.hpp"
 
 class Tile;
 
@@ -39,7 +39,7 @@ static std::string getFolderPath(const std::string & filePath);
 //waits for x seconds
 static bool WaitForSeconds(double secondsToWait);
 //returns vector of path from s to d
-static std::vector<Tile *> isReachable(Tile s, Tile d, std::vector<std::vector<Tile>> tiles);
+//static std::vector<Tile *> isReachable(Tile s, Tile d, std::vector<std::vector<Tile>> tiles);
 
 };
 

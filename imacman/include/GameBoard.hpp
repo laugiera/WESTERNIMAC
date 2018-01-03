@@ -13,6 +13,8 @@
 #include "BlinkyGhost.hpp"
 #include "ClydeGhost.hpp"
 #include "CactusMan.hpp"
+#include "CameraFPS.hpp"
+#include "Camera2D.hpp"
 
 
 class GameBoard {
@@ -20,6 +22,8 @@ public:
     GameBoard() = default;
 
     GameBoard(const std::string &boardPath);
+
+    virtual ~GameBoard();
 
     void loadBoard();
 
@@ -29,13 +33,30 @@ public:
 
     void collision(Tile &tile, CactusMan &player);
 
-    void render();
+    void render(glimac::SDLWindowManager windowManager);
+
+    void moveUp();
+
+    void moveDown();
+
+    void moveLeft();
+
+    void moveRight();
+
+    void zoom();
+
+    void dezoom();
+
+    void changeCamera();
 
 private:
     CactusMan player;
     std::vector<std::vector<Tile>> tiles;
     std::string boardPath;
     std::vector<Ghost*> ghosts;
+    Camera * currentCam;
+    Camera2D * cam2D;
+    CameraFPS * camFPS;
 
 };
 

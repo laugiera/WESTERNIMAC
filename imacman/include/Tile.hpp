@@ -8,9 +8,8 @@
 #include <glm/vec2.hpp>
 #include <vector>
 #include <iostream>
-#include "GameElement.hpp"
-#include "CactusMan.hpp"
 #include "OpenGlManager.hpp"
+#include "Droppable.hpp"
 
 enum {WALL, EMPTY, GHOST, PACMAN, GUM, SUPERGUM, FRUIT, ELEVATOR};
 
@@ -40,7 +39,6 @@ public:
     const int &getId() const;
 
     const glm::vec2 &getCenter() const;
-
 
     const std::vector<Tile *> &getNeighbours() const;
 

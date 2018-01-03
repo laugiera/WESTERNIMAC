@@ -12,3 +12,7 @@ GameElement::~GameElement() {
         delete renderModel;
     }
 }
+
+GameElement::GameElement() {
+    renderModel = nullptr;
+}

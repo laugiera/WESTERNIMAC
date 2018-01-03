@@ -37,3 +37,8 @@ glm::mat4 CameraFPS::getViewMatrix() const
 {
     return glm::lookAt(m_Position, m_Position + m_FrontVector, m_UpVector);
 }
+
+void CameraFPS::alignOnPacman(const CactusMan &player) {
+    m_Position = glm::vec3(player.getPosition().x, 0, player.getPosition().y);
+    m_fPhi = player.getRotation().y;
+}

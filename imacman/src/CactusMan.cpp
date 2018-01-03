@@ -20,7 +20,7 @@ CactusMan::~CactusMan(){
 }
 
 void CactusMan::moveFront(float step){
-    position.y+=step;
+    position.y-=step;
 }
 
 void CactusMan::rotateLeft(){
@@ -28,7 +28,7 @@ void CactusMan::rotateLeft(){
 }
 
 void CactusMan::moveLeft(float step){
-    position.x+=step;
+    position.x-=step;
 }
 
 void CactusMan::createRenderModel() {
@@ -43,4 +43,8 @@ void CactusMan::createRenderModel() {
 
 void CactusMan::render() {
     renderModel->transform(glm::vec3(position.x, 0, position.y), 0, glm::vec3(0,1,0), glm::vec3(0.8, 0.5, 0.8));
+}
+
+const glm::vec2 &CactusMan::getRotation() const {
+    return rotation;
 }

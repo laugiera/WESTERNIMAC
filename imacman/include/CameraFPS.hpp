@@ -6,13 +6,14 @@
 #define IMACMAN_CAMERAFPS_H
 
 #include "Camera.hpp"
+#include "CactusMan.hpp"
 
 class CameraFPS : public  Camera{
 public:
     CameraFPS();
     void moveLeft(float t);
     void moveFront(float t);
-    //void alignOnPacman(float x, float y, float angle);
+    void alignOnPacman(const CactusMan &player);
 
     glm::mat4 getViewMatrix() const;
 private:

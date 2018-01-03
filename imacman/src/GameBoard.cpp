@@ -5,7 +5,10 @@
 #include "GameBoard.hpp"
 #include "OpenGlManager.hpp"
 
-GameBoard::GameBoard(const std::string &boardPath) : boardPath(boardPath) {
+GameBoard::GameBoard(const std::string &boardPath) : boardPath(boardPath),
+                                                     cam2D(new Camera2D()),
+                                                     camFPS(new CameraFPS()){
+    currentCam = camFPS;
     try {
         loadBoard();
         createGhosts();
@@ -115,7 +118,7 @@ void GameBoard::collision(Tile &tile, CactusMan &player){
     }
 }
 
-void GameBoard::render() {
+void GameBoard::render(glimac::SDLWindowManager windowManager) {
     for (std::vector<Tile>& tileLine: tiles) {
         for(Tile & tile: tileLine ){
             tile.render();
@@ -125,7 +128,47 @@ void GameBoard::render() {
     for (Ghost* & ghost : ghosts){
         ghost->render();
     }
+    glm::mat4 viewMatrix = currentCam->getViewMatrix();
+    OpenGlManager::getInstance().drawAll(windowManager,viewMatrix);
 }
+
+void GameBoard::changeCamera() {
+    if (currentCam == cam2D)
+        currentCam = camFPS;
+    else if (currentCam == camFPS)
+        currentCam = cam2D;
+}
+
+GameBoard::~GameBoard() {
+    currentCam = nullptr;
+    delete(cam2D);
+    delete(camFPS);
+}
+
+void GameBoard::moveUp() {
+    currentCam->moveFront(2.0);
+}
+
+void GameBoard::moveDown() {
+    currentCam->moveFront(-2.0);
+}
+
+void GameBoard::moveLeft() {
+    currentCam->moveLeft(2.0);
+}
+
+void GameBoard::moveRight() {
+    currentCam->moveLeft(-2.0);
+}
+
+void GameBoard::zoom() {
+    currentCam->moveFront(1);
+}
+
+void GameBoard::dezoom() {
+    currentCam->moveFront(-1);
+}
+
 
 
 

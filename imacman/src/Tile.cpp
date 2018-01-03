@@ -3,11 +3,7 @@
 //
 
 #include "Tile.hpp"
-#include "OpenGlManager.hpp"
 #include "Wall.hpp"
-#include "Gum.hpp"
-#include "SuperGum.hpp"
-#include "Fruit.hpp"
 #include "Elevator.hpp"
 
 Tile::Tile(int id, const glm::vec2 &center, const std::vector<Tile *> &neighbours, const int &initiateState)
@@ -72,7 +68,7 @@ void Tile::render() {
  * @param player
  */
 void Tile::drop(CactusMan &player) {
-    element->drop(player);
+    element->drop(/*player*/);
     if(initialState != WALL){
         changeElement(EMPTY);
     }

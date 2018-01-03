@@ -6,20 +6,20 @@
 #define IMACMAN_GAMEELEMENT_HPP
 
 #include <glm/vec2.hpp>
-#include "CactusMan.hpp"
+#include "OpenGlManager.hpp"
 
 class RenderModel;
-class CactusMan;
+
 
 class GameElement {
 public:
-    GameElement()= default;
+    GameElement();
 
     virtual ~GameElement();
 
     virtual void render(glm::vec2 position) = 0;
 
-    virtual void drop(CactusMan &player) = 0;
+    virtual void drop(/*CactusMan &player*/) = 0;
 
     virtual void createRenderModel() = 0;
 

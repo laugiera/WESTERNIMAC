@@ -8,7 +8,7 @@ void Wall::render(glm::vec2 position) {
     renderModel->transform(glm::vec3(position.x, 0, position.y), 0, glm::vec3(0,1,0), glm::vec3(1, 1, 1));
 }
 
-void Wall::drop(CactusMan &player) {
+void Wall::drop(/*CactusMan &player*/) {
 
 }
 

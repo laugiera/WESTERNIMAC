@@ -6,8 +6,7 @@
 #define IMACMAN_GAMEAPP_HPP
 
 #include "GameBoard.hpp"
-#include "CameraFPS.hpp"
-#include "Camera2D.hpp"
+
 
 
 class GameApp {
@@ -25,9 +24,7 @@ private:
     GameBoard gameboard;
     std::string boardPath;
     std::string appPath;
-    Camera * currentCam;
-    Camera2D * cam2D;
-    CameraFPS * camFPS;
+
     glimac::SDLWindowManager windowManager;
 
 };
