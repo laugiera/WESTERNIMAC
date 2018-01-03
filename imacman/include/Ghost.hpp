@@ -7,7 +7,6 @@
 
 #include "Tile.hpp"
 #include "CactusMan.hpp"
-#include <glm/vec2.hpp>
 
 class Ghost {
 public:

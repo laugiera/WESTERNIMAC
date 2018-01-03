@@ -3,3 +3,10 @@
 //
 
 #include "SuperGum.hpp"
+
+
+void SuperGum::drop(CactusMan &player){
+    int currentScore=player.getScore();
+    player.setScore(currentScore+200);
+    SuperMoodOn=true;
+}

@@ -3,3 +3,9 @@
 //
 
 #include "Fruit.hpp"
+
+
+void Fruit::drop(CactusMan &player){
+    int currentScore=player.getScore();
+    player.setScore(currentScore+500);
+}

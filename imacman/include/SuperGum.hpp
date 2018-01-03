@@ -9,6 +9,13 @@
 
 class SuperGum : public Droppable {
 
+public:
+    void drop(CactusMan &player);
+
+    const bool &getMood() {return SuperMoodOn;}
+
+private:
+    bool SuperMoodOn=false; //set true when cactus can eat ghosts
 };
 
 

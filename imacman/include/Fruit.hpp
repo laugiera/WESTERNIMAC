@@ -9,6 +9,10 @@
 
 class Fruit : public Droppable {
 
+public:
+    void drop(CactusMan &player);
+
+
 };
 
 

@@ -3,3 +3,9 @@
 //
 
 #include "Gum.hpp"
+
+
+void Gum::drop(CactusMan &player){
+    int currentScore=player.getScore();
+    player.setScore(currentScore+10);
+}

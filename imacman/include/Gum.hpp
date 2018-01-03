@@ -9,6 +9,9 @@
 
 class Gum : public Droppable{
 
+public:
+
+    void drop(CactusMan &player);
 };
 
 

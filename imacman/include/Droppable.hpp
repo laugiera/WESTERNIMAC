@@ -10,7 +10,7 @@
 class Droppable : public GameElement{
 public:
     void render(glm::vec2);
-    void drop(CactusMan &player);
+    virtual void drop(CactusMan &player);
 };
 
 

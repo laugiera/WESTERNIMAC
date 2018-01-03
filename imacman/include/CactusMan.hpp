@@ -5,13 +5,12 @@
 #ifndef IMACMAN_CACTUSMAN_HPP
 #define IMACMAN_CACTUSMAN_HPP
 #include<cmath>
-#include <glm/vec3.hpp>
+#include <glm/vec2.hpp>
 #include "Tile.hpp"
 
 class CactusMan {
 
 public:
-    CactusMan();
 
     CactusMan(Tile *tile);
 
