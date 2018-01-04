@@ -11,7 +11,7 @@ GameApp::GameApp(const std::string &appPath) : appPath(appPath),
     OpenGlManager::getInstance().init(appPath.c_str());
     boardPath = Tools::getFolderPath(appPath) + "/data/board00.txt";
     try {
-        gameboard = GameBoard(boardPath);
+        gameboard = new GameBoard(boardPath);
     } catch (std::runtime_error &e) {
         std::cerr << e.what() << std::endl;
     }
@@ -29,30 +29,30 @@ void GameApp::appLoop() {
         while (windowManager.pollEvent(e)) {
             if (e.type == SDL_KEYDOWN) {
                 if (e.key.keysym.sym == SDLK_q){
-                    gameboard.moveLeft();
+                    gameboard->moveLeft();
                 } else if (e.key.keysym.sym == SDLK_d){
-                    gameboard.moveRight();
+                    gameboard->moveRight();
                 } else if (e.key.keysym.sym == SDLK_z){
-                    gameboard.moveUp();
+                    gameboard->moveUp();
                 } else if (e.key.keysym.sym == SDLK_s){
-                    gameboard.moveDown();
+                    gameboard->moveDown();
                 } else if (e.key.keysym.sym == SDLK_UP){
-                    gameboard.zoom();
+                    gameboard->zoom();
                 } else if (e.key.keysym.sym == SDLK_DOWN){
-                    gameboard.dezoom();
+                    gameboard->dezoom();
                 }
                 else if (e.key.keysym.sym == SDLK_c) {
-                    gameboard.changeCamera();
+                    gameboard->changeCamera();
                 }
             } else if (e.wheel.y == 1)
-                gameboard.zoom();
+                gameboard->zoom();
             else if (e.wheel.y == -1)
-                gameboard.dezoom();
+                gameboard->dezoom();
             else if (e.type == SDL_QUIT) {
                 done = true; // Leave the loop after this iteration
             }
         }
-        gameboard.render(windowManager);
+        gameboard->render(windowManager);
     }
     destroy();
 
@@ -62,5 +62,6 @@ GameApp::~GameApp() {
 }
 
 void GameApp::destroy() {
-    gameboard.destroy();
+    gameboard->destroy();
+    delete(gameboard);
 }

@@ -23,7 +23,7 @@ public:
 
 
 private:
-    GameBoard gameboard;
+    GameBoard * gameboard;
     std::string boardPath;
     std::string appPath;
 
