@@ -15,6 +15,8 @@ public:
     virtual ~Ghost();
     virtual void move(CactusMan &Player);
     void Drop(CactusMan &Player);
+    //returns vector of path from s to d
+    static std::vector<Tile *> isReachable(Tile s, Tile d, std::vector<std::vector<Tile>> tiles);
     void createRenderModel();
     void render();
 
