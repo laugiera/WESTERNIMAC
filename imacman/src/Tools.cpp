@@ -93,8 +93,13 @@ std::vector<std::string> Tools::stringToVector(std::string _data, std::string de
 }
 
 std::string Tools::getFolderPath(const std::string & filePath) {
-    size_t pos = filePath.find_last_of('/');
-    return filePath.substr(0, pos); //return substring from beginning to last '/' separator
+#ifdef _WIN32
+    char pathSeparator = '\\';
+#else
+    char pathSeparator = '/';
+#endif
+    size_t pos = filePath.find_last_of(pathSeparator);
+    return filePath.substr(0, pos); //return substring from beginning to last pathseparator
 }
 
 bool Tools::WaitForSeconds(double secondsToWait){
