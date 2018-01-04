@@ -9,17 +9,17 @@ RenderModel::RenderModel(const std::string &_modelPath,
                          const glimac::FilePath appPath, const std::string &vertexShader, const std::string &fragmentShader)
         : model(ObjectModel(_modelPath)), vbo(), ibo(), vao(), program(glcustom::GPUProgram(appPath,vertexShader,fragmentShader))
 {
-    /*
-    vbo = glcustom::VBO();
-    ibo = glcustom::IBO();
-    vao = glcustom::VAO();
-     */
+
     vbo.fillBuffer(model.getVertices_vector());
     ibo.fillBuffer(model.getIndices_vector());
     vao.fillBuffer(model.getVertices_vector(), &vbo, &ibo);
 
     setModelMatrix();
     program.use();
+}
+
+void RenderModel::setModelColor(glm::vec3 _color, glm::vec3 _kd, glm::vec3 _ks){
+    model.setColor(_color,_kd,_ks);
 }
 
 void RenderModel::addProgramUniforms(Light &light){
@@ -49,12 +49,9 @@ void RenderModel::render(const glm::mat4 &viewMatrix, Light &light){
     program.sendUniformMat4("uMVMatrix", modelViewMatrix);
     program.sendUniformMat4("uNormalMatrix", normals);
 
-//    program.sendUniform1f("uShininess", model.getShininess());
-//    program.sendUniformVec3("uKd",model.getKd());
-//    program.sendUniformVec3("uKs",model.getKs());
+    program.sendUniformVec3("uKd",model.getKd());
+    program.sendUniformVec3("uKs",model.getKs());
     program.sendUniform1f("uShininess", 64);
-    program.sendUniformVec3("uKd",glm::vec3(1));
-    program.sendUniformVec3("uKs",glm::vec3(1));
     program.sendUniformVec3("color", model.getColor());
     light.sendLightUniforms(program);
 

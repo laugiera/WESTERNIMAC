@@ -4,7 +4,7 @@
 
 #include "OpenGlManager.hpp"
 
-OpenGlManager::OpenGlManager() : light(glm::vec3(1)), models() {}
+OpenGlManager::OpenGlManager() : light(glm::vec3(2)), models() {}
 int OpenGlManager::init(const char* argv0){
 
     appFolderPath = Tools::getFolderPath(argv0);
@@ -25,13 +25,8 @@ void OpenGlManager::drawAll(glimac::SDLWindowManager &windowManager, glm::mat4 &
     glClearColor(0.5, 0.5, 0.5, 1);
 
     //transformation
-
-    for (int it = 0; it < models.size() ; ++it) {
-      //  models[it]->setModelMatrix(glm::translate(glm::mat4(1.0), glm::vec3(1,0,0)));
-    }
-
     light.setDirection();
-    light.transform(glm::vec3(0),windowManager.getTime()+100,glm::vec3(0, 1, 0),glm::vec3(1));
+   // light.transform(glm::vec3(0),windowManager.getTime()+100,glm::vec3(0, 1, 0),glm::vec3(1));
 
     for (int it = 0; it < models.size() ; ++it) {
         models[it]->render(viewMatrix,light);

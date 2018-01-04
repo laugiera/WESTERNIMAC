@@ -2,6 +2,7 @@
 // Created by Lou on 16/12/2017.
 //
 
+/*
 #define GLEW_STATIC
 #include <iostream>
 #include <fstream>
@@ -28,7 +29,9 @@ int main(int argc, char** argv) {
     Camera2D *camera2D = new Camera2D();
     Camera *currentCamera = cameraFPS;
 
-    /**APPLICATION LOOP***/
+    */
+/**APPLICATION LOOP***//*
+
     int rightPressed = 0;
     bool done = false;
     while(!done) {
@@ -73,3 +76,4 @@ int main(int argc, char** argv) {
 
     return EXIT_SUCCESS;
 }
+*/

@@ -6,7 +6,9 @@
 
 GameBoard::GameBoard(const std::string &boardPath) : boardPath(boardPath),
                                                      cam2D(new Camera2D()),
-                                                     camFPS(new CameraFPS()){
+                                                     camFPS(new CameraFPS()),
+                                                     gumNumber(0)
+{
 
     try {
         loadBoard();
@@ -50,6 +52,10 @@ void GameBoard::createGhosts() {
             if(tile->getInitialState() == GHOST){
                 startingTiles.push_back(tile);
             }
+            //putting that here for the moment later will mix create Ghost and create CactusMan and this in a switch
+            else if(tile->getInitialState() == GUM || tile->getInitialState() == SUPERGUM){
+                gumNumber ++;
+            }
         }
     }
     if(startingTiles.size() < 4){
@@ -87,8 +93,17 @@ void GameBoard::createCactusman() {
 
 
 void GameBoard::handleCollisions() {
-    player.dropTile();
-    /*
+    int type = player.dropTile();
+    switch (type) {
+        case GUM:
+            gumNumber --;
+            break;
+        case SUPERGUM:
+            gumNumber --;
+            break;
+    }
+
+    /* use to redo walls
         std::vector<Tile *> neighbours= tile.getNeighbours();
 
     for(unsigned int i;i<neighbours.size();i++){
@@ -98,11 +113,7 @@ void GameBoard::handleCollisions() {
             break;
         }
     }
-    if(tile.type() == GUM || tile.type() == SUPERGUM || tile.type() == FRUIT){
-        if (SquareDistance(player.getPosition(),tile.getCenter()) < 0.04 ){ //distance less than 0.2
-            tile.drop(player);
-        }
-    }
+
     else if(tile.type() == ELEVATOR){
         //load upstairs gameboard
 
@@ -196,6 +207,14 @@ void GameBoard::destroyTiles() {
 void GameBoard::destroy() {
     destroyCamera();
     destroyTiles();
+}
+
+bool GameBoard::hasWon() {
+    return gumNumber == 0;
+}
+
+bool GameBoard::hasLost() {
+    return player.getLives() == 0;
 }
 
 

@@ -54,6 +54,7 @@ void GameApp::appLoop() {
         }
         gameboard->handleCollisions();
         gameboard->render(windowManager);
+        if(gameboard->hasWon() || gameboard->hasLost()) done = true;
     }
     destroy();
 
