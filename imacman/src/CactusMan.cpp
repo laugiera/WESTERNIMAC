@@ -101,12 +101,10 @@ bool CactusMan::isOnTile(const Tile *tile) {
 }
 
 bool CactusMan::isOnCrossRoad() {
-    /*
-    if(tile->getNeighbours().size() > 2){
-        return true;
+    if (tile->getNeighbours().size() == 2 &&
+        (*tile->getNeighbours()[0])->isAligned(*tile->getNeighbours()[1])){
+        return false;
     }
-    return false;
-     */
     return true;
 }
 
