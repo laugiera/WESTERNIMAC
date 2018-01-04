@@ -13,7 +13,6 @@ GameBoard::GameBoard(const std::string &boardPath) : boardPath(boardPath),
         loadBoard();
         createGhosts();
         createCactusman();
-        //OpenGlManager renderEngine();
     } catch (std::runtime_error &e){
         std::string message("GameBoard has not been properly initialized : ");
         message += e.what();
@@ -140,9 +139,7 @@ void GameBoard::changeCamera() {
 }
 
 GameBoard::~GameBoard() {
-    currentCam = nullptr;
-    delete(cam2D);
-    delete(camFPS);
+
 }
 
 void GameBoard::moveUp() {
@@ -167,6 +164,12 @@ void GameBoard::zoom() {
 
 void GameBoard::dezoom() {
     currentCam->moveFront(-1);
+}
+
+void GameBoard::destroyCamera() {
+    currentCam = nullptr;
+    delete(cam2D);
+    delete(camFPS);
 }
 
 

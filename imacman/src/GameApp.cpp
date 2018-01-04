@@ -9,7 +9,7 @@ GameApp::GameApp(const std::string &appPath) : appPath(appPath),
                                                windowManager(Utils::windowWidth, Utils::windowHeight, "GLImac")
 {
     OpenGlManager::getInstance().init(appPath.c_str());
-    boardPath = Tools::getFolderPath(appPath) + "/data/board01.txt";
+    boardPath = Tools::getFolderPath(appPath) + "/data/board00.txt";
     gameboard = GameBoard(boardPath);
 
 }
@@ -40,13 +40,20 @@ void GameApp::appLoop() {
                 gameboard.dezoom();
             else if (e.type == SDL_QUIT) {
                 done = true; // Leave the loop after this iteration
+                std::clog << "QUIT" << std::endl;
             }
         }
         gameboard.render(windowManager);
+        std :: clog << "render gameboard" << std::endl;
 
     }
+    destroy();
 
 }
 
 GameApp::~GameApp() {
+}
+
+void GameApp::destroy() {
+    gameboard.destroyCamera();
 }

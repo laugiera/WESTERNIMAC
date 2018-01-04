@@ -19,6 +19,8 @@ public:
 
     void appLoop();
 
+    void destroy();
+
 
 private:
     GameBoard gameboard;

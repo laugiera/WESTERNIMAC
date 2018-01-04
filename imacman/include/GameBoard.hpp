@@ -49,6 +49,9 @@ public:
 
     void changeCamera();
 
+    void destroyCamera();
+
+
 private:
     CactusMan player;
     std::vector<std::vector<Tile>> tiles;
