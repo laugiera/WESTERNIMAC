@@ -11,6 +11,8 @@ Camera2D::Camera2D(){
     positionX = 0;
     positionY = 0;
 }
+
+//fcts de déplacement à enlever qd on cleanera
 void Camera2D::zoom(float delta){
     m_fDistance += delta;
 }

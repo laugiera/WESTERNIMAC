@@ -22,7 +22,7 @@ CameraFPS::CameraFPS()
     m_fTheta = 0;
     computeDirectionVectors();
 }
-
+//fcts de déplacement à enlever qd on cleanera
 void CameraFPS::moveLeft(float t)
 {
     m_Position += m_LeftVector*t;

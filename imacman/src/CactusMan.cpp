@@ -20,13 +20,19 @@ CactusMan::~CactusMan(){
 }
 
 void CactusMan::moveFront(float step){
+    glm::vec2 previousPosition = position;
     //position.y-=step;
     position += glm::vec2(frontVector.x, frontVector.z) * step;
+    if(!isOnWalkableTile()){
+        position = previousPosition;
+    }
 }
 
 void CactusMan::rotateLeft(){
-    rotation += 90;
-    computeDirectionVectors();
+    if(isOnCrossRoad()){
+        rotation += 90;
+        computeDirectionVectors();
+    }
 }
 
 void CactusMan::moveLeft(float step){
@@ -77,6 +83,43 @@ const glm::vec3 &CactusMan::getLeftVector() const {
 }
 
 void CactusMan::rotateRight() {
-    rotation -= 90;
-    computeDirectionVectors();
+    if(isOnCrossRoad()){
+        rotation -= 90;
+        computeDirectionVectors();
+    }
 }
+
+bool CactusMan::isOnTile(const Tile *tile) {
+    if(position.x >= tile->getCenter().x -0.5 &&
+       position.x <= tile->getCenter().x + 0.5 &&
+       position.y >= tile->getCenter().y - 0.5 &&
+       position.y <= tile->getCenter().y + 0.5 ) {
+        return true;
+    }
+    return false;
+}
+
+bool CactusMan::isOnCrossRoad() {
+    /*
+    if(tile->getNeighbours().size() > 2){
+        return true;
+    }
+    return false;
+     */
+    return true;
+}
+
+bool CactusMan::isOnWalkableTile() {
+    if(isOnTile(tile)){
+        return true;
+    } else {
+        for(int i = 0; i<tile->getNeighbours().size(); i++){
+            if(isOnTile(tile->getNeighbours().at(i))){
+                tile = tile->getNeighbours().at(i);
+                return true;
+            }
+        }
+        return false;
+    }
+}
+

@@ -25,6 +25,9 @@ public:
     void rotateLeft();
     void rotateRight();
     void computeDirectionVectors();
+    bool isOnTile(const Tile * tile);
+    bool isOnCrossRoad();
+    bool isOnWalkableTile();
 
     //getters setters
     const int &getLives() const {return _lives;}
