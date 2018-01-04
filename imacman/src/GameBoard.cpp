@@ -117,7 +117,7 @@ void GameBoard::collision(Tile &tile, CactusMan &player){
     }
 }
 
-void GameBoard::render(glimac::SDLWindowManager windowManager) {
+void GameBoard::render(glimac::SDLWindowManager & windowManager) {
     for (std::vector<Tile>& tileLine: tiles) {
         for(Tile & tile: tileLine ){
             tile.render();

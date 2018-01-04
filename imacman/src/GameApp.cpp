@@ -40,12 +40,9 @@ void GameApp::appLoop() {
                 gameboard.dezoom();
             else if (e.type == SDL_QUIT) {
                 done = true; // Leave the loop after this iteration
-                std::clog << "QUIT" << std::endl;
             }
         }
         gameboard.render(windowManager);
-        std :: clog << "render gameboard" << std::endl;
-
     }
     destroy();
 

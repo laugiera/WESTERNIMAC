@@ -33,7 +33,7 @@ public:
 
     void collision(Tile &tile, CactusMan &player);
 
-    void render(glimac::SDLWindowManager windowManager);
+    void render(glimac::SDLWindowManager & windowManager);
 
     void moveUp();
 
