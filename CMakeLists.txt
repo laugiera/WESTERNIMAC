@@ -12,21 +12,17 @@ find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(GLUT REQUIRED)
 find_package(GLU REQUIRED)
-#find_package(SDL_mixer REQUIRED)
-#find_package(SDL2_Mixer REQUIRED)
+find_package(SDL2_mixer REQUIRED)
 
-#${SDL2_MIXER_INCLUDE_DIR}
-#${SDL2_MIXER_LIBRARIES}
-#mais ça marche pas en plus je vois pk on a besoin de l'inclure vu qu'il est dans sdl2 ..
-
-include_directories( ${SDL2_INCLUDE_DIR}  ${OPENGL_INCLUDE_DIR} ${GLEW_INCLUDE_DIR} ${GLUT_INCLUDE_DIR} ${GLU_INCLUDE_DIR} glimac/include third-party/include glcustom/include)
+include_directories( ${SDL2_INCLUDE_DIR} ${SDL2_MIXER_LIBRARIES} ${SDL2_MIXER_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLEW_INCLUDE_DIR} ${GLUT_INCLUDE_DIR} ${GLU_INCLUDE_DIR} glimac/include third-party/include glcustom/include)
 
 if(UNIX)
-    set(ALL_LIBRARIES glimac glcustom  ${SDL2_LIBRARY} ${OPENGL_LIBRARIES} ${GLEW_LIBRARY} ${GLUT_LIBRARY} ${GLU_LIBRARY})
+    set(ALL_LIBRARIES glimac glcustom ${SDL2_LIBRARY} ${OPENGL_LIBRARIES} ${GLEW_LIBRARY} ${GLUT_LIBRARY} ${GLU_LIBRARY})
 endif(UNIX)
 
 if(WIN32)
     set(ALL_LIBRARIES mingw32 glcustom glimac SDL2main SDL2 glew32s opengl32 freeglut glu32)
+    target_link_libraries(${CMAKE_PROJECT_NAME} ${SDL2_LIBRARY} ${SDL2_MIXER_LIBRARIES} ${SDL2_MIXER_INCLUDE_DIR})
 endif(WIN32)
 
 add_subdirectory(glimac)

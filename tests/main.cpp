@@ -5,6 +5,7 @@
 #include <iostream>
 #include <GL/glut.h>
 #include <glimac/SDL2WindowManager.hpp>
+//#include "../dependencies/SDL2/include/SDL2/SDL_mixer.h"
 #include <SDL2/SDL_mixer.h>
 
 
@@ -120,10 +121,10 @@ int main(int argc, char** argv)
 
     LoadTextures(textures, renderer);
 
-   /* Mix_Chunk *MMusic;
+    Mix_Chunk *MMusic;
     MMusic= Mix_LoadWAV("sons/MMSong.wav"); //Chargement de la musique du fond
     Mix_Chunk *KMusic = Mix_LoadWAV("sons/KeySound.wav"); //Chargement du son touche
-    Mix_PlayChannel(1, MMusic, -1);*/
+    Mix_PlayChannel(1, MMusic, -1);
 
     while (loop1)
     {
