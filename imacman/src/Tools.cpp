@@ -118,6 +118,9 @@ bool Tools::WaitForSeconds(double secondsToWait){
     }
 }
 
+float  Tools::SquareDistance(glm::vec2 v1, glm::vec2 v2){ //check the square to avoid using roots
+    return pow((v2.x-v2.x),2) - pow((v1.y-v1.y),2);
+}
 /*
 //returns vector of path from s to d
 std::vector<Tile *> Tools::isReachable(Tile s, Tile d, std::vector<std::vector<Tile>> tiles)

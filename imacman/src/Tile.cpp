@@ -120,3 +120,9 @@ Tile::~Tile() {
      */
 }
 
+bool Tile::isAligned(Tile *tile) {
+    if(tile->getCenter().x == center.x || tile->getCenter().y == center.y ) {
+        return true;
+    } else return false;
+}
+

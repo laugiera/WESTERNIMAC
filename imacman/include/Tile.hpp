@@ -32,6 +32,8 @@ public:
 
     void drop(CactusMan &player);
 
+    bool isAligned(Tile * tile);
+
     int type(); //returns tile type
 
     int getInitialState() const;

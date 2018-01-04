@@ -10,6 +10,8 @@
 #include <vector>
 #include <iostream>
 #include <cstring>
+#include <math.h>
+#include "glm/vec2.hpp"
 //#include "Tile.hpp"
 
 class Tile;
@@ -43,6 +45,8 @@ static std::string getFolderPath(const std::string & filePath);
 static bool WaitForSeconds(double secondsToWait);
 //returns vector of path from s to d
 //static std::vector<Tile *> isReachable(Tile s, Tile d, std::vector<std::vector<Tile>> tiles);
+
+static float  SquareDistance(glm::vec2 v1, glm::vec2 v2);
 
 };
 

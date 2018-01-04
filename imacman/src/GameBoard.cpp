@@ -3,7 +3,6 @@
 //
 
 #include "GameBoard.hpp"
-#include "OpenGlManager.hpp"
 
 GameBoard::GameBoard(const std::string &boardPath) : boardPath(boardPath),
                                                      cam2D(new Camera2D()),
@@ -86,17 +85,13 @@ void GameBoard::createCactusman() {
     }
 }
 
-float  SquareDistance(glm::vec2 v1, glm::vec2 v2){ //check the square to avoid using roots
 
-    return pow((v2.x-v2.x),2) - pow((v1.y-v1.y),2);
-
-}
 void GameBoard::collision(Tile &tile, CactusMan &player){
     /*
         std::vector<Tile *> neighbours= tile.getNeighbours();
 
     for(unsigned int i;i<neighbours.size();i++){
-
+        //check the square to avoid using roots
         if (SquareDistance(player.getPosition(),neighbours[i]->getCenter())< 0.25){ //distance less than (0.5)²
             tile=*(neighbours[i]);
             break;
