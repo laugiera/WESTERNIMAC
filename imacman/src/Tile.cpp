@@ -6,7 +6,7 @@
 #include "Wall.hpp"
 #include "Elevator.hpp"
 
-Tile::Tile(int id, const glm::vec2 &center, const std::vector<Tile *> &neighbours, const int &initiateState)
+Tile::Tile(int id, const glm::vec2 &center, const std::vector<Tile **> &neighbours, const int &initiateState)
         : id(id), center(center),
           neighbours(neighbours), initialState(initiateState)
 {
@@ -87,7 +87,7 @@ const glm::vec2 &Tile::getCenter() const {
     return center;
 }
 
-const std::vector<Tile *> &Tile::getNeighbours() const {
+const std::vector<Tile **> &Tile::getNeighbours() const {
     return neighbours;
 }
 

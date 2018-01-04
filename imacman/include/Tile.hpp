@@ -22,7 +22,7 @@ public:
 
     virtual ~Tile();
 
-    Tile(int id, const glm::vec2 &center, const std::vector<Tile *> &neighbours, const int &initiateState);
+    Tile(int id, const glm::vec2 &center, const std::vector<Tile **> &neighbours, const int &initiateState);
 
     friend std::ostream & operator<<(std::ostream & stream, Tile & tile);
 
@@ -40,14 +40,14 @@ public:
 
     const glm::vec2 &getCenter() const;
 
-    const std::vector<Tile *> &getNeighbours() const;
+    const std::vector<Tile **> &getNeighbours() const;
 
     void createRenderModel();
 
 private:
     int id;
     glm::vec2 center; // x and y coordinates relative to the gameboard
-    std::vector<Tile *> neighbours;
+    std::vector<Tile **> neighbours;
     int initialState;
     GameElement * element;
     RenderModel * renderModel;

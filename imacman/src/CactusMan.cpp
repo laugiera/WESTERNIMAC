@@ -114,8 +114,9 @@ bool CactusMan::isOnWalkableTile() {
         return true;
     } else {
         for(int i = 0; i<tile->getNeighbours().size(); i++){
-            if(isOnTile(tile->getNeighbours().at(i))){
-                tile = tile->getNeighbours().at(i);
+            if(isOnTile(*(tile->getNeighbours().at(i)))){
+                Tile ** newTile = tile->getNeighbours().at(i);
+                tile = *newTile;
                 return true;
             }
         }

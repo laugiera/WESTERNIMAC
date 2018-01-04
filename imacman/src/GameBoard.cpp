@@ -46,10 +46,10 @@ void GameBoard::loadBoard() {
 void GameBoard::createGhosts() {
     //look for tiles in the tileMatrix which have GHOST for initialState
     std::vector<Tile*> startingTiles;
-    for (std::vector<Tile>& tileLine: tiles) {
-        for(Tile & tile: tileLine ){
-            if(tile.getInitialState() == GHOST){
-                startingTiles.push_back(&tile);
+    for (std::vector<Tile*>& tileLine: tiles) {
+        for(Tile * tile: tileLine ){
+            if(tile->getInitialState() == GHOST){
+                startingTiles.push_back(tile);
             }
         }
     }
@@ -72,10 +72,10 @@ void GameBoard::createGhosts() {
 void GameBoard::createCactusman() {
     //look for the tile in the tileMatrix which has PACMAN for initialState
     Tile * startingTile;
-    for (auto& tileLine: tiles) {
-        for(auto & tile: tileLine ){
-            if(tile.getInitialState() == PACMAN){
-                startingTile = &tile;
+    for (std::vector<Tile*>& tileLine: tiles) {
+        for(Tile * tile: tileLine ){
+            if(tile->getInitialState() == PACMAN){
+                startingTile = tile;
             }
         }
     }
@@ -92,8 +92,8 @@ float  SquareDistance(glm::vec2 v1, glm::vec2 v2){ //check the square to avoid u
 
 }
 void GameBoard::collision(Tile &tile, CactusMan &player){
-
-    std::vector<Tile *> neighbours= tile.getNeighbours();
+    /*
+        std::vector<Tile *> neighbours= tile.getNeighbours();
 
     for(unsigned int i;i<neighbours.size();i++){
 
@@ -118,12 +118,13 @@ void GameBoard::collision(Tile &tile, CactusMan &player){
         // need to also check if dude is out of the map
         // freeze the y if y>board.height and freeze x if x>board.width
     }
+     */
 }
 
 void GameBoard::render(glimac::SDLWindowManager & windowManager) {
-    for (std::vector<Tile>& tileLine: tiles) {
-        for(Tile & tile: tileLine ){
-            tile.render();
+    for (std::vector<Tile*>& tileLine: tiles) {
+        for(Tile * tile: tileLine ){
+            tile->render();
         }
     }
     player.render();
@@ -184,6 +185,21 @@ void GameBoard::destroyCamera() {
     currentCam = nullptr;
     delete(cam2D);
     delete(camFPS);
+}
+
+void GameBoard::destroyTiles() {
+    for (std::vector<Tile*>& tileLine: tiles) {
+        for(Tile * tile: tileLine ){
+            delete(tile);
+        }
+        tileLine.clear(); // should check if useful
+    }
+
+}
+
+void GameBoard::destroy() {
+    destroyCamera();
+    destroyTiles();
 }
 
 

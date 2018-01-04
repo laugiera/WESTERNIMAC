@@ -51,10 +51,14 @@ public:
 
     void destroyCamera();
 
+    void destroyTiles();
+
+    void destroy();
+
 
 private:
     CactusMan player;
-    std::vector<std::vector<Tile>> tiles;
+    std::vector<std::vector<Tile *>> tiles;
     std::string boardPath;
     std::vector<Ghost*> ghosts;
     Camera * currentCam;

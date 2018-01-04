@@ -32,8 +32,8 @@ std::vector<std::string> BoardLoader::load(std::string filePath) {
  * @param filePath path to the file
  * @return matrix of Tiles
  */
-std::vector<std::vector<Tile>> BoardLoader::createTileMatrix(std::string filePath) {
-    std::vector<std::vector<Tile>> gameBoard;
+std::vector<std::vector<Tile*>> BoardLoader::createTileMatrix(std::string filePath) {
+    std::vector<std::vector<Tile*>> gameBoard;
     float tileSize = 1;
     float offset = tileSize/2;
 
@@ -44,14 +44,15 @@ std::vector<std::vector<Tile>> BoardLoader::createTileMatrix(std::string filePat
         unsigned int colNumber = dataMatrix[0].size();
         //fil matrix with default Tiles
         for(int i = 0; i<lineNumber; i++){
-            gameBoard.push_back(std::vector<Tile>(colNumber,Tile()));
+            gameBoard.push_back(std::vector<Tile*>(colNumber, new Tile()));
         }
         //creates tile from a character (EMPTY, GUM, SUPERGUM, FRUIT, WALL, GHOST, PACMAN ) and it's position in the matrix
         for(int i = 0; i<lineNumber; i++){
             for(int j = 0 ; j < colNumber; j++){
-                std::vector<Tile *> neighbours = findNeighbours(i,j,gameBoard, dataMatrix);
-                Tile t = createTile(dataMatrix[i][j], i*colNumber + j, glm::vec2(offset+float(j)*tileSize, offset+float(i)*tileSize), neighbours);
+                std::vector<Tile **> neighbours = findNeighbours(i,j,gameBoard, dataMatrix);
+                Tile * t = createTile(dataMatrix[i][j], i*colNumber + j, glm::vec2(offset+float(j)*tileSize, offset+float(i)*tileSize), neighbours);
                 gameBoard[i][j] = t;
+
             }
         }
 
@@ -95,21 +96,21 @@ std::vector<std::vector<std::string>> BoardLoader::loadDataMatrix(std::string fi
  * @param neighbours
  * @return
  */
-Tile BoardLoader::createTile(std::string type, int id, glm::vec2 center, std::vector<Tile *> neighbours){
+Tile * BoardLoader::createTile(std::string type, int id, glm::vec2 center, std::vector<Tile **> neighbours){
     if(type == "EMPTY"){
-        return Tile(id, center, neighbours, EMPTY);
+        return new Tile(id, center, neighbours, EMPTY);
     } else if (type == "WALL") {
-        return Tile(id, center, neighbours, WALL);
+        return new Tile(id, center, neighbours, WALL);
     } else if (type == "GUM") {
-        return Tile(id, center, neighbours, GUM);
+        return new Tile(id, center, neighbours, GUM);
     } else if (type == "SUPERGUM") {
-        return Tile(id, center, neighbours, SUPERGUM);
+        return new Tile(id, center, neighbours, SUPERGUM);
     } else if (type == "FRUIT") {
-        return Tile(id, center, neighbours, FRUIT);
+        return new Tile(id, center, neighbours, FRUIT);
     } else if (type == "GHOST") {
-        return Tile(id, center, neighbours, GHOST);
+        return new Tile(id, center, neighbours, GHOST);
     } else if (type == "PACMAN") {
-        return Tile(id, center, neighbours, PACMAN);
+        return new Tile(id, center, neighbours, PACMAN);
     } else throw std::runtime_error("In file : Tile (id:"+ std::to_string(id) +") initial state data empty or incorrect");
 }
 
@@ -121,22 +122,26 @@ Tile BoardLoader::createTile(std::string type, int id, glm::vec2 center, std::ve
  * @param dataMatrix data matrix from the file
  * @return pointer to the memory space the neighbours will occupy in the gameboard matrix
  */
-std::vector<Tile *> BoardLoader::findNeighbours(int i, int j, std::vector<std::vector<Tile>> &tiles, std::vector<std::vector<std::string>> &dataMatrix ) {
+std::vector<Tile **> BoardLoader::findNeighbours(int i, int j, std::vector<std::vector<Tile*>> & tiles, std::vector<std::vector<std::string>> &dataMatrix ) {
  //see if not prob with passing Tiles as ref
-    std::vector<Tile *> neighbours;
+    std::vector<Tile **> neighbours;
 
     if(dataMatrix[i][j] != "WALL"){
         if(i-1 >= 0 && dataMatrix[i-1][j] != "WALL"){
-            neighbours.push_back(&tiles[i-1][j]);
+            Tile ** t = &tiles[i-1][j];
+            neighbours.push_back(t);
         }
         if(i+1 < tiles.size() && dataMatrix[i+1][j] != "WALL"){
-            neighbours.push_back(&tiles[i+1][j]);
+            Tile ** t = &tiles[i+1][j];
+            neighbours.push_back(t);
         }
         if(j-1 >=0 && dataMatrix[i][j-1] != "WALL"){
-            neighbours.push_back(&tiles[i][j-1]);
+            Tile ** t = &tiles[i][j-1];
+            neighbours.push_back(t);
         }
         if(j+1 < tiles[i].size() && dataMatrix[i][j+1] != "WALL"){
-            neighbours.push_back(&tiles[i][j+1]);
+            Tile ** t = &tiles[i][j+1];
+            neighbours.push_back(t);
         }
     }
 

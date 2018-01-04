@@ -9,8 +9,14 @@ GameApp::GameApp(const std::string &appPath) : appPath(appPath),
                                                windowManager(Utils::windowWidth, Utils::windowHeight, "GLImac")
 {
     OpenGlManager::getInstance().init(appPath.c_str());
-    boardPath = Tools::getFolderPath(appPath) + "/data/board01.txt";
-    gameboard = GameBoard(boardPath);
+    boardPath = Tools::getFolderPath(appPath) + "/data/board00.txt";
+    try {
+        gameboard = GameBoard(boardPath);
+    } catch (std::runtime_error &e) {
+        std::cerr << e.what() << std::endl;
+    }
+
+
 
 }
 
@@ -56,5 +62,5 @@ GameApp::~GameApp() {
 }
 
 void GameApp::destroy() {
-    gameboard.destroyCamera();
+    gameboard.destroy();
 }
