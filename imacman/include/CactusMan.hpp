@@ -28,13 +28,14 @@ public:
     bool isOnTile(const Tile * tile);
     bool isOnCrossRoad();
     bool isOnWalkableTile();
+    int dropTile();
 
     //getters setters
-    const int &getLives() const {return _lives;}
-    void setLives(int lives) {_lives =lives ;}
+    const int &getLives() const {return lives;}
+    void setLives(int _lives) {lives =_lives ;}
 
-    const int &getScore() const {return _score;}
-    void setScore(int score){_score=score ;}
+    const int &getScore() const {return score;}
+    void setScore(int _score){score= _score ;}
 
     const glm::vec2 &getPosition() const {return position;}
     void setPosition(glm::vec2 pos){position=pos ;}
@@ -51,7 +52,7 @@ private :
     float rotation;
     glm::vec3 frontVector;
     glm::vec3 leftVector;
-    int _score, _lives;
+    int score, lives;
     RenderModel * renderModel;
 
 };

@@ -86,7 +86,8 @@ void GameBoard::createCactusman() {
 }
 
 
-void GameBoard::collision(Tile &tile, CactusMan &player){
+void GameBoard::handleCollisions() {
+    player.dropTile();
     /*
         std::vector<Tile *> neighbours= tile.getNeighbours();
 

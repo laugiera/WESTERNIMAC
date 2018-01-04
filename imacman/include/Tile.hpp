@@ -11,7 +11,7 @@
 #include "OpenGlManager.hpp"
 #include "Droppable.hpp"
 
-enum {WALL, EMPTY, GHOST, PACMAN, GUM, SUPERGUM, FRUIT, ELEVATOR};
+
 
 class CactusMan;
 class GameElement;
@@ -30,7 +30,7 @@ public:
 
     void render();
 
-    void drop(CactusMan &player);
+    int drop();
 
     bool isAligned(Tile * tile);
 

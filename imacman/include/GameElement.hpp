@@ -10,6 +10,7 @@
 
 class RenderModel;
 
+enum {WALL, EMPTY, GHOST, PACMAN, GUM, SUPERGUM, FRUIT, ELEVATOR};
 
 class GameElement {
 public:
@@ -19,7 +20,7 @@ public:
 
     virtual void render(glm::vec2 position) = 0;
 
-    virtual void drop(/*CactusMan &player*/) = 0;
+    virtual int drop() = 0;
 
     virtual void createRenderModel() = 0;
 

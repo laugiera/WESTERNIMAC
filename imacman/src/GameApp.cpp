@@ -52,6 +52,7 @@ void GameApp::appLoop() {
                 done = true; // Leave the loop after this iteration
             }
         }
+        gameboard->handleCollisions();
         gameboard->render(windowManager);
     }
     destroy();

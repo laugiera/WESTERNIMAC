@@ -31,7 +31,7 @@ public:
 
     void createCactusman();
 
-    void collision(Tile &tile, CactusMan &player);
+    void handleCollisions();
 
     void render(glimac::SDLWindowManager & windowManager);
 
