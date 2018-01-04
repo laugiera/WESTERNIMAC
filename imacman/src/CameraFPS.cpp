@@ -39,7 +39,16 @@ glm::mat4 CameraFPS::getViewMatrix() const
 }
 
 void CameraFPS::follow(const CactusMan &player) {
-    m_Position = glm::vec3(player.getPosition().x, 0, player.getPosition().y) * - (OpenGlManager::getInstance().getConversionFactor());
-    m_fPhi = player.getRotation().y;
+    m_Position = glm::vec3(player.getPosition().x, 0.8, player.getPosition().y) * (OpenGlManager::getInstance().getConversionFactor());
+    m_fPhi = player.getRotation();
+    m_FrontVector = player.getFrontVector();
+    m_LeftVector = player.getLeftVector();
+    moveFront(10);
+
+}
+
+void CameraFPS::rotateLeft(float t) {
+        m_fPhi += glm::radians(t);
+        computeDirectionVectors();
 }
 

@@ -69,7 +69,7 @@ void RenderModel::transform(const glm::vec3 &translate, const float angle, const
     glm::mat4 transformation = glm::mat4(1.f);
     float conversionFactor = OpenGlManager::getInstance().getConversionFactor();
     transformation = glm::translate(transformation, translate *conversionFactor);
-    transformation = glm::rotate(transformation,angle,axesRotation);
+    transformation = glm::rotate(transformation,glm::radians(angle),axesRotation);
     transformation = glm::scale(transformation,scale);
     modelMatrix = transformation/* * modelMatrix*/;
 }

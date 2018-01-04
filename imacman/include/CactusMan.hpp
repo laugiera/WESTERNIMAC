@@ -23,6 +23,8 @@ public:
     void moveFront(float step);
     void moveLeft(float step);
     void rotateLeft();
+    void rotateRight();
+    void computeDirectionVectors();
 
     //getters setters
     const int &getLives() const {return _lives;}
@@ -34,12 +36,18 @@ public:
     const glm::vec2 &getPosition() const {return position;}
     void setPosition(glm::vec2 pos){position=pos ;}
 
-    const glm::vec2 &getRotation() const;
+    float getRotation() const;
+
+    const glm::vec3 &getFrontVector() const;
+
+    const glm::vec3 &getLeftVector() const;
 
 private :
     Tile * tile;
     glm::vec2 position;
-    glm::vec2 rotation;
+    float rotation;
+    glm::vec3 frontVector;
+    glm::vec3 leftVector;
     int _score, _lives;
     RenderModel * renderModel;
 

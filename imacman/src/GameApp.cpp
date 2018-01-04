@@ -30,6 +30,10 @@ void GameApp::appLoop() {
                     gameboard.moveUp();
                 } else if (e.key.keysym.sym == SDLK_s){
                     gameboard.moveDown();
+                } else if (e.key.keysym.sym == SDLK_UP){
+                    gameboard.zoom();
+                } else if (e.key.keysym.sym == SDLK_DOWN){
+                    gameboard.dezoom();
                 }
                 else if (e.key.keysym.sym == SDLK_c) {
                     gameboard.changeCamera();

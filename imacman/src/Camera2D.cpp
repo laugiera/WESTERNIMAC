@@ -23,14 +23,17 @@ void Camera2D::moveFront(float t){
 }
 
 glm::mat4 Camera2D::getViewMatrix() const{
-    glm::mat4 viewMatrix = glm::translate(glm::mat4(1.f),glm::vec3(positionX, -positionY, -m_fDistance));
-    viewMatrix = glm::rotate(viewMatrix, glm::radians(m_fAngleY), glm::vec3(0,1,0));
+    glm::mat4 viewMatrix = glm::mat4(1.f);
+
     viewMatrix = glm::rotate(viewMatrix, glm::radians(m_fAngleX), glm::vec3(1,0,0));
+    viewMatrix = glm::translate(viewMatrix,glm::vec3(-positionX, -m_fDistance, -positionY));
+    //viewMatrix = glm::rotate(viewMatrix, glm::radians(-m_fAngleY), glm::vec3(0,1,0));
+
     return viewMatrix;
 }
 
 void Camera2D::follow(CactusMan &player) {
-    positionX = player.getPosition().x * -(OpenGlManager::getInstance().getConversionFactor());
-    positionY = player.getPosition().y * -(OpenGlManager::getInstance().getConversionFactor());
-    m_fAngleY = player.getRotation().y;
+    positionX = player.getPosition().x * (OpenGlManager::getInstance().getConversionFactor());
+    positionY = player.getPosition().y * (OpenGlManager::getInstance().getConversionFactor());
+    m_fAngleY = player.getRotation();
 }
