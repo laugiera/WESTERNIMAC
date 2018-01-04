@@ -24,9 +24,9 @@ void GameApp::appLoop() {
             if (e.type == SDL_KEYDOWN) {
                 if (e.key.keysym.sym == SDLK_q){
                     gameboard.moveLeft();
-                } else if (e.key.keysym.sym == SDLK_z){
-                    gameboard.moveRight();
                 } else if (e.key.keysym.sym == SDLK_d){
+                    gameboard.moveRight();
+                } else if (e.key.keysym.sym == SDLK_z){
                     gameboard.moveUp();
                 } else if (e.key.keysym.sym == SDLK_s){
                     gameboard.moveDown();

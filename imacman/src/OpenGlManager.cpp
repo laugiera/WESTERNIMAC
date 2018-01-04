@@ -58,3 +58,7 @@ const std::string &OpenGlManager::getAppFolderPath() const {
 void OpenGlManager::removeRenderModel(RenderModel *model) {
     models.erase(std::find(models.begin(), models.end(), model));
 }
+
+float OpenGlManager::getConversionFactor() const {
+    return conversionFactor;
+}

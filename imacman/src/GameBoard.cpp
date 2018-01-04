@@ -8,7 +8,7 @@
 GameBoard::GameBoard(const std::string &boardPath) : boardPath(boardPath),
                                                      cam2D(new Camera2D()),
                                                      camFPS(new CameraFPS()){
-    currentCam = camFPS;
+
     try {
         loadBoard();
         createGhosts();
@@ -18,6 +18,9 @@ GameBoard::GameBoard(const std::string &boardPath) : boardPath(boardPath),
         message += e.what();
         throw std::runtime_error(message);
     }
+    currentCam = camFPS;
+    camFPS->follow(player);
+    cam2D->follow(player);
 
 
 }
@@ -143,27 +146,38 @@ GameBoard::~GameBoard() {
 }
 
 void GameBoard::moveUp() {
-    currentCam->moveFront(2.0);
+    player.moveFront(0.1);
+    camFPS->follow(player);
+    cam2D->follow(player);
+
+
 }
 
 void GameBoard::moveDown() {
-    currentCam->moveFront(-2.0);
+    player.moveFront(-0.1);
+    camFPS->follow(player);
+    cam2D->follow(player);
 }
 
 void GameBoard::moveLeft() {
-    currentCam->moveLeft(2.0);
+    player.moveLeft(0.1);
+    camFPS->follow(player);
+    cam2D->follow(player);
 }
 
 void GameBoard::moveRight() {
-    currentCam->moveLeft(-2.0);
+    player.moveLeft(-0.1);
+    camFPS->follow(player);
+    cam2D->follow(player);
+
 }
 
 void GameBoard::zoom() {
-    currentCam->moveFront(1);
+    cam2D->zoom(1);
 }
 
 void GameBoard::dezoom() {
-    currentCam->moveFront(-1);
+    cam2D->zoom(-1);
 }
 
 void GameBoard::destroyCamera() {

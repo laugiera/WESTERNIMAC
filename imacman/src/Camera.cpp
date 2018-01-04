@@ -4,3 +4,5 @@
 
 #include "Camera.hpp"
 
+void Camera::follow(CactusMan &player) {
+}

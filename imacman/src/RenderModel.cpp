@@ -2,6 +2,7 @@
 // Created by natshez on 29/12/2017.
 //
 
+#include <OpenGlManager.hpp>
 #include "RenderModel.hpp"
 
 RenderModel::RenderModel(const std::string &_modelPath,
@@ -66,7 +67,7 @@ void RenderModel::render(const glm::mat4 &viewMatrix, Light &light){
 void RenderModel::transform(const glm::vec3 &translate, const float angle, const glm::vec3 &axesRotation,
                             const glm::vec3 &scale) {
     glm::mat4 transformation = glm::mat4(1.f);
-    float conversionFactor = 9.5;
+    float conversionFactor = OpenGlManager::getInstance().getConversionFactor();
     transformation = glm::translate(transformation, translate *conversionFactor);
     transformation = glm::rotate(transformation,angle,axesRotation);
     transformation = glm::scale(transformation,scale);

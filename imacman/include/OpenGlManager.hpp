@@ -23,6 +23,9 @@ public:
     void drawAll(glimac::SDLWindowManager &windowManager, glm::mat4 &viewMatrix);
     void addRenderModel(RenderModel * model);
     void removeRenderModel(RenderModel * model);
+
+    float getConversionFactor() const;
+
     OpenGlManager(OpenGlManager const&)= delete; //removed
     void operator=(OpenGlManager const&)= delete; //removed
     static OpenGlManager& getInstance()
@@ -34,6 +37,7 @@ public:
     const std::string &getAppFolderPath() const;
 
 private :
+    float conversionFactor = 9.5;
     Light light;
     std::vector<RenderModel*> models;
     std::string appFolderPath;

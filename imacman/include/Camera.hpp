@@ -9,6 +9,8 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include "CactusMan.hpp"
+#include "OpenGlManager.hpp"
 
 class Camera {
 public:
@@ -16,6 +18,7 @@ public:
     virtual void moveFront(float delta) = 0;
     virtual void moveLeft(float t) = 0;
     virtual glm::mat4 getViewMatrix() const = 0;
+    virtual void follow(CactusMan & player);
 
 };
 
