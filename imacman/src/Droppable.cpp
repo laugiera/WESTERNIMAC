@@ -17,6 +17,7 @@ void Droppable::createRenderModel() {
     std::string appFolderPath = OpenGlManager::getInstance().getAppFolderPath();
     try {
         renderModel = new RenderModel(appFolderPath + "/models/cube", appFolderPath + "/imacman", "3D2", "directionallight");
+        renderModel->setModelColor(glm::vec3(1,0,0),glm::vec3(1),glm::vec3(1));
         OpenGlManager::getInstance().addRenderModel(renderModel);
     } catch (std::runtime_error &e){
         std::cerr << e.what() << std::endl;

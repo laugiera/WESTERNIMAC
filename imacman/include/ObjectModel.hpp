@@ -24,13 +24,14 @@ public:
 
     void setIndices_vector(const std::vector<uint32_t> &indices_vector);
 
-    std::vector<float> getShininess() const;
 
-    const std::vector<glm::vec3>  &getKs() const;
+    const glm::vec3  &getKs() const;
 
-    const std::vector<glm::vec3>  &getKd() const;
+    const glm::vec3  &getKd() const;
 
     const glm::vec3 &getColor() const;
+
+    void setColor(glm::vec3 &_color, glm::vec3 &_kd, glm::vec3 &_ks);
 
 private:
     glimac::Geometry object;
@@ -38,9 +39,8 @@ private:
     std::string mtlPath;
     std::vector<glimac::ShapeVertex> vertices_vector;
     std::vector<uint32_t> indices_vector;
-//    std::vector<float> shininess;
-//    std::vector<glm::vec3> ks;
-//    std::vector<glm::vec3> kd;
+    glm::vec3 ks;
+    glm::vec3 kd;
     glm::vec3 color;
 
 

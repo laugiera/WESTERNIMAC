@@ -15,10 +15,10 @@ ObjectModel::ObjectModel(const std::string &_path):objPath(_path+".obj"),mtlPath
         vertices_vector = std::vector<glimac::ShapeVertex>(vertices, vertices+object.getVertexCount());
         indices_vector = std::vector<uint32_t>(object.getIndexBuffer(), object.getIndexBuffer()+object.getIndexCount());
 
-/*      ks = object.getM_Materials()[0].m_Ks;
-        shininess = object.getM_Materials()[0].m_shininess;
-        kd = object.getM_Materials()[0].m_Kd;*/
-        color = glm::vec3(1,0,0);
+
+        ks = glm::vec3(0);
+        kd = glm::vec3(0);
+        color = glm::vec3(0);
     }catch (std::runtime_error e){
         Print::printErrorMessage(e.what());
     }
@@ -33,17 +33,20 @@ const glm::vec3 &ObjectModel::getColor() const {
     return color;
 }
 
-/*std::vector<float> ObjectModel::getShininess() const {
-    return shininess;
-}
 
-const std::vector<glm::vec3> &ObjectModel::getKs() const {
+const glm::vec3 &ObjectModel::getKs() const {
     return ks;
 }
 
-const std::vector<glm::vec3> &ObjectModel::getKd() const {
+const glm::vec3 &ObjectModel::getKd() const {
     return kd;
-}*/
+}
+
+void ObjectModel::setColor(glm::vec3 &_color, glm::vec3 &_kd, glm::vec3 &_ks){
+    color = _color;
+    ks = _ks;
+    kd = _kd;
+}
 
 const std::vector<glimac::ShapeVertex> &ObjectModel::getVertices_vector() const {
     return vertices_vector;

@@ -35,5 +35,5 @@ vec3 blinnPhong(){
 
 void main() {
 
-   fsColor = blinnPhong() + color;
+   fsColor = blinnPhong() * color;
 }

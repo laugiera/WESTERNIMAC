@@ -2,6 +2,7 @@
 // Created by Lou on 16/12/2017.
 //
 
+/*
 #define GLEW_STATIC
 #include <glimac/SDL2WindowManager.hpp>
 #include <iostream>
@@ -26,7 +27,9 @@ using namespace glimac;
 
 
 int Dmain(int argc, char** argv) {
-    /***** SDL THINGY *****/
+    */
+/***** SDL THINGY *****//*
+
     // Initialize SDL and open a window
     SDLWindowManager windowManager(1000, 800, "GLImac");
     // Initialize glew for OpenGL3+ support
@@ -40,7 +43,9 @@ int Dmain(int argc, char** argv) {
 
     FilePath applicationPath(argv[0]);
 
-    /***** GPU PROGRAM *****/
+    */
+/***** GPU PROGRAM *****//*
+
 
     RenderModel renderCube = RenderModel("../../tests/models/cube",applicationPath,"3D2", "directionallight");
 
@@ -63,7 +68,9 @@ int Dmain(int argc, char** argv) {
     }
 
 
-    /***** BUFFERS *****/
+    */
+/***** BUFFERS *****//*
+
     glcustom::VBO vbo; // = glcustom::VBO();
     glcustom::IBO ibo = glcustom::IBO();
     glcustom::VAO vao = glcustom::VAO();
@@ -84,7 +91,9 @@ int Dmain(int argc, char** argv) {
     glEnable(GL_DEPTH_TEST);
 
 
-    /***CAMERA***/
+    */
+/***CAMERA***//*
+
     TrackballCamera Camera;
 
     // Application loop:
@@ -192,3 +201,4 @@ int Dmain(int argc, char** argv) {
 
     return EXIT_SUCCESS;
 }
+*/
