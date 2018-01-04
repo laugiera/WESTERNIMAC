@@ -36,13 +36,13 @@ void CactusMan::rotateLeft(){
 }
 
 void CactusMan::moveLeft(float step){
-    //position.x-=step;
-    //position += glm::vec2(leftVector.x, leftVector.z) * step;
-    if(step>0){
+    position.x+=step;
+    position += glm::vec2(leftVector.x, leftVector.z) * step;
+   /* if(step>0){
         rotateLeft();
     } else {
         rotateRight();
-    }
+    }*/
 }
 
 void CactusMan::createRenderModel() {
