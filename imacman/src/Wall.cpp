@@ -15,8 +15,9 @@ int Wall::drop(/*CactusMan &player*/) {
 void Wall::createRenderModel() {
     std::string appFolderPath = OpenGlManager::getInstance().getAppFolderPath();
     try {
-        renderModel = new RenderModel(appFolderPath + "/models/wall", appFolderPath + "/imacman", "3D2", "directionallight");
-        renderModel->setModelColor(glm::vec3( 0.510, 0.157, 0.157),glm::vec3(0.510, 0.157, 0.157),glm::vec3(1));
+        renderModel = new RenderModel(appFolderPath + "/models/wall", appFolderPath + "/imacman", "3D2", "texture");
+        renderModel->setModelColor(glm::vec3( 0.701, 0.443, 0.337),glm::vec3(0.510, 0.157, 0.157),glm::vec3(1));
+        renderModel->setTexture(appFolderPath + "/textures/wood.jpg");
         OpenGlManager::getInstance().addRenderModel(renderModel);
     } catch (std::runtime_error &e){
         std::cerr << e.what() << std::endl;

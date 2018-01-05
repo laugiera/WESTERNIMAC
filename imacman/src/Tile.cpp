@@ -58,7 +58,7 @@ void Tile::changeElement(int elementType) {
  * If the Tile owns a gemeElement triggers the same method for said element
  */
 void Tile::render() {
-    renderModel->transform(glm::vec3(center.x, 0, center.y), 0, glm::vec3(0,1,0), glm::vec3(1, 0.05, 1));
+    renderModel->transform(glm::vec3(center.x, 0, center.y), 0, glm::vec3(0,1,0), glm::vec3(1));
     if(element){
         element->render(center);
     }
@@ -100,8 +100,10 @@ const std::vector<Tile **> &Tile::getNeighbours() const {
 void Tile::createRenderModel() {
     std::string appFolderPath = OpenGlManager::getInstance().getAppFolderPath();
     try {
-        renderModel = new RenderModel(appFolderPath + "/models/cube", appFolderPath + "/imacman", "3D2", "directionallight");
-        renderModel->setModelColor(glm::vec3(0,1,1),glm::vec3(0.3412,0.8824,0.7765),glm::vec3(0.3500,0.3500,0.3500));
+        renderModel = new RenderModel(appFolderPath + "/models/tile", appFolderPath + "/imacman", "3D2", "texture");
+        renderModel->setModelColor(glm::vec3(0.933, 0.862, 0.549),glm::vec3(1),glm::vec3(1));
+        renderModel->setTexture(appFolderPath + "/textures/tile.jpg");
+
         OpenGlManager::getInstance().addRenderModel(renderModel);
         if(element){
             element->createRenderModel();

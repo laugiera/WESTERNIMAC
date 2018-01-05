@@ -9,12 +9,11 @@
 
 class PinkyGhost : public Ghost{
 public:
-    PinkyGhost();
-
     PinkyGhost(Tile *tile);
 
     ~PinkyGhost();
     void move(CactusMan &Player);
+    void color();
 };
 
 

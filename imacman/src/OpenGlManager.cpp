@@ -4,7 +4,7 @@
 
 #include "OpenGlManager.hpp"
 
-OpenGlManager::OpenGlManager() : light(glm::vec3(2)), models() {}
+OpenGlManager::OpenGlManager() : light(glm::vec3(1)), models() {}
 int OpenGlManager::init(const char* argv0){
 
     appFolderPath = Tools::getFolderPath(argv0);
@@ -22,7 +22,7 @@ int OpenGlManager::init(const char* argv0){
 }
 void OpenGlManager::drawAll(glimac::SDLWindowManager &windowManager, glm::mat4 &viewMatrix){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glClearColor(0.5, 0.5, 0.5, 1);
+    glClearColor(0.7, 0.3, 0.2, 1);
 
     //transformation
     light.setDirection();

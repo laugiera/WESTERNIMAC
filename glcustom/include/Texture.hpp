@@ -26,6 +26,10 @@ namespace glcustom {
         void bind(GLenum textureUnit = GL_TEXTURE0);
 
         void debind();
+
+        GLuint getM_id() const;
+
+        GLenum getM_texture_unit() const;
         /*
         void setParameter() -> do a functeur with gltexparameter function
         reprendre structure load;

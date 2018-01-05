@@ -11,12 +11,12 @@
 class BlinkyGhost : public Ghost{
 
 public:
-    BlinkyGhost();
 
     BlinkyGhost(Tile *tile);
 
     ~BlinkyGhost();
     void move(CactusMan &Player);
+    void color();
 
 
 };

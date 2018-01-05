@@ -11,12 +11,11 @@
 class ClydeGhost : public Ghost{
 
 public:
-    ClydeGhost();
-
     ClydeGhost(Tile *tile);
 
     ~ClydeGhost();
     void move(CactusMan &Player);
+    void color();
 
 };
 

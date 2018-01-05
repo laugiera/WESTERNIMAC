@@ -12,9 +12,9 @@ class InkyGhost : public Ghost{
 public:
     InkyGhost(Tile *tile);
 
-    InkyGhost();
     ~InkyGhost();
     void move(CactusMan &Player);
+    void color();
 
 };
 

@@ -18,12 +18,15 @@ public:
     //returns vector of path from s to d
     static std::vector<Tile *> isReachable(Tile s, Tile d, std::vector<std::vector<Tile>> tiles);
     void createRenderModel();
+    virtual void color() = 0;
     void render();
 
 private:
     Tile * tile;
     glm::vec2 position;
     float angle;
+
+protected:
     RenderModel * renderModel;
 
 };

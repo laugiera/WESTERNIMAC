@@ -5,10 +5,6 @@
 #include "ClydeGhost.hpp"
 
 
-ClydeGhost::ClydeGhost(){
-
-
-}
 ClydeGhost::~ClydeGhost(){
 
 
@@ -18,4 +14,10 @@ void ClydeGhost::move(CactusMan &Player){
 
 }
 
-ClydeGhost::ClydeGhost(Tile *tile) : Ghost(tile) {}
+void ClydeGhost::color(){
+    renderModel->setModelColor(glm::vec3(1, 0.960, 0.341),glm::vec3(1),glm::vec3(1));
+}
+
+ClydeGhost::ClydeGhost(Tile *tile) : Ghost(tile) {
+    this->color();
+}

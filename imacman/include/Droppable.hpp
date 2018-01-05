@@ -13,23 +13,26 @@ class Droppable : public GameElement{
 public:
     void render(glm::vec2);
     virtual int drop();
-    virtual void createRenderModel();
+    virtual void createRenderModel() = 0;
 };
 
 class Fruit : public Droppable {
 public:
     int drop(/*CactusMan &player*/);
+    void createRenderModel();
 };
 
 class Gum : public Droppable{
 public:
     int drop();
+    void createRenderModel();
 };
 
 class SuperGum : public Droppable {
 public:
     int drop();
     const bool &getMood() {return SuperMoodOn;}
+    void createRenderModel();
 private:
     bool SuperMoodOn=false; //set true when cactus can eat ghosts
 };

@@ -48,8 +48,9 @@ void CactusMan::moveLeft(float step){
 void CactusMan::createRenderModel() {
     std::string appFolderPath = OpenGlManager::getInstance().getAppFolderPath();
     try {
-        renderModel = new RenderModel(appFolderPath + "/models/cube", appFolderPath + "/imacman", "3D2", "directionallight");
-        renderModel->setModelColor(glm::vec3(0,1,0),glm::vec3(0.3412,0.8824,0.7765),glm::vec3(0.3500,0.3500,0.3500));
+        renderModel = new RenderModel(appFolderPath + "/models/cactus", appFolderPath + "/imacman", "3D2", "texture");
+        renderModel->setModelColor(glm::vec3(0.282, 0.458, 0.294),glm::vec3(1),glm::vec3(1));
+        renderModel->setTexture(appFolderPath + "/textures/cactus.jpg");
         OpenGlManager::getInstance().addRenderModel(renderModel);
     } catch (std::runtime_error &e){
         std::cerr << e.what() << std::endl;
@@ -57,7 +58,7 @@ void CactusMan::createRenderModel() {
 }
 
 void CactusMan::render() {
-    renderModel->transform(glm::vec3(position.x, 0, position.y), rotation, glm::vec3(0,1,0), glm::vec3(0.8, 0.5, 0.8));
+    renderModel->transform(glm::vec3(position.x, 0, position.y), rotation, glm::vec3(0,1,0), glm::vec3(1));
 }
 
 float CactusMan::getRotation() const {

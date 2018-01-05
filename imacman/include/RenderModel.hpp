@@ -12,6 +12,7 @@
 #include <GPUProgram.hpp>
 #include "Utils.hpp"
 #include "Light.hpp"
+#include <Texture.hpp>
 
 class RenderModel {
 public :
@@ -19,6 +20,7 @@ public :
     RenderModel(const std::string &_modelPath,
                 const glimac::FilePath appPath, const std::string &vertexShader, const std::string &fragmentShader);
     void setModelColor(glm::vec3 _color, glm::vec3 _kd, glm::vec3 _ks);
+    void setTexture(const std::string filePath);
     void addProgramUniforms( Light &light);
     void transform(const glm::vec3 &translate, const float angle, const glm::vec3 &axesRotation,
                        const glm::vec3 &scale);
@@ -33,6 +35,7 @@ private:
     glcustom::IBO ibo;
     glm::mat4 modelMatrix;
     glcustom::GPUProgram program;
+    glcustom::Texture * texture;
 };
 
 

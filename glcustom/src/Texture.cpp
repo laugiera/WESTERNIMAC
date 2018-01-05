@@ -36,6 +36,14 @@ void glcustom::Texture::bind(GLenum textureUnit) {
     glBindTexture(GL_TEXTURE_2D, m_id);
 }
 
+GLuint glcustom::Texture::getM_id() const {
+    return m_id;
+}
+
+GLenum glcustom::Texture::getM_texture_unit() const {
+    return m_texture_unit;
+}
+
 void glcustom::Texture::debind() {
     glActiveTexture(m_texture_unit);
     glBindTexture(GL_TEXTURE_2D, 0);

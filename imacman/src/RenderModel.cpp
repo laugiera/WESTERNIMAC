@@ -10,16 +10,20 @@ RenderModel::RenderModel(const std::string &_modelPath,
         : model(ObjectModel(_modelPath)), vbo(), ibo(), vao(), program(glcustom::GPUProgram(appPath,vertexShader,fragmentShader))
 {
 
+    texture = nullptr;
     vbo.fillBuffer(model.getVertices_vector());
     ibo.fillBuffer(model.getIndices_vector());
     vao.fillBuffer(model.getVertices_vector(), &vbo, &ibo);
 
     setModelMatrix();
-    program.use();
 }
 
 void RenderModel::setModelColor(glm::vec3 _color, glm::vec3 _kd, glm::vec3 _ks){
     model.setColor(_color,_kd,_ks);
+}
+
+void RenderModel::setTexture(const std::string filePath){
+     texture = new glcustom::Texture(filePath);
 }
 
 void RenderModel::addProgramUniforms(Light &light){
@@ -31,6 +35,8 @@ void RenderModel::addProgramUniforms(Light &light){
     uniformVariables.push_back("uKs");
     uniformVariables.push_back("uShininess");
     uniformVariables.push_back("color");
+    if(texture)
+        uniformVariables.push_back("uTexture");
 
     program.addUniforms(uniformVariables);
     light.addLightUniforms(program);
@@ -40,6 +46,8 @@ void RenderModel::setModelMatrix(const glm::mat4 _modelMatrix){
     modelMatrix = _modelMatrix;
 }
 void RenderModel::render(const glm::mat4 &viewMatrix, Light &light){
+    program.use();
+
     glm::mat4 projMatrix = glm::perspective(glm::radians(70.f), Utils::windowWidth/Utils::windowHeight, 0.1f, 500.f);
     glm::mat4 modelViewMatrix = viewMatrix * modelMatrix;
     glm::mat4 modelViewProjMatrix = projMatrix * modelViewMatrix;
@@ -48,6 +56,12 @@ void RenderModel::render(const glm::mat4 &viewMatrix, Light &light){
     program.sendUniformMat4("uMVPMatrix", modelViewProjMatrix);
     program.sendUniformMat4("uMVMatrix", modelViewMatrix);
     program.sendUniformMat4("uNormalMatrix", normals);
+
+    if(texture){
+        texture->bind(texture->getM_id());
+        program.sendUniformTextureUnit("uTexture", 0);
+    }
+
 
     program.sendUniformVec3("uKd",model.getKd());
     program.sendUniformVec3("uKs",model.getKs());
@@ -58,6 +72,9 @@ void RenderModel::render(const glm::mat4 &viewMatrix, Light &light){
     vao.bind();
     glDrawElements(GL_TRIANGLES, model.getIndices_vector().size(), GL_UNSIGNED_INT, 0);
     vao.debind();
+
+    if(texture)
+        texture->debind();
 
 }
 

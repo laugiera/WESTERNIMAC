@@ -10,7 +10,7 @@ Light::Light(const glm::vec3 &_intensity) : intensity(_intensity)
 }
 
 void Light::setDirection() {
-    direction = glm::vec4(1,1,1,0);
+    direction = glm::vec4(1,1,10,0);
 }
 
 void Light::transform(const glm::vec3 &translation, const float angle, const glm::vec3 &axesRotation, const glm::vec3 &scale){

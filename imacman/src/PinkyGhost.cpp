@@ -5,11 +5,6 @@
 #include "PinkyGhost.hpp"
 
 
-
-PinkyGhost::PinkyGhost(){
-
-
-}
 PinkyGhost::~PinkyGhost(){
 
 
@@ -19,4 +14,10 @@ void PinkyGhost::move(CactusMan &Player){
 
 }
 
-PinkyGhost::PinkyGhost(Tile *tile) : Ghost(tile) {}
+void PinkyGhost::color(){
+    renderModel->setModelColor(glm::vec3(0.588, 0.423, 0.250),glm::vec3(1),glm::vec3(1));
+}
+
+PinkyGhost::PinkyGhost(Tile *tile) : Ghost(tile) {
+    this->color();
+}
