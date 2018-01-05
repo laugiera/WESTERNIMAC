@@ -10,7 +10,7 @@
 class Elevator : public GameElement{
 public:
     void render(glm::vec2);
-    void drop(/*CactusMan &player*/);
+    int drop();
     void createRenderModel();
 };
 

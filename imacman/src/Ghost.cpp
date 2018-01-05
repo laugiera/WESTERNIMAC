@@ -40,4 +40,57 @@ void Ghost::createRenderModel() {
 }
 
 
+//returns vector of path from s to d
+/*std::vector<Tile *> Ghost::isReachable(Tile s, Tile d, std::vector<std::vector<Tile>> tiles)
+{
+    // Create a path vector for BFS
+    std::vector<Tile *> path;
+
+    // Base case
+    if (s.getId() == d.getId())
+        return path;
+
+    // Mark all the tiles as not visited
+    bool *visited = new bool[tiles.size()];
+    for (int i = 0; i < tiles.size(); i++)
+        visited[i] = false;
+
+
+    // Mark the current tile as visited and add it to path vector
+    visited[s.getId()] = true;
+    path.push_back(&s);
+
+    // it will be used to get all adjacent tiles of a tile
+
+    std::vector<Tile *>::iterator i;
+
+    while (!path.empty())
+    {
+        s = *path.front();
+
+        // Get all adjacent tiles of the tile s
+        // If a adjacent has not been visited, then mark it visited
+        // and add it to path vector
+        for (i == **(s.getNeighbours()).begin(); i != **(s.getNeighbours()).end(); ++i)
+        {
+            // If this adjacent tile is the destination node, then
+            // return the path
+            if (**i == d)
+                return path;
+
+            // Else, continue to do BFS
+            if (!visited[**i])
+            {
+                visited[**i] = true;
+                path.push_back(*i);
+            }
+        }
+    }
+
+    // If BFS is complete without visiting d
+    return nullptr;
+}
+
+*/
+
 

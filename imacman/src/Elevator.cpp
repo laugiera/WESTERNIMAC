@@ -8,8 +8,8 @@ void Elevator::render(glm::vec2 position) {
     renderModel->transform(glm::vec3(position.x, 0.3 , position.y), 0, glm::vec3(0,1,0), glm::vec3(0.3, 0.3, 0.3));
 }
 
-void Elevator::drop(/*CactusMan &player*/) {
-
+int Elevator::drop() {
+    return ELEVATOR;
 }
 
 void Elevator::createRenderModel() {

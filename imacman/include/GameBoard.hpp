@@ -31,7 +31,7 @@ public:
 
     void createCactusman();
 
-    void collision(Tile &tile, CactusMan &player);
+    void handleCollisions();
 
     void render(glimac::SDLWindowManager & windowManager);
 
@@ -55,6 +55,10 @@ public:
 
     void destroy();
 
+    bool hasWon();
+
+    bool hasLost();
+
 
 private:
     CactusMan player;
@@ -64,6 +68,7 @@ private:
     Camera * currentCam;
     Camera2D * cam2D;
     CameraFPS * camFPS;
+    int gumNumber;
 
 };
 

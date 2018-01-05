@@ -37,7 +37,7 @@ public:
     const std::string &getAppFolderPath() const;
 
 private :
-    float conversionFactor = 9.5;
+    float conversionFactor = 15.0;
     Light light;
     std::vector<RenderModel*> models;
     std::string appFolderPath;

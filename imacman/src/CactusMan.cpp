@@ -8,8 +8,8 @@
 CactusMan::CactusMan(Tile *tile) : tile(tile) {
     position = glm::vec2(tile->getCenter().x, tile->getCenter().y);
     rotation = 0;
-    _score=0;
-    _lives = 3;
+    score=0;
+    lives = 3;
     computeDirectionVectors();
     createRenderModel();
 }
@@ -36,13 +36,13 @@ void CactusMan::rotateLeft(){
 }
 
 void CactusMan::moveLeft(float step){
-    //position.x-=step;
-    //position += glm::vec2(leftVector.x, leftVector.z) * step;
-    if(step>0){
+    position.x+=step;
+    position += glm::vec2(leftVector.x, leftVector.z) * step;
+   /* if(step>0){
         rotateLeft();
     } else {
         rotateRight();
-    }
+    }*/
 }
 
 void CactusMan::createRenderModel() {
@@ -102,7 +102,10 @@ bool CactusMan::isOnTile(const Tile *tile) {
 
 bool CactusMan::isOnCrossRoad() {
     if (tile->getNeighbours().size() == 2 &&
-        (*tile->getNeighbours()[0])->isAligned(*tile->getNeighbours()[1])){
+        (*tile->getNeighbours()[0])->isAligned(*tile->getNeighbours()[1])) {
+        return false;
+    }
+    else if (glm::distance(position, tile->getCenter()) > 0.2){
         return false;
     }
     return true;
@@ -121,5 +124,26 @@ bool CactusMan::isOnWalkableTile() {
         }
         return false;
     }
+}
+
+int CactusMan::dropTile() {
+    if(glm::distance(position, tile->getCenter()) < 0.2){
+        int type = tile->drop();
+        switch (type) {
+            case GUM :
+                score += 10;
+                break;
+            case SUPERGUM :
+                score += 50;
+                break;
+            case FRUIT :
+                lives += 1;
+                break;
+            default:
+                break;
+        }
+        return type;
+    }
+    return EMPTY;
 }
 
