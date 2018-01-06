@@ -6,7 +6,7 @@
 #include "CactusMan.hpp"
 
 CactusMan::CactusMan(Tile *tile) : startingTile (tile), tile(tile) {
-    position = glm::vec2(tile->getCenter().x, (tile->getCenter().y));
+    position = glm::vec2(tile->getCenter().x, tile->getCenter().y);
     rotation = 0;
     score=0;
     lives = 3;
