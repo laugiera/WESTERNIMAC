@@ -162,7 +162,7 @@ GameBoard::~GameBoard() {
 }
 
 void GameBoard::moveUp() {
-    player.moveFront(0.2);
+    player.moveFront(1);
     camFPS->follow(player);
     cam2D->follow(player);
 
@@ -170,19 +170,19 @@ void GameBoard::moveUp() {
 }
 
 void GameBoard::moveDown() {
-    player.moveFront(-0.2);
+    player.moveFront(-1);
     camFPS->follow(player);
     cam2D->follow(player);
 }
 
 void GameBoard::moveLeft() {
-    player.moveLeft(0.2);
+    player.moveLeft(1);
     camFPS->follow(player);
     cam2D->follow(player);
 }
 
 void GameBoard::moveRight() {
-    player.moveLeft(-0.2);
+    player.moveLeft(-1);
     camFPS->follow(player);
     cam2D->follow(player);
 

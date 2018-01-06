@@ -21,8 +21,8 @@ public:
     ~CactusMan();
     void createRenderModel();
     void render();
-    void moveFront(float step);
-    void moveLeft(float step);
+    void moveFront(float direction);
+    void moveLeft(float direction);
     void rotateLeft();
     void rotateRight();
     void computeDirectionVectors();
@@ -42,8 +42,6 @@ public:
     void setScore(int _score){score= _score ;}
 
     const glm::vec2 &getPosition() const {return position;}
-    void setPosition(glm::vec2 pos){position=pos ;}
-
     float getRotation() const;
 
     const glm::vec3 &getFrontVector() const;
@@ -60,6 +58,7 @@ private :
     int score, lives;
     RenderModel * renderModel;
     bool cam2D = false;
+    float speed = 0.2;
 
 };
 

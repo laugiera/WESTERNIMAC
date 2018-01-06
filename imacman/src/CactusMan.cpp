@@ -19,20 +19,30 @@ CactusMan::~CactusMan(){
 
 }
 
-void CactusMan::moveFront(float step){
-    float test = 0.55 * step / glm::abs(step);
+void CactusMan::moveFront(float direction){
+    float test = 0.55;
     glm::vec2 previousPosition = position;
+    //std::cout<<"vec pos front = " << position <<std::endl;
+    //std::cout<<" int vec pos mod  = " << (int)((position.x)*1000) % 500 << " | y= " << (int)((position.y)*1000) % 500<<std::endl;
+
     if(cam2D){
-        rotation = (step>0)?180: 0;
+
+        rotation = (direction>0)?180: 0;
         computeDirectionVectors();
-        position += glm::vec2(frontVector.x, frontVector.z) * glm::abs(test);
-    } else {
         position += glm::vec2(frontVector.x, frontVector.z) * test;
+        direction = glm::abs(direction); //we don't need the signed direction anymore cause we have backward orientation
+        /*Amel
+        if(((int)((position.y)*1000) % 500 == 0) || ((int)((position.y)*1000) % 500 == 0 )){
+            position += glm::vec2(frontVector.x, frontVector.z) * glm::abs(speed);
+        }
+        */
+    } else {
+        position += glm::vec2(frontVector.x, frontVector.z) * test * direction; //direction needs to be signed
     }
     if(!isOnWalkableTile()){
         position = previousPosition;
     } else {
-        position = previousPosition + (glm::vec2(frontVector.x, frontVector.z) * glm::abs(step));
+        position = previousPosition + (glm::vec2(frontVector.x, frontVector.z) * speed * direction);
     }
 }
 
@@ -43,26 +53,42 @@ void CactusMan::rotateLeft(){
     }
 }
 
-void CactusMan::moveLeft(float step){
-    if(cam2D){
+void CactusMan::moveLeft(float direction){
+    //std::cout<<" int vec pos mod  = " << (int)((position.x)*1000) % 500 << " | y= " << (int)((position.y)*1000) % 500<<std::endl;
+
+    if(cam2D) {
+// Lou
         float test = 0.55;
         glm::vec2 previousPosition = position;
-        rotation = (step>0)?-90: 90;
+        rotation = (direction > 0) ? -90 : 90;
         computeDirectionVectors();
-        position += glm::vec2(frontVector.x, frontVector.z) * glm::abs(test);
-        if(!isOnWalkableTile()){
+        position += glm::vec2(frontVector.x, frontVector.z) * test;
+        if (!isOnWalkableTile()) {
             position = previousPosition;
         } else {
-            position = previousPosition + (glm::vec2(frontVector.x, frontVector.z) * glm::abs(step));
+            position = previousPosition + (glm::vec2(frontVector.x, frontVector.z) * speed);
         }
+
+//
+/*Amel
+        glm::vec2 previousPosition = position;
+        rotation = (speed>0)?-90: 90;
+        computeDirectionVectors();
+        if(((int)((position.y)*1000) % 500 == 0) || ((int)((position.y)*1000) % 500 == 0 )){
+                position += glm::vec2(frontVector.x, frontVector.z) * glm::abs(speed);
+                std::cout<<"vec pos left = " << position <<std::endl;
+            }
+            if(!isOnWalkableTile()){
+                position = previousPosition;
+            }
+*/
     } else {
-        if(step>0){
+        if(direction>0){
             rotateLeft();
         } else {
             rotateRight();
         }
     }
-
 }
 
 void CactusMan::createRenderModel() {
@@ -115,12 +141,12 @@ void CactusMan::rotateRight() {
 }
 
 bool CactusMan::isOnTile(const Tile *tile) {
-    if(position.x >= tile->getCenter().x -0.5 &&
-       position.x <= tile->getCenter().x + 0.5 &&
-       position.y >= tile->getCenter().y - 0.5 &&
-       position.y <= tile->getCenter().y + 0.5 ) {
-        return true;
-    }
+        if(position.x >= tile->getCenter().x -0.5 &&
+           position.x <= tile->getCenter().x + 0.5&&
+           position.y >= tile->getCenter().y - 0.5 &&
+           position.y <= tile->getCenter().y + 0.5 ) {
+            return true;
+        }
     return false;
 }
 
