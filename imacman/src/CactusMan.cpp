@@ -5,7 +5,7 @@
 #include <glm/vec2.hpp>
 #include "CactusMan.hpp"
 
-CactusMan::CactusMan(Tile *tile) : tile(tile) {
+CactusMan::CactusMan(Tile *tile) : startingTile (tile), tile(tile) {
     position = glm::vec2(tile->getCenter().x, tile->getCenter().y);
     rotation = 0;
     score=0;
@@ -36,13 +36,13 @@ void CactusMan::rotateLeft(){
 }
 
 void CactusMan::moveLeft(float step){
-    position.x+=step;
-    position += glm::vec2(leftVector.x, leftVector.z) * step;
-   /* if(step>0){
+    //position.x+=step;
+    //position += glm::vec2(leftVector.x, leftVector.z) * step;
+    if(step>0){
         rotateLeft();
     } else {
         rotateRight();
-    }*/
+    }
 }
 
 void CactusMan::createRenderModel() {
@@ -135,10 +135,10 @@ int CactusMan::dropTile() {
                 score += 10;
                 break;
             case SUPERGUM :
-                score += 50;
+                //score += 50;
                 break;
             case FRUIT :
-                lives += 1;
+                score += 500;
                 break;
             default:
                 break;
@@ -147,4 +147,29 @@ int CactusMan::dropTile() {
     }
     return EMPTY;
 }
+
+void CactusMan::testGhostEncounter(std::vector<Ghost *> &ghosts) {
+    for(Ghost * ghost : ghosts){
+        if (glm::distance(position, ghost->getPosition()) < 0.3) {
+            int what = ghost->collide();
+            switch (what) {
+                case -1:
+                    lives --;
+                    for(Ghost * ghost : ghosts){
+                        ghost->setScaredState();
+                        ghost->returnToStartPos();
+                    }
+                    break;
+                default:
+                    score += what;
+                    ghost->returnToStartPos();
+                    break;
+            }
+            tile = startingTile;
+            position = tile->getCenter();
+        }
+    }
+
+}
+
 

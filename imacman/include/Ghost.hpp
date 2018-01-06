@@ -6,7 +6,7 @@
 #define IMACMAN_GHOST_HPP
 
 #include "Tile.hpp"
-#include "CactusMan.hpp"
+
 
 class Ghost {
 public:
@@ -14,14 +14,19 @@ public:
     Ghost(Tile *tile);
     virtual ~Ghost();
     virtual void move(CactusMan &Player);
-    void Drop(CactusMan &Player);
+    int collide();
+    void returnToStartPos();
+    void setScaredState();
     //returns vector of path from s to d
     static std::vector<Tile *> isReachable(Tile s, Tile d, std::vector<std::vector<Tile>> tiles);
     void createRenderModel();
     virtual void color() = 0;
     void render();
 
+    const glm::vec2 &getPosition() const;
+
 private:
+    Tile * startingTile;
     Tile * tile;
     glm::vec2 position;
     float angle;

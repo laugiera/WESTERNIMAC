@@ -7,6 +7,7 @@
 #include<cmath>
 #include <glm/vec2.hpp>
 #include "Tile.hpp"
+#include "Ghost.hpp"
 
 class Tile;  //temp
 class RenderModel;
@@ -29,6 +30,7 @@ public:
     bool isOnCrossRoad();
     bool isOnWalkableTile();
     int dropTile();
+    void testGhostEncounter(std::vector<Ghost*> & ghosts);
 
     //getters setters
     const int &getLives() const {return lives;}
@@ -47,6 +49,7 @@ public:
     const glm::vec3 &getLeftVector() const;
 
 private :
+    Tile * startingTile;
     Tile * tile;
     glm::vec2 position;
     float rotation;

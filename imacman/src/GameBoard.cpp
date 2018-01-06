@@ -102,6 +102,7 @@ void GameBoard::handleCollisions() {
             gumNumber --;
             break;
     }
+    player.testGhostEncounter(ghosts);
 
     /* use to redo walls
         std::vector<Tile *> neighbours= tile.getNeighbours();

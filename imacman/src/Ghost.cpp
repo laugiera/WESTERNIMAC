@@ -5,7 +5,7 @@
 #include "Ghost.hpp"
 
 
-Ghost::Ghost(Tile *tile) : tile(tile) {
+Ghost::Ghost(Tile *tile) : startingTile(tile), tile(tile) {
     position = tile->getCenter();
     createRenderModel();
 }
@@ -18,9 +18,14 @@ void Ghost::move(CactusMan &Player){
 
 }
 
-void Ghost::Drop(CactusMan &Player){
+int Ghost::collide(/*CactusMan &Player*/){
+    /*
     int currentLives =Player.getLives();
     Player.setLives(currentLives-1);
+     */
+    //return to starting position
+
+    return -1;
 
 }
 
@@ -38,6 +43,20 @@ void Ghost::createRenderModel() {
     } catch (std::runtime_error &e){
         std::cerr << e.what() << std::endl;
     }
+}
+
+const glm::vec2 &Ghost::getPosition() const {
+    return position;
+}
+
+void Ghost::returnToStartPos() {
+    tile = startingTile;
+    position = tile->getCenter();
+}
+
+void Ghost::setScaredState(/*int nbPoints*/) {
+    //set state nbPoints du state d'avant *2 + count du state d'avant
+
 }
 
 
