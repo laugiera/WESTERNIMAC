@@ -42,8 +42,6 @@ public:
     void setScore(int _score){score= _score ;}
 
     const glm::vec2 &getPosition() const {return position;}
-    void setPosition(glm::vec2 pos){position=pos ;}
-
     float getRotation() const;
 
     const glm::vec3 &getFrontVector() const;

@@ -173,7 +173,13 @@ void GameBoard::moveDown() {
 }
 
 void GameBoard::moveLeft() {
+    glm::vec2 previousPosition = player.getPosition();
+    if (player.getPosition().x ==previousPosition.x
+        || player.getPosition().y ==previousPosition.y) movesleft++;
+    else movesleft=0;
+    if(movesleft<3)
     player.moveLeft(0.1);
+
     camFPS->follow(player);
     cam2D->follow(player);
 }

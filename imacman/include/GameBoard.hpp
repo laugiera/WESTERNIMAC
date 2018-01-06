@@ -69,6 +69,7 @@ private:
     Camera2D * cam2D;
     CameraFPS * camFPS;
     int gumNumber;
+    int movesleft;
 
 };
 
