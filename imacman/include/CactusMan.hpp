@@ -32,6 +32,8 @@ public:
     int dropTile();
     void testGhostEncounter(std::vector<Ghost*> & ghosts);
 
+    void setCam2D(bool cam2D);
+
     //getters setters
     const int &getLives() const {return lives;}
     void setLives(int _lives) {lives =_lives ;}
@@ -57,6 +59,7 @@ private :
     glm::vec3 leftVector;
     int score, lives;
     RenderModel * renderModel;
+    bool cam2D = false;
 
 };
 

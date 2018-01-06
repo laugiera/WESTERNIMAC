@@ -144,10 +144,14 @@ void GameBoard::render(glimac::SDLWindowManager & windowManager) {
 }
 
 void GameBoard::changeCamera() {
-    if (currentCam == cam2D)
+    if (currentCam == cam2D) {
         currentCam = camFPS;
-    else if (currentCam == camFPS)
+        player.setCam2D(false);
+    }
+    else if (currentCam == camFPS) {
         currentCam = cam2D;
+        player.setCam2D(true);
+    }
 }
 
 GameBoard::~GameBoard() {

@@ -21,8 +21,13 @@ CactusMan::~CactusMan(){
 
 void CactusMan::moveFront(float step){
     glm::vec2 previousPosition = position;
-    //position.y-=step;
-    position += glm::vec2(frontVector.x, frontVector.z) * step;
+    if(cam2D){
+        rotation = (step>0)?180: 0;
+        computeDirectionVectors();
+        position += glm::vec2(frontVector.x, frontVector.z) * glm::abs(step);
+    } else {
+        position += glm::vec2(frontVector.x, frontVector.z) * step;
+    }
     if(!isOnWalkableTile()){
         position = previousPosition;
     }
@@ -36,13 +41,22 @@ void CactusMan::rotateLeft(){
 }
 
 void CactusMan::moveLeft(float step){
-    //position.x+=step;
-    //position += glm::vec2(leftVector.x, leftVector.z) * step;
-    if(step>0){
-        rotateLeft();
+    if(cam2D){
+        glm::vec2 previousPosition = position;
+        rotation = (step>0)?-90: 90;
+        computeDirectionVectors();
+        position += glm::vec2(frontVector.x, frontVector.z) * glm::abs(step);
+        if(!isOnWalkableTile()){
+            position = previousPosition;
+        }
     } else {
-        rotateRight();
+        if(step>0){
+            rotateLeft();
+        } else {
+            rotateRight();
+        }
     }
+
 }
 
 void CactusMan::createRenderModel() {
@@ -58,7 +72,10 @@ void CactusMan::createRenderModel() {
 }
 
 void CactusMan::render() {
-    renderModel->transform(glm::vec3(position.x, 0, position.y), rotation, glm::vec3(0,1,0), glm::vec3(1));
+    if(cam2D){
+        renderModel->transform(glm::vec3(position.x, 0, position.y), rotation, glm::vec3(0,1,0), glm::vec3(1));
+    }
+
 }
 
 float CactusMan::getRotation() const {
@@ -170,6 +187,10 @@ void CactusMan::testGhostEncounter(std::vector<Ghost *> &ghosts) {
         }
     }
 
+}
+
+void CactusMan::setCam2D(bool cam2D) {
+    CactusMan::cam2D = cam2D;
 }
 
 

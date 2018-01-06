@@ -43,7 +43,7 @@ void CameraFPS::follow(const CactusMan &player) {
     m_fPhi = player.getRotation();
     m_FrontVector = player.getFrontVector();
     m_LeftVector = player.getLeftVector();
-    moveFront(10);
+    //moveFront(10);
 
 }
 
