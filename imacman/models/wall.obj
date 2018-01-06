@@ -1,6 +1,6 @@
-# Blender v2.76 (sub 0) OBJ File: 'sherifBuilding.blend'
+# Blender v2.76 (sub 0) OBJ File: 'wall.blend'
 # www.blender.org
-mtllib sherifBuilding.mtl
+mtllib wall.mtl
 o Plane001
 v -7.206300 -0.000001 3.603100
 v -7.206300 -0.000001 7.206300

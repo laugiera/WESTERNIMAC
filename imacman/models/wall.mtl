@@ -1,4 +1,4 @@
-# Blender MTL File: 'sherifBuilding.blend'
+# Blender MTL File: 'wall.blend'
 # Material Count: 2
 
 newmtl 01___Default
@@ -20,4 +20,4 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd sherif.png
+map_Kd wood.png
