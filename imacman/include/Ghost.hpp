@@ -6,21 +6,27 @@
 #define IMACMAN_GHOST_HPP
 
 #include "Tile.hpp"
+#include "ScaredGhostState.hpp"
+#include "ClydeState.hpp"
+#include "PinkyState.hpp"
+#include "InkyState.hpp"
+#include "BlinkyState.hpp"
 
+enum{INKY, PINKY, BLINKY, CLYDE};
 
 class Ghost {
 public:
     Ghost();
-    Ghost(Tile *tile);
-    virtual ~Ghost();
-    virtual void move(CactusMan &Player);
+    Ghost(Tile *tile, int baseState);
+    ~Ghost();
+    void setBaseState();
+    void move();
     int collide();
     void returnToStartPos();
     void setScaredState();
     //returns vector of path from s to d
     static std::vector<Tile *> isReachable(Tile s, Tile d, std::vector<std::vector<Tile>> tiles);
     void createRenderModel();
-    virtual void color() = 0;
     void render();
 
     const glm::vec2 &getPosition() const;
@@ -29,9 +35,9 @@ private:
     Tile * startingTile;
     Tile * tile;
     glm::vec2 position;
-    float angle;
-
-protected:
+    float rotation;
+    int baseState;
+    GhostState * state;
     RenderModel * renderModel;
 
 };

@@ -5,27 +5,31 @@
 #include "Ghost.hpp"
 
 
-Ghost::Ghost(Tile *tile) : startingTile(tile), tile(tile) {
+Ghost::Ghost(Tile *tile, int baseState) : startingTile(tile), tile(tile), baseState(baseState) {
+    state = nullptr;
+    renderModel = nullptr;
     position = tile->getCenter();
     createRenderModel();
+    setBaseState();
 }
 
 Ghost::Ghost(){}
 
-Ghost::~Ghost(){}
+Ghost::~Ghost(){
+    delete renderModel;
+    delete state;
+}
 
-void Ghost::move(CactusMan &Player){
-
+void Ghost::move() {
+    state->move(position, rotation);
+    if(state->getTimer() == 0){
+        delete state;
+        setBaseState();
+    }
 }
 
 int Ghost::collide(/*CactusMan &Player*/){
-    /*
-    int currentLives =Player.getLives();
-    Player.setLives(currentLives-1);
-     */
-    //return to starting position
-
-    return -1;
+    return state->getCollisionReturn();
 
 }
 
@@ -54,9 +58,36 @@ void Ghost::returnToStartPos() {
     position = tile->getCenter();
 }
 
-void Ghost::setScaredState(/*int nbPoints*/) {
-    //set state nbPoints du state d'avant *2 + count du state d'avant
+void Ghost::setScaredState() {
+    if(!state || state->getCollisionReturn()==-1){
+        delete state;
+        state = new ScaredGhostState(400,200);
+    } else {
+        int timer = state->getTimer();
+        int nbPoints = state->getCollisionReturn();
+        delete state;
+        state = new ScaredGhostState(timer,nbPoints*2);
+    }
+    state->setColor(renderModel);
+}
 
+void Ghost::setBaseState() {
+    //delete state; bug why?
+    switch(baseState) {
+        case INKY :
+            state = new InkyState();
+            break;
+        case PINKY :
+            state = new PinkyState();
+            break;
+        case BLINKY :
+            state = new BlinkyState();
+            break;
+        case CLYDE :
+            state = new ClydeState();
+            break;
+    }
+    state->setColor(renderModel);
 }
 
 

@@ -61,10 +61,10 @@ void GameBoard::createGhosts() {
     if(startingTiles.size() < 4){
         throw std::runtime_error("No starting position has been set for the ghosts");
     } else {
-        ghosts.push_back(new BlinkyGhost(startingTiles[0])); // change for Blinky
-        ghosts.push_back(new PinkyGhost(startingTiles[1])); // change for Pinky
-        ghosts.push_back(new InkyGhost(startingTiles[2])); // change for Inky
-        ghosts.push_back(new ClydeGhost(startingTiles[3])); // change for Clide
+        ghosts.push_back(new Ghost(startingTiles[0], BLINKY)); // change for Blinky
+        ghosts.push_back(new Ghost(startingTiles[1], PINKY)); // change for Pinky
+        ghosts.push_back(new Ghost(startingTiles[2], INKY)); // change for Inky
+        ghosts.push_back(new Ghost(startingTiles[3], CLYDE)); // change for Clide
     }
 
 }
@@ -100,6 +100,9 @@ void GameBoard::handleCollisions() {
             break;
         case SUPERGUM:
             gumNumber --;
+            for(Ghost * ghost : ghosts){
+                ghost->setScaredState();
+            }
             break;
     }
     player.testGhostEncounter(ghosts);
@@ -159,7 +162,7 @@ GameBoard::~GameBoard() {
 }
 
 void GameBoard::moveUp() {
-    player.moveFront(0.1);
+    player.moveFront(0.2);
     camFPS->follow(player);
     cam2D->follow(player);
 
@@ -167,30 +170,30 @@ void GameBoard::moveUp() {
 }
 
 void GameBoard::moveDown() {
-    player.moveFront(-0.1);
+    player.moveFront(-0.2);
     camFPS->follow(player);
     cam2D->follow(player);
 }
 
 void GameBoard::moveLeft() {
-    player.moveLeft(0.1);
+    player.moveLeft(0.2);
     camFPS->follow(player);
     cam2D->follow(player);
 }
 
 void GameBoard::moveRight() {
-    player.moveLeft(-0.1);
+    player.moveLeft(-0.2);
     camFPS->follow(player);
     cam2D->follow(player);
 
 }
 
 void GameBoard::zoom() {
-    cam2D->zoom(1);
+    cam2D->zoom(-1);
 }
 
 void GameBoard::dezoom() {
-    cam2D->zoom(-1);
+    cam2D->zoom(1);
 }
 
 void GameBoard::destroyCamera() {
@@ -220,6 +223,12 @@ bool GameBoard::hasWon() {
 
 bool GameBoard::hasLost() {
     return player.getLives() == 0;
+}
+
+void GameBoard::handleGhosts() {
+    for(Ghost * ghost : ghosts){
+        ghost->move();
+    }
 }
 
 

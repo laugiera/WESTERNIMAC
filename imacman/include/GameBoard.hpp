@@ -8,10 +8,10 @@
 #include "Tile.hpp"
 #include <string>
 #include "BoardLoader.hpp"
-#include "InkyGhost.hpp"
-#include "PinkyGhost.hpp"
-#include "BlinkyGhost.hpp"
-#include "ClydeGhost.hpp"
+#include "InkyState.hpp"
+#include "PinkyState.hpp"
+#include "BlinkyState.hpp"
+#include "ClydeState.hpp"
 #include "CactusMan.hpp"
 #include "CameraFPS.hpp"
 #include "Camera2D.hpp"
@@ -58,6 +58,8 @@ public:
     bool hasWon();
 
     bool hasLost();
+
+    void handleGhosts();
 
 
 private:

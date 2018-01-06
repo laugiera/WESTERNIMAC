@@ -20,16 +20,19 @@ CactusMan::~CactusMan(){
 }
 
 void CactusMan::moveFront(float step){
+    float test = 0.55 * step / glm::abs(step);
     glm::vec2 previousPosition = position;
     if(cam2D){
         rotation = (step>0)?180: 0;
         computeDirectionVectors();
-        position += glm::vec2(frontVector.x, frontVector.z) * glm::abs(step);
+        position += glm::vec2(frontVector.x, frontVector.z) * glm::abs(test);
     } else {
-        position += glm::vec2(frontVector.x, frontVector.z) * step;
+        position += glm::vec2(frontVector.x, frontVector.z) * test;
     }
     if(!isOnWalkableTile()){
         position = previousPosition;
+    } else {
+        position = previousPosition + (glm::vec2(frontVector.x, frontVector.z) * glm::abs(step));
     }
 }
 
@@ -42,12 +45,15 @@ void CactusMan::rotateLeft(){
 
 void CactusMan::moveLeft(float step){
     if(cam2D){
+        float test = 0.55;
         glm::vec2 previousPosition = position;
         rotation = (step>0)?-90: 90;
         computeDirectionVectors();
-        position += glm::vec2(frontVector.x, frontVector.z) * glm::abs(step);
+        position += glm::vec2(frontVector.x, frontVector.z) * glm::abs(test);
         if(!isOnWalkableTile()){
             position = previousPosition;
+        } else {
+            position = previousPosition + (glm::vec2(frontVector.x, frontVector.z) * glm::abs(step));
         }
     } else {
         if(step>0){
@@ -173,17 +179,19 @@ void CactusMan::testGhostEncounter(std::vector<Ghost *> &ghosts) {
                 case -1:
                     lives --;
                     for(Ghost * ghost : ghosts){
-                        ghost->setScaredState();
                         ghost->returnToStartPos();
                     }
+                    tile = startingTile;
+                    position = tile->getCenter();
                     break;
                 default:
                     score += what;
                     ghost->returnToStartPos();
+                    for(Ghost * ghost : ghosts){
+                        ghost->setScaredState();
+                    }
                     break;
             }
-            tile = startingTile;
-            position = tile->getCenter();
         }
     }
 
