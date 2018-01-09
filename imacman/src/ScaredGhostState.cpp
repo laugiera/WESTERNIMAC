@@ -8,7 +8,8 @@ ScaredGhostState::ScaredGhostState(int timer, int collisionReturn) : GhostState(
     setSpeed(0.03);
 }
 
-void ScaredGhostState::move(glm::vec2 &position, float &rotation) {
+void ScaredGhostState::move(glm::vec2 &position, Tile* & currentTile) {
+    GhostState::move(position, currentTile);
     countDown();
 }
 

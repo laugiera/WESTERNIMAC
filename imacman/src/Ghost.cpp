@@ -21,7 +21,7 @@ Ghost::~Ghost(){
 }
 
 void Ghost::move() {
-    state->move(position, rotation);
+    state->move(position, tile);
     if(state->getTimer() == 0){
         delete state;
         setBaseState();

@@ -6,6 +6,7 @@
 #define IMACMAN_GHOSTSTATE_HPP
 
 #include "OpenGlManager.hpp"
+#include "Tile.hpp"
 
 
 class GhostState {
@@ -15,9 +16,10 @@ public:
 
     virtual ~GhostState();
 
-    virtual void move(glm::vec2 & position, float &rotation) = 0;
+    virtual void move(glm::vec2 &position, Tile* & currentTile);
     virtual void setColor(RenderModel * renderModel) = 0;
     void countDown();
+    bool isOnTile(glm::vec2 &position, const Tile *tile);
 
     int getTimer() const;
     int getCollisionReturn() const;

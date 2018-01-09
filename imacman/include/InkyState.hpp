@@ -12,7 +12,6 @@ class InkyState : public GhostState{
 public:
     InkyState();
     ~InkyState();
-    void move(glm::vec2 & position, float &rotation);
     void setColor(RenderModel * renderModel);
 
 };
