@@ -161,6 +161,36 @@ GameBoard::~GameBoard() {
 
 }
 
+
+void GameBoard::updateScore(std::string filePath){
+
+    std::ifstream SavedGameFile (filePath.c_str());
+
+    if (SavedGameFile.good())
+    {
+        std::string sLine;
+        int nblign=0;
+        while(getline(SavedGameFile, sLine))
+        {
+            nblign++;
+            if(nblign==1)
+            {
+                player.setLives(stoi(sLine));
+            }
+            else if (nblign==2)
+            {
+                player.setScore(stoi(sLine));
+
+            }
+        }
+        SavedGameFile.close();
+    }
+    else {
+        throw std::runtime_error(filePath + " : File doesn't exist or could not be opened");
+    }
+}
+
+
 void GameBoard::moveUp() {
     player.moveFront(1);
     camFPS->follow(player);
