@@ -39,9 +39,8 @@ void Ghost::render() {
 void Ghost::createRenderModel() {
     std::string appFolderPath = OpenGlManager::getInstance().getAppFolderPath();
     try {
-        renderModel = new RenderModel(appFolderPath + "/models/ghost", appFolderPath + "/imacman", "3D2", "directionallight");
-        //this->setColorModel();
-        //renderModel->setModelColor(glm::vec3(0,0,1),glm::vec3(0.3412,0.8824,0.7765),glm::vec3(0.3500,0.3500,0.3500));
+        renderModel = new RenderModel(appFolderPath + "/models/ghost", appFolderPath + "/imacman", "3D2", "texture");
+        renderModel->setTexture(appFolderPath + "/textures/tumbleweed.jpg");
         OpenGlManager::getInstance().addRenderModel(renderModel);
     } catch (std::runtime_error &e){
         std::cerr << e.what() << std::endl;

@@ -29,6 +29,7 @@ public:
 private:
     int timer;
     int collisionReturn;
+protected:
     float speed;
 
 };

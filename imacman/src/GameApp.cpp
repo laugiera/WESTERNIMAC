@@ -9,18 +9,28 @@ GameApp::GameApp(const std::string &appPath) : appPath(appPath),
                                                windowManager(Utils::windowWidth, Utils::windowHeight, "GLImac")
 {
     OpenGlManager::getInstance().init(appPath.c_str());
-    boardPath = Tools::getFolderPath(appPath) + "/data/board02.txt";
+    std::string filePath;
+    if (loadMode){
+        filePath =  "/data/saveGame.txt";
+    }
+    else filePath =  "/data/board02.txt";
+    boardPath = Tools::getFolderPath(appPath) +filePath;
     try {
         gameboard = new GameBoard(boardPath);
     } catch (std::runtime_error &e) {
         std::cerr << e.what() << std::endl;
     }
 
-
-
+    saveMode=false;
+    loadMode=false;
 }
 
 void GameApp::appLoop() {
+
+    if(loadMode){
+        gameboard->updateScore("/data/saveGame.txt");
+    // need to add line to reload the board
+    }
     int rightPressed = 0;
     bool done = false;
     while(!done) {

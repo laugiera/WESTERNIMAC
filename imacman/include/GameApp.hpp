@@ -6,6 +6,7 @@
 #define IMACMAN_GAMEAPP_HPP
 
 #include "GameBoard.hpp"
+#include "Save.h"
 
 
 
@@ -28,6 +29,10 @@ private:
     std::string appPath;
 
     glimac::SDLWindowManager windowManager;
+
+    //Save Saving;
+    bool saveMode;
+    bool loadMode;
 
 };
 

@@ -4,7 +4,7 @@
 
 #include "GhostState.hpp"
 
-GhostState::GhostState(int timer, int collisionReturn) : timer(timer), collisionReturn(collisionReturn), speed(0.02) {}
+GhostState::GhostState(int timer, int collisionReturn) : timer(timer), collisionReturn(collisionReturn), speed(0.05) {}
 
 int GhostState::getTimer() const {
     return timer;

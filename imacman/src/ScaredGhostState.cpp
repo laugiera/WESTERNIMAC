@@ -5,8 +5,9 @@
 #include "ScaredGhostState.hpp"
 
 ScaredGhostState::ScaredGhostState(int timer, int collisionReturn) : GhostState(timer, collisionReturn) {
-    setSpeed(0.03);
+    speed = 0.005;
 }
+
 
 void ScaredGhostState::move(glm::vec2 &position, Tile* & currentTile) {
     GhostState::move(position, currentTile);

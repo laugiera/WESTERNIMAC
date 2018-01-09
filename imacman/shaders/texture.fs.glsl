@@ -42,7 +42,7 @@ vec3 multiplyTexture(vec3 color, vec4 textureAlpha) {
 }
 
 void main() {
-   vec3 texColor = multiplyTexture(color, texture(uTexture, vTexCoords_vs));
-   fsColor = blinnPhong() * texColor;
+   //vec3 texColor = multiplyTexture(color, texture(uTexture, vTexCoords_vs));
+   fsColor = blinnPhong() * texture(uTexture, vTexCoords_vs).xyz * color;
 
 }

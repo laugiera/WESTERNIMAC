@@ -16,7 +16,6 @@
 #include "CameraFPS.hpp"
 #include "Camera2D.hpp"
 
-
 class GameBoard {
 public:
     GameBoard() = default;
@@ -62,6 +61,7 @@ public:
     void handleGhosts();
 
     void handlePortal();
+    void updateScore(std::string filePath);
 
 
 private:
@@ -73,7 +73,6 @@ private:
     Camera2D * cam2D;
     CameraFPS * camFPS;
     int gumNumber;
-
 };
 
 
