@@ -5,7 +5,6 @@
 #include "Tile.hpp"
 #include "Wall.hpp"
 #include "Elevator.hpp"
-
 Tile::Tile(int id, const glm::vec2 &center, const std::vector<Tile **> &neighbours, const int &initiateState)
         : id(id), center(center),
           neighbours(neighbours), initialState(initiateState)

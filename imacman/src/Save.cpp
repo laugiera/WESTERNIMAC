@@ -2,15 +2,14 @@
 // Created by Amel on 9/1/2018.
 //
 
-#include "save.h"
-save::save(){
-    saveMode=false;
-    loadMode=false;
+#include "Save.h"
+Save::Save(){
+
 }
 
-void save::saveGame(CactusMan &player, std::vector<std::vector<Tile*>> TileMatrix){
+void Save::saveGame(CactusMan &player, std::vector<std::vector<Tile*>> TileMatrix){
 
-    std::string filePath = "data/saveGame.txt";
+    std::string filePath = "/data/saveGame.txt";
     std::ofstream SaveGameFile (filePath.c_str(),std::ios_base::app);
 
     if (SaveGameFile.is_open())

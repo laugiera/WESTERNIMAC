@@ -7,17 +7,14 @@
 
 #include "CactusMan.hpp"
 
-class save {
+class Save {
 
-    save();
-    ~save();
+    Save();
+    ~Save();
 
 public:
     void saveGame(CactusMan &player, std::vector<std::vector<Tile*>> TileMatrix);
 
-private:
-    bool saveMode;
-    bool loadMode;
 
 };
 

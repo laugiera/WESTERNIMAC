@@ -16,7 +16,6 @@
 #include "CameraFPS.hpp"
 #include "Camera2D.hpp"
 
-
 class GameBoard {
 public:
     GameBoard() = default;
@@ -71,7 +70,6 @@ private:
     Camera2D * cam2D;
     CameraFPS * camFPS;
     int gumNumber;
-
 };
 
 
