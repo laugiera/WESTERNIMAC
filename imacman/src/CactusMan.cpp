@@ -95,7 +95,7 @@ void CactusMan::createRenderModel() {
     std::string appFolderPath = OpenGlManager::getInstance().getAppFolderPath();
     try {
         renderModel = new RenderModel(appFolderPath + "/models/cactus", appFolderPath + "/imacman", "3D2", "texture");
-        renderModel->setModelColor(glm::vec3(0.282, 0.458, 0.294),glm::vec3(1),glm::vec3(1));
+        renderModel->setModelColor(glm::vec3(0.850, 0.913, 0.788),glm::vec3(1),glm::vec3(1));
         renderModel->setTexture(appFolderPath + "/textures/cactus.jpg");
         OpenGlManager::getInstance().addRenderModel(renderModel);
     } catch (std::runtime_error &e){
