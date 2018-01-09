@@ -104,6 +104,11 @@ void GameBoard::handleCollisions() {
                 ghost->setScaredState();
             }
             break;
+        case PORTAL:
+            handlePortal();
+            break;
+        default:
+            break;
     }
     player.testGhostEncounter(ghosts);
 
@@ -228,6 +233,20 @@ bool GameBoard::hasLost() {
 void GameBoard::handleGhosts() {
     for(Ghost * ghost : ghosts){
         ghost->move();
+    }
+}
+
+void GameBoard::handlePortal() {
+    for(std::vector<Tile *> tileLine : tiles) {
+        for( Tile * tile : tileLine) {
+            if(tile->getInitialState() == PORTAL && !player.isOnTile(tile)) {
+                tile = *(tile->getNeighbours()[0]);
+                player.teleport(tile);
+                cam2D->follow(player);
+                camFPS->follow(player);
+                return;
+            }
+        }
     }
 }
 

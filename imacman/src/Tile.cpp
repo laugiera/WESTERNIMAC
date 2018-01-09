@@ -4,7 +4,7 @@
 
 #include "Tile.hpp"
 #include "Wall.hpp"
-#include "Elevator.hpp"
+#include "Portal.hpp"
 
 Tile::Tile(int id, const glm::vec2 &center, const std::vector<Tile **> &neighbours, const int &initiateState)
         : id(id), center(center),
@@ -15,7 +15,7 @@ Tile::Tile(int id, const glm::vec2 &center, const std::vector<Tile **> &neighbou
     changeElement(initiateState);
 }
 
-
+//sert à rien test remova
 std::ostream &operator<<(std::ostream &stream, Tile &tile) {
     std::string symbol;
     if(tile.initialState == WALL){
@@ -44,8 +44,8 @@ void Tile::changeElement(int elementType) {
         element = new SuperGum();
     } else if(elementType == FRUIT){
         element = new Fruit();
-    } else if(elementType == ELEVATOR){
-        element = new Elevator();
+    } else if(elementType == PORTAL){
+        element = new Portal();
     } else {
         element = nullptr;
     }

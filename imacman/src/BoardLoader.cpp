@@ -111,6 +111,8 @@ Tile * BoardLoader::createTile(std::string type, int id, glm::vec2 center, std::
         return new Tile(id, center, neighbours, GHOST);
     } else if (type == "PACMAN") {
         return new Tile(id, center, neighbours, PACMAN);
+    } else if (type == "PORTAL") {
+        return new Tile(id, center, neighbours, PORTAL);
     } else throw std::runtime_error("In file : Tile (id:"+ std::to_string(id) +") initial state data empty or incorrect");
 }
 

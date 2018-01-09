@@ -61,6 +61,8 @@ public:
 
     void handleGhosts();
 
+    void handlePortal();
+
 
 private:
     CactusMan player;

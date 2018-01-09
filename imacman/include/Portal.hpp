@@ -7,7 +7,7 @@
 
 #include "GameElement.hpp"
 
-class Elevator : public GameElement{
+class Portal : public GameElement{
 public:
     void render(glm::vec2);
     int drop();

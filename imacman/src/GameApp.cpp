@@ -9,7 +9,7 @@ GameApp::GameApp(const std::string &appPath) : appPath(appPath),
                                                windowManager(Utils::windowWidth, Utils::windowHeight, "GLImac")
 {
     OpenGlManager::getInstance().init(appPath.c_str());
-    boardPath = Tools::getFolderPath(appPath) + "/data/board01.txt";
+    boardPath = Tools::getFolderPath(appPath) + "/data/board02.txt";
     try {
         gameboard = new GameBoard(boardPath);
     } catch (std::runtime_error &e) {
