@@ -6,11 +6,10 @@
 
 
 Ghost::Ghost(Tile *tile, int baseState) : startingTile(tile), tile(tile), baseState(baseState) {
-    state = nullptr;
+    state = new WaitingState(baseState*100);
     renderModel = nullptr;
     position = tile->getCenter();
     createRenderModel();
-    setBaseState();
 }
 
 Ghost::Ghost(){}

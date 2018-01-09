@@ -11,6 +11,7 @@
 #include "PinkyState.hpp"
 #include "InkyState.hpp"
 #include "BlinkyState.hpp"
+#include "WaitingState.hpp"
 
 enum{INKY, PINKY, BLINKY, CLYDE};
 

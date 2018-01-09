@@ -15,5 +15,4 @@ void ScaredGhostState::move(glm::vec2 &position, Tile* & currentTile) {
 
 void ScaredGhostState::setColor(RenderModel *renderModel) {
     renderModel->setModelColor(glm::vec3(1, 1, 1),glm::vec3(1),glm::vec3(1));
-
 }
