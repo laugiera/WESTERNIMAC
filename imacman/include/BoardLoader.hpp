@@ -17,9 +17,9 @@ public:
 
     std::vector<std::vector<Tile*>> createTileMatrix(std::string filePath);
 
-private:
     std::vector<std::string> load(std::string filePath);
 
+private:
     std::vector<std::vector<std::string>> loadDataMatrix(std::string filePath);
 
 
