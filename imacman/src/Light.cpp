@@ -30,6 +30,7 @@ void Light::addLightUniforms(glcustom::GPUProgram &program){
 }
 
 void Light::sendLightUniforms(glcustom::GPUProgram &program){
+
     program.sendUniformVec4("uLightDir_vs",direction);
     program.sendUniformVec3("uLightIntensity",intensity);
 

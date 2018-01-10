@@ -26,7 +26,7 @@ void OpenGlManager::drawAll(glimac::SDLWindowManager &windowManager, glm::mat4 &
 
     //transformation
     light.setDirection();
-   // light.transform(glm::vec3(0),windowManager.getTime()+100,glm::vec3(0, 1, 0),glm::vec3(1));
+    //light.transform(glm::vec3(0),windowManager.getTime()+1000,glm::vec3(0, 1, 0),glm::vec3(1));
 
     for (int it = 0; it < models.size() ; ++it) {
         models[it]->render(viewMatrix,light);
