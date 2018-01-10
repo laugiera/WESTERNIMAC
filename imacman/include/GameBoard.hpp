@@ -60,6 +60,9 @@ public:
 
     void handleGhosts();
 
+    void handlePortal();
+    void updateScore(std::string filePath);
+
 
 private:
     CactusMan player;

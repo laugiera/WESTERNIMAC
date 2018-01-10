@@ -31,6 +31,7 @@ public:
     bool isOnWalkableTile();
     int dropTile();
     void testGhostEncounter(std::vector<Ghost*> & ghosts);
+    void teleport(Tile * _tile);
 
     void setCam2D(bool cam2D);
 

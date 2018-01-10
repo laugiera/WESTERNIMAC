@@ -11,6 +11,7 @@
 #include "PinkyState.hpp"
 #include "InkyState.hpp"
 #include "BlinkyState.hpp"
+#include "WaitingState.hpp"
 
 enum{INKY, PINKY, BLINKY, CLYDE};
 
@@ -25,10 +26,9 @@ public:
     void returnToStartPos();
     void setScaredState();
     //returns vector of path from s to d
-    static std::vector<Tile *> isReachable(Tile s, Tile d, std::vector<std::vector<Tile>> tiles);
     void createRenderModel();
     void render();
-
+    int Dijkstra(int A, int B, std::vector<std::vector<int>> neighbours);
     const glm::vec2 &getPosition() const;
 
 private:

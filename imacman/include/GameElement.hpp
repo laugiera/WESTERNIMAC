@@ -10,7 +10,7 @@
 
 class RenderModel;
 
-enum {WALL, EMPTY, GHOST, PACMAN, GUM, SUPERGUM, FRUIT, ELEVATOR};
+enum {WALL, EMPTY, GHOST, PACMAN, GUM, SUPERGUM, FRUIT, ELEVATOR, PORTAL};
 
 class GameElement {
 public:

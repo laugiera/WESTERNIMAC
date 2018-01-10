@@ -177,7 +177,7 @@ bool CactusMan::isOnWalkableTile() {
 }
 
 int CactusMan::dropTile() {
-    if(glm::distance(position, tile->getCenter()) < 0.2){
+    if(glm::distance(position, tile->getCenter()) < 0.3){
         int type = tile->drop();
         switch (type) {
             case GUM :
@@ -225,6 +225,11 @@ void CactusMan::testGhostEncounter(std::vector<Ghost *> &ghosts) {
 
 void CactusMan::setCam2D(bool cam2D) {
     CactusMan::cam2D = cam2D;
+}
+
+void CactusMan::teleport(Tile *_tile) {
+    tile = _tile;
+    position = tile->getCenter();
 }
 
 

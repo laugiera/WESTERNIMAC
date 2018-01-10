@@ -10,7 +10,7 @@
 class ScaredGhostState : public GhostState {
 public:
     ScaredGhostState(int timer, int collisionReturn);
-    void move(glm::vec2 & position, float &rotation);
+    void move(glm::vec2 &position, Tile* & currentTile);
     void setColor(RenderModel * renderModel);
 
 };

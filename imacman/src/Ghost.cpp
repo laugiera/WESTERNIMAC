@@ -6,11 +6,10 @@
 
 
 Ghost::Ghost(Tile *tile, int baseState) : startingTile(tile), tile(tile), baseState(baseState) {
-    state = nullptr;
+    state = new WaitingState(baseState*100);
     renderModel = nullptr;
     position = tile->getCenter();
     createRenderModel();
-    setBaseState();
 }
 
 Ghost::Ghost(){}
@@ -21,7 +20,7 @@ Ghost::~Ghost(){
 }
 
 void Ghost::move() {
-    state->move(position, rotation);
+    state->move(position, tile);
     if(state->getTimer() == 0){
         delete state;
         setBaseState();
@@ -90,57 +89,40 @@ void Ghost::setBaseState() {
 }
 
 
-//returns vector of path from s to d
-/*std::vector<Tile *> Ghost::isReachable(Tile s, Tile d, std::vector<std::vector<Tile>> tiles)
-{
-    // Create a path vector for BFS
-    std::vector<Tile *> path;
 
-    // Base case
-    if (s.getId() == d.getId())
-        return path;
+/* given adjacency matrix adj, finds shortest path from A to B
+    A, id of the tile A
+    B, id of the tile B
+    neighbours, vector of neighbours tiles id */
 
-    // Mark all the tiles as not visited
-    bool *visited = new bool[tiles.size()];
-    for (int i = 0; i < tiles.size(); i++)
-        visited[i] = false;
+int Dijkstra(int A, int B, std::vector<std::vector<int>> neighbours) {
+    int n = neighbours.size();
+    std::vector<int> dist(n);
+    std::vector<bool> vis(n);
 
+    for(int i = 0; i < n; ++i) {
+        dist[i] = -1; //initially put all distances to infinity
+    }
+    dist[A] = 0;
 
-    // Mark the current tile as visited and add it to path vector
-    visited[s.getId()] = true;
-    path.push_back(&s);
+    for(int i = 0; i < n; ++i) {
+        int cur = -1;
+        for(int j = 0; j < n; ++j) {
+            if (vis[j]) continue;
+            if (cur == -1 || dist[j] < dist[cur]) {
+                cur = j;
+            }
+        }
 
-    // it will be used to get all adjacent tiles of a tile
-
-    std::vector<Tile *>::iterator i;
-
-    while (!path.empty())
-    {
-        s = *path.front();
-
-        // Get all adjacent tiles of the tile s
-        // If a adjacent has not been visited, then mark it visited
-        // and add it to path vector
-        for (i == **(s.getNeighbours()).begin(); i != **(s.getNeighbours()).end(); ++i)
-        {
-            // If this adjacent tile is the destination node, then
-            // return the path
-            if (**i == d)
-                return path;
-
-            // Else, continue to do BFS
-            if (!visited[**i])
-            {
-                visited[**i] = true;
-                path.push_back(*i);
+        vis[cur] = true;
+        for(int j = 0; j < n; ++j) {
+            int path = dist[cur] + neighbours[cur][j];
+            if (path < dist[j]) {
+                dist[j] = path;
             }
         }
     }
 
-    // If BFS is complete without visiting d
-    return nullptr;
+    //return dist[B]; //return shortest distances but we want the node
+    return vis[1]; //returns the first visited node that leaded to the shortest way
 }
-
-*/
-
-

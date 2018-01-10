@@ -104,32 +104,13 @@ void GameBoard::handleCollisions() {
                 ghost->setScaredState();
             }
             break;
+        case PORTAL:
+            handlePortal();
+            break;
+        default:
+            break;
     }
     player.testGhostEncounter(ghosts);
-
-    /* use to redo walls
-        std::vector<Tile *> neighbours= tile.getNeighbours();
-
-    for(unsigned int i;i<neighbours.size();i++){
-        //check the square to avoid using roots
-        if (SquareDistance(player.getPosition(),neighbours[i]->getCenter())< 0.25){ //distance less than (0.5)²
-            tile=*(neighbours[i]);
-            break;
-        }
-    }
-
-    else if(tile.type() == ELEVATOR){
-        //load upstairs gameboard
-
-    } else if(tile.type() == EMPTY){
-        //do nothing
-    }
-    else {
-
-        // need to also check if dude is out of the map
-        // freeze the y if y>board.height and freeze x if x>board.width
-    }
-     */
 }
 
 void GameBoard::render(glimac::SDLWindowManager & windowManager) {
@@ -160,6 +141,19 @@ void GameBoard::changeCamera() {
 GameBoard::~GameBoard() {
 
 }
+
+
+void GameBoard::updateScore(std::string filePath){
+    try {
+        std::vector<std::string> fileContent = BoardLoader().load(filePath);
+        if(fileContent.size()<2) throw std::runtime_error("Not enough data");
+        player.setLives(Tools::intFromString(fileContent[0]));
+        player.setScore(Tools::intFromString(fileContent[1]));
+    } catch (std::runtime_error &e) {
+        std::cerr << "Saves scores and lives could not be loaded : " << e.what() << std::endl;
+    }
+}
+
 
 void GameBoard::moveUp() {
     player.moveFront(1);
@@ -228,6 +222,20 @@ bool GameBoard::hasLost() {
 void GameBoard::handleGhosts() {
     for(Ghost * ghost : ghosts){
         ghost->move();
+    }
+}
+
+void GameBoard::handlePortal() {
+    for(std::vector<Tile *> tileLine : tiles) {
+        for( Tile * tile : tileLine) {
+            if(tile->getInitialState() == PORTAL && !player.isOnTile(tile)) {
+                tile = *(tile->getNeighbours()[0]);
+                player.teleport(tile);
+                cam2D->follow(player);
+                camFPS->follow(player);
+                return;
+            }
+        }
     }
 }
 

@@ -13,7 +13,7 @@ GameApp::GameApp(const std::string &appPath) : appPath(appPath),
     if (loadMode){
         filePath =  "/data/saveGame.txt";
     }
-    else filePath =  "/data/board01.txt";
+    else filePath =  "/data/board02.txt";
     boardPath = Tools::getFolderPath(appPath) +filePath;
     try {
         gameboard = new GameBoard(boardPath);
@@ -26,6 +26,11 @@ GameApp::GameApp(const std::string &appPath) : appPath(appPath),
 }
 
 void GameApp::appLoop() {
+
+    if(loadMode){
+        gameboard->updateScore("/data/saveGame.txt");
+    // need to add line to reload the board
+    }
     int rightPressed = 0;
     bool done = false;
     while(!done) {
