@@ -5,7 +5,7 @@
 #include <glm/vec2.hpp>
 #include "CactusMan.hpp"
 
-CactusMan::CactusMan(Tile *tile) : startingTile (tile), tile(tile) {
+CactusMan::CactusMan(Tile *tile) : startingTile (tile), tile(tile), renderModel(nullptr) {
     position = glm::vec2(tile->getCenter().x, tile->getCenter().y);
     rotation = 0;
     score=0;
@@ -15,74 +15,70 @@ CactusMan::CactusMan(Tile *tile) : startingTile (tile), tile(tile) {
 }
 
 CactusMan::~CactusMan(){
-
-
+    delete renderModel;
 }
 
+/**
+ * Handle moving Frontward and backward (FPS cam) and Up and Down (2D cam)
+ * @param direction
+ */
 void CactusMan::moveFront(float direction){
-    float test = 0.55;
-    glm::vec2 previousPosition = position;
-    //std::cout<<"vec pos front = " << position <<std::endl;
-    //std::cout<<" int vec pos mod  = " << (int)((position.x)*1000) % 500 << " | y= " << (int)((position.y)*1000) % 500<<std::endl;
-
-    if(cam2D){
-
+    float testDistance = 0.55; // collision distance from wall
+    glm::vec2 previousPosition = position; //keep previous position in case the movement is not possible (eg wall)
+    if(cam2D){ //player movement is different depending on the camera used
         rotation = (direction>0)?180: 0;
         computeDirectionVectors();
-        position += glm::vec2(frontVector.x, frontVector.z) * test;
-        direction = glm::abs(direction); //we don't need the signed direction anymore cause we have backward orientation
-        /*Amel
-        if(((int)((position.y)*1000) % 500 == 0) || ((int)((position.y)*1000) % 500 == 0 )){
-            position += glm::vec2(frontVector.x, frontVector.z) * glm::abs(speed);
-        }
-        */
+        position += glm::vec2(frontVector.x, frontVector.z) * testDistance; // test movement with collision distance
+        direction = glm::abs(direction); // 2D cam : we don't need the signed direction anymore cause we have backward rotation
     } else {
-        position += glm::vec2(frontVector.x, frontVector.z) * test * direction; //direction needs to be signed
+        position += glm::vec2(frontVector.x, frontVector.z) * testDistance * direction; //FPS cam : direction needs to be signed to walk backward
     }
     if(!isOnWalkableTile()){
         position = previousPosition;
     } else {
+        // if movement is allowed update the coords using the real speed instead of the testDistance
         position = previousPosition + (glm::vec2(frontVector.x, frontVector.z) * speed * direction);
     }
 }
 
+/**
+ * Rotates the player to the left, used in FPS Cam mode
+ */
 void CactusMan::rotateLeft(){
-    if(isOnCrossRoad()){
+    if(isOnCrossRoad()){ // player has to be on a crossroad to rotate
         rotation += 90;
         computeDirectionVectors();
     }
 }
 
-void CactusMan::moveLeft(float direction){
-    //std::cout<<" int vec pos mod  = " << (int)((position.x)*1000) % 500 << " | y= " << (int)((position.y)*1000) % 500<<std::endl;
+/**
+ * Rotates the player to the right, used in FPS Cam mode
+ */
+void CactusMan::rotateRight() {
+    if(isOnCrossRoad()){
+        rotation -= 90;
+        computeDirectionVectors();
+    }
+}
 
+/**
+ * Handle rotating left and right in FPS mode and moving left and right in 2D mode
+ * @param direction
+ */
+void CactusMan::moveLeft(float direction){
     if(cam2D) {
-// Lou
-        float test = 0.55;
+        //see MoveFront()
+        float testDistance = 0.55;
         glm::vec2 previousPosition = position;
         rotation = (direction > 0) ? -90 : 90;
         computeDirectionVectors();
-        position += glm::vec2(frontVector.x, frontVector.z) * test;
+        position += glm::vec2(frontVector.x, frontVector.z) * testDistance;
         if (!isOnWalkableTile()) {
             position = previousPosition;
         } else {
             position = previousPosition + (glm::vec2(frontVector.x, frontVector.z) * speed);
         }
-
-//
-/*Amel
-        glm::vec2 previousPosition = position;
-        rotation = (speed>0)?-90: 90;
-        computeDirectionVectors();
-        if(((int)((position.y)*1000) % 500 == 0) || ((int)((position.y)*1000) % 500 == 0 )){
-                position += glm::vec2(frontVector.x, frontVector.z) * glm::abs(speed);
-                std::cout<<"vec pos left = " << position <<std::endl;
-            }
-            if(!isOnWalkableTile()){
-                position = previousPosition;
-            }
-*/
-    } else {
+    } else { // if in FPS mode changing direction means rotating then moving front
         if(direction>0){
             rotateLeft();
         } else {
@@ -91,6 +87,9 @@ void CactusMan::moveLeft(float direction){
     }
 }
 
+/**
+ * Creates the rendermodel for CactusMan
+ */
 void CactusMan::createRenderModel() {
     std::string appFolderPath = OpenGlManager::getInstance().getAppFolderPath();
     try {
@@ -103,6 +102,9 @@ void CactusMan::createRenderModel() {
     }
 }
 
+/**
+ * Updates the RenderModel with the player's coordinates, rotation and scale
+ */
 void CactusMan::render() {
     if(cam2D){
         renderModel->transform(glm::vec3(position.x, 0, position.y), rotation, glm::vec3(0,1,0), glm::vec3(1));
@@ -110,10 +112,10 @@ void CactusMan::render() {
 
 }
 
-float CactusMan::getRotation() const {
-    return rotation;
-}
-
+/**
+ * Compute the front and left vectors which will be used for player movement and cameras.
+ * Has to be called after any rotation
+ */
 void CactusMan::computeDirectionVectors() {
     float _rotation = glm::radians(rotation);
     frontVector = glm::vec3(glm::cos(0.f)*glm::sin(_rotation),
@@ -125,21 +127,11 @@ void CactusMan::computeDirectionVectors() {
 
 }
 
-const glm::vec3 &CactusMan::getFrontVector() const {
-    return frontVector;
-}
-
-const glm::vec3 &CactusMan::getLeftVector() const {
-    return leftVector;
-}
-
-void CactusMan::rotateRight() {
-    if(isOnCrossRoad()){
-        rotation -= 90;
-        computeDirectionVectors();
-    }
-}
-
+/**
+ * Checks if the player is on passed tile
+ * @param tile
+ * @return
+ */
 bool CactusMan::isOnTile(const Tile *tile) {
         if(position.x >= tile->getCenter().x -0.5 &&
            position.x <= tile->getCenter().x + 0.5&&
@@ -150,6 +142,10 @@ bool CactusMan::isOnTile(const Tile *tile) {
     return false;
 }
 
+/**
+ * Checks if the player is on a crossroad : Anything is considered a crossroad apart from a 2 way straight line
+ * @return
+ */
 bool CactusMan::isOnCrossRoad() {
     if (tile->getNeighbours().size() == 2 &&
         (*tile->getNeighbours()[0])->isAligned(*tile->getNeighbours()[1])) {
@@ -161,14 +157,19 @@ bool CactusMan::isOnCrossRoad() {
     return true;
 }
 
+/**
+ * Checks if the player is on a walkable tile
+ * @return
+ */
 bool CactusMan::isOnWalkableTile() {
-    if(isOnTile(tile)){
+    if(isOnTile(tile)){ // if still on he same tile it is walkable
         return true;
     } else {
+        //checks for each neighbouring walkable tile if the player is on it. If not then the player is in a wall
         for(int i = 0; i<tile->getNeighbours().size(); i++){
             if(isOnTile(*(tile->getNeighbours().at(i)))){
                 Tile ** newTile = tile->getNeighbours().at(i);
-                tile = *newTile;
+                tile = *newTile; // update the player's tile
                 return true;
             }
         }
@@ -176,6 +177,10 @@ bool CactusMan::isOnWalkableTile() {
     }
 }
 
+/**
+ * Retrieves a tile's type, updates the player's stats accordingly and returns the type;
+ * @return
+ */
 int CactusMan::dropTile() {
     if(glm::distance(position, tile->getCenter()) < 0.3){
         int type = tile->drop();
@@ -197,12 +202,17 @@ int CactusMan::dropTile() {
     return EMPTY;
 }
 
+/**
+ * Test ghosts collisions, updates the player's stats and eventually updates the ghosts state
+ * @param ghosts
+ */
 void CactusMan::testGhostEncounter(std::vector<Ghost *> &ghosts) {
     for(Ghost * ghost : ghosts){
-        if (glm::distance(position, ghost->getPosition()) < 0.3) {
+        if (glm::distance(position, ghost->getPosition()) < 0.5) {
             int what = ghost->collide();
             switch (what) {
-                case -1:
+                case -1: // default state for the ghosts
+                    //player looses a life and everyone gets back to its starting position
                     lives --;
                     for(Ghost * ghost : ghosts){
                         ghost->returnToStartPos();
@@ -210,11 +220,11 @@ void CactusMan::testGhostEncounter(std::vector<Ghost *> &ghosts) {
                     tile = startingTile;
                     position = tile->getCenter();
                     break;
-                default:
+                default: // any other number -> number of points gained by the player -> it means the ghosts are in ScaredState and the player can eat them
                     score += what;
-                    ghost->returnToStartPos();
+                    ghost->returnToStartPos(); //only eaten ghost gets back to starting position
                     for(Ghost * ghost : ghosts){
-                        ghost->setScaredState();
+                        ghost->setScaredState(); // ScaredState needs to be updated for all the ghosts to double the number of points
                     }
                     break;
             }
@@ -223,13 +233,27 @@ void CactusMan::testGhostEncounter(std::vector<Ghost *> &ghosts) {
 
 }
 
-void CactusMan::setCam2D(bool cam2D) {
-    CactusMan::cam2D = cam2D;
-}
-
+/**
+ * Change player position to passed tile's center and updates the tile attribute
+ * @param _tile
+ */
 void CactusMan::teleport(Tile *_tile) {
     tile = _tile;
     position = tile->getCenter();
 }
 
 
+void CactusMan::setCam2D(bool cam2D) {
+    CactusMan::cam2D = cam2D;
+}
+
+float CactusMan::getRotation() const {
+    return rotation;
+}
+const glm::vec3 &CactusMan::getFrontVector() const {
+    return frontVector;
+}
+
+const glm::vec3 &CactusMan::getLeftVector() const {
+    return leftVector;
+}

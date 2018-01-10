@@ -63,9 +63,11 @@ public:
     void handlePortal();
     void updateScore(std::string filePath);
 
+    void handleCamera();
+
 
 private:
-    CactusMan player;
+    CactusMan * player;
     std::vector<std::vector<Tile *>> tiles;
     std::string boardPath;
     std::vector<Ghost*> ghosts;

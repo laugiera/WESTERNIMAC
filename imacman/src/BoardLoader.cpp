@@ -52,24 +52,12 @@ std::vector<std::vector<Tile*>> BoardLoader::createTileMatrix(std::string filePa
                 std::vector<Tile **> neighbours = findNeighbours(i,j,gameBoard, dataMatrix);
                 Tile * t = createTile(dataMatrix[i][j], i*colNumber + j, glm::vec2(offset+float(j)*tileSize, offset+float(i)*tileSize), neighbours);
                 gameBoard[i][j] = t;
-
             }
         }
-
         return gameBoard;
     } catch (std::runtime_error &e){
         std::cerr << e.what() << std::endl;
     }
-
-
-
-
-
-
-
-
-
-
 }
 
 /**
@@ -89,11 +77,11 @@ std::vector<std::vector<std::string>> BoardLoader::loadDataMatrix(std::string fi
 }
 
 /**
- * creates a tile -> might be useful if we want different type of tile instanciating
- * @param type
- * @param id
- * @param center
- * @param neighbours
+ * creates a tile from string data indicating what type of element is on the tile
+ * @param type : string data
+ * @param id : tile id
+ * @param center : tile center coordinates on the gameboard
+ * @param neighbours : vector of pointers on the walkable tiles adjacent to the tile to be created
  * @return
  */
 Tile * BoardLoader::createTile(std::string type, int id, glm::vec2 center, std::vector<Tile **> neighbours){
@@ -125,9 +113,9 @@ Tile * BoardLoader::createTile(std::string type, int id, glm::vec2 center, std::
  * @return pointer to the memory space the neighbours will occupy in the gameboard matrix
  */
 std::vector<Tile **> BoardLoader::findNeighbours(int i, int j, std::vector<std::vector<Tile*>> & tiles, std::vector<std::vector<std::string>> &dataMatrix ) {
- //see if not prob with passing Tiles as ref
     std::vector<Tile **> neighbours;
-
+    //checks for each lateral neighbour if there is a wall on the tile or not
+    //if not add to the neighbours vector
     if(dataMatrix[i][j] != "WALL"){
         if(i-1 >= 0 && dataMatrix[i-1][j] != "WALL"){
             Tile ** t = &tiles[i-1][j];
@@ -146,7 +134,6 @@ std::vector<Tile **> BoardLoader::findNeighbours(int i, int j, std::vector<std::
             neighbours.push_back(t);
         }
     }
-
     return neighbours;
 }
 

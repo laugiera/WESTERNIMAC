@@ -62,9 +62,11 @@ void GameApp::appLoop() {
                 done = true; // Leave the loop after this iteration
             }
         }
+        gameboard->handleCamera();
         gameboard->handleGhosts();
         gameboard->handleCollisions();
         gameboard->render(windowManager);
+
         if(gameboard->hasWon() || gameboard->hasLost()) done = true;
     }
     destroy();

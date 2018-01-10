@@ -20,8 +20,7 @@ GameBoard::GameBoard(const std::string &boardPath) : boardPath(boardPath),
         throw std::runtime_error(message);
     }
     currentCam = camFPS;
-    camFPS->follow(player);
-    cam2D->follow(player);
+    handleCamera();
 
 
 }
@@ -87,13 +86,13 @@ void GameBoard::createCactusman() {
     if(!startingTile){
         throw std::runtime_error("No starting position has been set for Cactusman");
     } else {
-        player = CactusMan(startingTile);
+        player = new CactusMan(startingTile);
     }
 }
 
 
 void GameBoard::handleCollisions() {
-    int type = player.dropTile();
+    int type = player->dropTile();
     switch (type) {
         case GUM:
             gumNumber --;
@@ -110,7 +109,7 @@ void GameBoard::handleCollisions() {
         default:
             break;
     }
-    player.testGhostEncounter(ghosts);
+    player->testGhostEncounter(ghosts);
 }
 
 void GameBoard::render(glimac::SDLWindowManager & windowManager) {
@@ -119,22 +118,22 @@ void GameBoard::render(glimac::SDLWindowManager & windowManager) {
             tile->render();
         }
     }
-    player.render();
+    player->render();
     for (Ghost* & ghost : ghosts){
         ghost->render();
     }
     glm::mat4 viewMatrix = currentCam->getViewMatrix();
-    OpenGlManager::getInstance().drawAll(windowManager,viewMatrix, player.getPosition());
+    OpenGlManager::getInstance().drawAll(windowManager,viewMatrix, player->getPosition());
 }
 
 void GameBoard::changeCamera() {
     if (currentCam == cam2D) {
         currentCam = camFPS;
-        player.setCam2D(false);
+        player->setCam2D(false);
     }
     else if (currentCam == camFPS) {
         currentCam = cam2D;
-        player.setCam2D(true);
+        player->setCam2D(true);
     }
 }
 
@@ -147,8 +146,8 @@ void GameBoard::updateScore(std::string filePath){
     try {
         std::vector<std::string> fileContent = BoardLoader().load(filePath);
         if(fileContent.size()<2) throw std::runtime_error("Not enough data");
-        player.setLives(Tools::intFromString(fileContent[0]));
-        player.setScore(Tools::intFromString(fileContent[1]));
+        player->setLives(Tools::intFromString(fileContent[0]));
+        player->setScore(Tools::intFromString(fileContent[1]));
     } catch (std::runtime_error &e) {
         std::cerr << "Saves scores and lives could not be loaded : " << e.what() << std::endl;
     }
@@ -156,29 +155,21 @@ void GameBoard::updateScore(std::string filePath){
 
 
 void GameBoard::moveUp() {
-    player.moveFront(1);
-    camFPS->follow(player);
-    cam2D->follow(player);
+    player->moveFront(1);
 
 
 }
 
 void GameBoard::moveDown() {
-    player.moveFront(-1);
-    camFPS->follow(player);
-    cam2D->follow(player);
+    player->moveFront(-1);
 }
 
 void GameBoard::moveLeft() {
-    player.moveLeft(1);
-    camFPS->follow(player);
-    cam2D->follow(player);
+    player->moveLeft(1);
 }
 
 void GameBoard::moveRight() {
-    player.moveLeft(-1);
-    camFPS->follow(player);
-    cam2D->follow(player);
+    player->moveLeft(-1);
 
 }
 
@@ -216,7 +207,7 @@ bool GameBoard::hasWon() {
 }
 
 bool GameBoard::hasLost() {
-    return player.getLives() == 0;
+    return player->getLives() == 0;
 }
 
 void GameBoard::handleGhosts() {
@@ -228,15 +219,19 @@ void GameBoard::handleGhosts() {
 void GameBoard::handlePortal() {
     for(std::vector<Tile *> tileLine : tiles) {
         for( Tile * tile : tileLine) {
-            if(tile->getInitialState() == PORTAL && !player.isOnTile(tile)) {
+            if(tile->getInitialState() == PORTAL && !player->isOnTile(tile)) {
                 tile = *(tile->getNeighbours()[0]);
-                player.teleport(tile);
-                cam2D->follow(player);
-                camFPS->follow(player);
+                player->teleport(tile);
+                handleCamera();
                 return;
             }
         }
     }
+}
+
+void GameBoard::handleCamera() {
+    cam2D->follow(*player);
+    camFPS->follow(*player);
 }
 
 
