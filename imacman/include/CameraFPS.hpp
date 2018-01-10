@@ -10,12 +10,9 @@
 class CameraFPS : public  Camera{
 public:
     CameraFPS();
-    void moveLeft(float t);
-    void moveFront(float t);
-    void rotateLeft(float t);
     void follow(const CactusMan &player);
-
     glm::mat4 getViewMatrix() const;
+    
 private:
     glm::vec3 m_Position;
     float m_fPhi;

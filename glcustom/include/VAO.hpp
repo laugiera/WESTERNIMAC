@@ -22,15 +22,6 @@ namespace glcustom {
         template <typename type>
         void fillBuffer(const std::vector<type> &vertices, VBO *vbo , IBO *ibo = nullptr) {
             bind();
-            if(ibo){
-                std::cout << "ibo binded";
-                ibo->bind();
-            }
-            //activate properties
-            /*
-            idea to automate that : pass as a parameter the gpuprogram with new attributs m_activated_attributs
-            also get attribut pointer to content from vbo to get the type and not have to pass vertices
-             */
             const GLuint VERTEX_ATTR_POSITION = 0;
             const GLuint VERTEX_ATTR_NORMAL = 1;
             const GLuint VERTEX_ATTR_TEXTURE = 2;

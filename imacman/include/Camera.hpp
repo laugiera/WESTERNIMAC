@@ -15,10 +15,8 @@
 class Camera {
 public:
     Camera(){};
-    virtual void moveFront(float delta) = 0;
-    virtual void moveLeft(float t) = 0;
     virtual glm::mat4 getViewMatrix() const = 0;
-    virtual void follow(CactusMan & player);
+    virtual void follow(const CactusMan & player) = 0;
 
 };
 
