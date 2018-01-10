@@ -26,7 +26,7 @@ void RenderModel::setTexture(const std::string filePath){
      texture = new glcustom::Texture(filePath);
 }
 
-void RenderModel::addProgramUniforms(Light &light){
+void RenderModel::addProgramUniforms(Light &light,Light &playerLight){
     std::vector<std::string> uniformVariables;
     uniformVariables.push_back("uMVPMatrix");
     uniformVariables.push_back("uMVMatrix");
@@ -40,12 +40,13 @@ void RenderModel::addProgramUniforms(Light &light){
 
     program.addUniforms(uniformVariables);
     light.addLightUniforms(program);
+    playerLight.addLightUniforms(program);
 }
 
 void RenderModel::setModelMatrix(const glm::mat4 _modelMatrix){
     modelMatrix = _modelMatrix;
 }
-void RenderModel::render(const glm::mat4 &viewMatrix, Light &light){
+void RenderModel::render(const glm::mat4 &viewMatrix, Light &globalLight, Light &playerLight){
     program.use();
 
     glm::mat4 projMatrix = glm::perspective(glm::radians(70.f), Utils::windowWidth/Utils::windowHeight, 0.1f, 500.f);
@@ -62,12 +63,12 @@ void RenderModel::render(const glm::mat4 &viewMatrix, Light &light){
         program.sendUniformTextureUnit("uTexture", 0);
     }
 
-
     program.sendUniformVec3("uKd",model.getKd());
     program.sendUniformVec3("uKs",model.getKs());
     program.sendUniform1f("uShininess", 64);
     program.sendUniformVec3("color", model.getColor());
-    light.sendLightUniforms(program);
+    globalLight.sendLightUniforms(program);
+    playerLight.sendLightUniforms(program);
 
     vao.bind();
     glDrawElements(GL_TRIANGLES, model.getIndices_vector().size(), GL_UNSIGNED_INT, 0);

@@ -9,19 +9,21 @@
 #include <glm/vector_relational.hpp>
 #include <glm/matrix.hpp>
 #include <GPUProgram.hpp>
+#include <iostream>
 
 class Light {
 public:
-    Light(const glm::vec3 &_intensity);
+    Light(const glm::vec3 &_intensity, const std::string &_name);
     void transform(const glm::vec3 &translation, const float angle, const glm::vec3 &axesRotation, const glm::vec3 &scale);
     void addLightUniforms(glcustom::GPUProgram &program);
     void sendLightUniforms(glcustom::GPUProgram &program);
 
-    void setDirection();
+    void setDirection(glm::vec4 dir = glm::vec4(1,1,10,0));
 
 private:
     glm::vec4 direction;
     glm::vec3 intensity;
+    std::string name;
 
 };
 

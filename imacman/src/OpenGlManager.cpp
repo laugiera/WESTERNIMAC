@@ -4,7 +4,7 @@
 
 #include "OpenGlManager.hpp"
 
-OpenGlManager::OpenGlManager() : light(glm::vec3(1)), models() {}
+OpenGlManager::OpenGlManager() : light(glm::vec3(1),"global"), playerLight(glm::vec3(0.5),"player"), models() {}
 int OpenGlManager::init(const char* argv0){
 
     appFolderPath = Tools::getFolderPath(argv0);
@@ -20,17 +20,16 @@ int OpenGlManager::init(const char* argv0){
     glEnable(GL_DEPTH_TEST);
 
 }
-void OpenGlManager::drawAll(glimac::SDLWindowManager &windowManager, glm::mat4 &viewMatrix){
+void OpenGlManager::drawAll(glimac::SDLWindowManager &windowManager, glm::mat4 &viewMatrix, glm::vec2 playerPosition){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClearColor(0.7, 0.3, 0.2, 1);
 
     //transformation
     light.setDirection();
-    //light.transform(glm::vec3(0),windowManager.getTime()+1000,glm::vec3(0, 1, 0),glm::vec3(1));
+    playerLight.setDirection(glm::vec4(0,0,playerPosition.x,0));
 
     for (int it = 0; it < models.size() ; ++it) {
-        models[it]->render(viewMatrix,light);
-
+        models[it]->render(viewMatrix,light,playerLight);
     }
 
     // Update the display
@@ -38,7 +37,7 @@ void OpenGlManager::drawAll(glimac::SDLWindowManager &windowManager, glm::mat4 &
 }
 
 void OpenGlManager::addRenderModel(RenderModel *model) {
-    model->addProgramUniforms(light);
+    model->addProgramUniforms(light,playerLight);
     models.push_back(model);
 }
 

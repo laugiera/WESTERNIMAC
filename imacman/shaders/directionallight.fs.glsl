@@ -10,11 +10,13 @@ out vec3 fsColor;
 uniform vec3 uKd;
 uniform vec3 uKs;
 uniform float uShininess;
-uniform  vec3 uLightDir_vs;
-uniform vec3 uLightIntensity;
+uniform  vec3 uLightDir_vs_global;
+uniform vec3 uLightIntensity_global;
+uniform  vec3 uLightDir_vs_player;
+uniform vec3 uLightIntensity_player;
 uniform vec3 color;
 
-vec3 blinnPhong(){
+vec3 blinnPhong(vec3 uLightDir_vs, vec3 uLightIntensity){
     vec3 wi = normalize(uLightDir_vs);
     vec3 wo = normalize(-vPosition_vs);
     vec3 half_vec = (wi+wo)/2.f;
@@ -35,5 +37,7 @@ vec3 blinnPhong(){
 
 void main() {
 
-   fsColor = blinnPhong() * color;
+   fsColor = blinnPhong(uLightDir_vs_global,uLightIntensity_global) *
+             // blinnPhong(uLightDir_vs_player,uLightIntensity_player) *
+               color;
 }

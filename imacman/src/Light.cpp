@@ -4,13 +4,13 @@
 
 #include "Light.hpp"
 
-Light::Light(const glm::vec3 &_intensity) : intensity(_intensity)
+Light::Light(const glm::vec3 &_intensity, const std::string & _name) : intensity(_intensity), name(_name)
 {
     setDirection();
 }
 
-void Light::setDirection() {
-    direction = glm::vec4(1,1,10,0);
+void Light::setDirection(glm::vec4 dir) {
+    direction = dir;
 }
 
 void Light::transform(const glm::vec3 &translation, const float angle, const glm::vec3 &axesRotation, const glm::vec3 &scale){
@@ -23,15 +23,15 @@ void Light::transform(const glm::vec3 &translation, const float angle, const glm
 
 void Light::addLightUniforms(glcustom::GPUProgram &program){
     std::vector<std::string> uniformVariables;
-    uniformVariables.push_back("uLightDir_vs");
-    uniformVariables.push_back("uLightIntensity");
+    uniformVariables.push_back("uLightDir_vs_"+name);
+    uniformVariables.push_back("uLightIntensity_"+name);
 
     program.addUniforms(uniformVariables);
 }
 
 void Light::sendLightUniforms(glcustom::GPUProgram &program){
 
-    program.sendUniformVec4("uLightDir_vs",direction);
-    program.sendUniformVec3("uLightIntensity",intensity);
+    program.sendUniformVec4("uLightDir_vs_"+name,direction);
+    program.sendUniformVec3("uLightIntensity_"+name,intensity);
 
 }

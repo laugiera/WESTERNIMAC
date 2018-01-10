@@ -20,7 +20,7 @@
 class OpenGlManager {
 public:
     int init(const char* argv0);
-    void drawAll(glimac::SDLWindowManager &windowManager, glm::mat4 &viewMatrix);
+    void drawAll(glimac::SDLWindowManager &windowManager, glm::mat4 &viewMatrix,glm::vec2 playerPosition);
     void addRenderModel(RenderModel * model);
     void removeRenderModel(RenderModel * model);
 
@@ -39,6 +39,7 @@ public:
 private :
     float conversionFactor = 15.0;
     Light light;
+    Light playerLight;
     std::vector<RenderModel*> models;
     std::string appFolderPath;
     OpenGlManager();

@@ -124,7 +124,7 @@ void GameBoard::render(glimac::SDLWindowManager & windowManager) {
         ghost->render();
     }
     glm::mat4 viewMatrix = currentCam->getViewMatrix();
-    OpenGlManager::getInstance().drawAll(windowManager,viewMatrix);
+    OpenGlManager::getInstance().drawAll(windowManager,viewMatrix, player.getPosition());
 }
 
 void GameBoard::changeCamera() {
