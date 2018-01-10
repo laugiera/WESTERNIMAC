@@ -20,6 +20,8 @@ public:
 
     void setDirection(glm::vec4 dir = glm::vec4(1,1,10,0));
 
+    const glm::vec4 &getDirection() const;
+
 private:
     glm::vec4 direction;
     glm::vec3 intensity;

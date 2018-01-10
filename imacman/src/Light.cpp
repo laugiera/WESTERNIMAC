@@ -35,3 +35,7 @@ void Light::sendLightUniforms(glcustom::GPUProgram &program){
     program.sendUniformVec3("uLightIntensity_"+name,intensity);
 
 }
+
+const glm::vec4 &Light::getDirection() const {
+    return direction;
+}

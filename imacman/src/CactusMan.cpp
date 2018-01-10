@@ -94,7 +94,7 @@ void CactusMan::moveLeft(float direction){
 void CactusMan::createRenderModel() {
     std::string appFolderPath = OpenGlManager::getInstance().getAppFolderPath();
     try {
-        renderModel = new RenderModel(appFolderPath + "/models/cactus", appFolderPath + "/imacman", "3D2", "texture");
+        renderModel = new RenderModel(appFolderPath + "/models/cactus", appFolderPath + "/imacman", "3D2", "cactus");
         renderModel->setModelColor(glm::vec3(0.850, 0.913, 0.788),glm::vec3(1),glm::vec3(1));
         renderModel->setTexture(appFolderPath + "/textures/cactus.jpg");
         OpenGlManager::getInstance().addRenderModel(renderModel);

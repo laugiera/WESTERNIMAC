@@ -12,8 +12,6 @@ uniform vec3 uKs;
 uniform float uShininess;
 uniform  vec3 uLightDir_vs_global;
 uniform vec3 uLightIntensity_global;
-uniform  vec3 uLightDir_vs_player;
-uniform vec3 uLightIntensity_player;
 uniform vec3 color;
 
 vec3 blinnPhong(vec3 uLightDir_vs, vec3 uLightIntensity){
@@ -35,9 +33,9 @@ vec3 blinnPhong(vec3 uLightDir_vs, vec3 uLightIntensity){
     );
 }
 
+
 void main() {
 
    fsColor = blinnPhong(uLightDir_vs_global,uLightIntensity_global) *
-             // blinnPhong(uLightDir_vs_player,uLightIntensity_player) *
                color;
 }
