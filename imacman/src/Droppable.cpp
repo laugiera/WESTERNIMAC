@@ -8,9 +8,6 @@ void Droppable::render(glm::vec2 position) {
     renderModel->transform(glm::vec3(position.x, 0.5, position.y), -40, glm::vec3(1,1,0), glm::vec3(0.8));
 }
 
-int Droppable::drop() {
-}
-
 void Fruit::createRenderModel(){
     std::string appFolderPath = OpenGlManager::getInstance().getAppFolderPath();
     try {

@@ -25,6 +25,7 @@ public:
     int getCollisionReturn() const;
 
     void setSpeed(float speed);
+    void setCollisionReturn(int value);
 
 private:
     int timer;

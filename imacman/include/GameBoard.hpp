@@ -26,9 +26,7 @@ public:
 
     void loadBoard();
 
-    void createGhosts();
-
-    void createCactusman();
+    void createCharacters();
 
     void handleCollisions();
 

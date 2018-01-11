@@ -50,7 +50,7 @@ void RenderModel::setModelMatrix(const glm::mat4 _modelMatrix){
 void RenderModel::render(const glm::mat4 &viewMatrix, Light &globalRight, Light &playerLight, Light &globalLeft){
     program.use();
 
-    glm::mat4 projMatrix = glm::perspective(glm::radians(70.f), Utils::windowWidth/Utils::windowHeight, 0.1f, 500.f);
+    glm::mat4 projMatrix = glm::perspective(glm::radians(85.f), Utils::windowWidth/Utils::windowHeight, 0.1f, 500.f);
     glm::mat4 modelViewMatrix = viewMatrix * modelMatrix;
     glm::mat4 modelViewProjMatrix = projMatrix * modelViewMatrix;
     glm::mat4 normals = glm::transpose(glm::inverse(modelViewMatrix));

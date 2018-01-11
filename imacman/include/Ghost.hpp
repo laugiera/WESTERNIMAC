@@ -17,7 +17,7 @@ enum{INKY, PINKY, BLINKY, CLYDE};
 
 class Ghost {
 public:
-    Ghost();
+    Ghost() = default;
     Ghost(Tile *tile, int baseState);
     ~Ghost();
     void setBaseState();

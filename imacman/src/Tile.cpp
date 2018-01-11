@@ -15,6 +15,38 @@ Tile::Tile(int id, const glm::vec2 &center, const std::vector<Tile **> &neighbou
     changeElement(initiateState);
 }
 
+Tile::~Tile() {
+    delete element;
+    if(renderModel){
+        OpenGlManager::getInstance().removeRenderModel(renderModel);
+        delete renderModel;
+    }
+
+}
+/*****GETTERS SETTERS*****/
+
+int Tile::getType(){
+    if(element){
+        return element->drop();
+    } else return EMPTY;
+}
+
+int Tile::getInitialState() const {
+    return initialState;
+}
+
+const glm::vec2 &Tile::getCenter() const {
+    return center;
+}
+
+const std::vector<Tile **> &Tile::getNeighbours() const {
+    return neighbours;
+}
+
+const int &Tile::getId() const {
+    return id;
+}
+
 
 /**
  * Update the Tile's owned game element
@@ -63,24 +95,10 @@ int Tile::drop() {
     return type;
 }
 
-int Tile::getType(){
-    if(element){
-        return element->drop();
-    } else return EMPTY;
-}
 
-int Tile::getInitialState() const {
-    return initialState;
-}
-
-const glm::vec2 &Tile::getCenter() const {
-    return center;
-}
-
-const std::vector<Tile **> &Tile::getNeighbours() const {
-    return neighbours;
-}
-
+/**
+ * Create the RenderModel of a tile
+ */
 void Tile::createRenderModel() {
     std::string appFolderPath = OpenGlManager::getInstance().getAppFolderPath();
     try {
@@ -97,25 +115,24 @@ void Tile::createRenderModel() {
     }
 }
 
-const int &Tile::getId() const {
-    return id;
-}
 
-Tile::~Tile() {
-    delete element;
-    if(renderModel){
-        OpenGlManager::getInstance().removeRenderModel(renderModel);
-        delete renderModel;
-    }
-
-}
-
+/**
+ * Checks if two tiles are aligned vertically or horizontally
+ * @param tile
+ * @return true if they are akigned
+ */
 bool Tile::isAligned(Tile *tile) {
     if(tile->getCenter().x == center.x || tile->getCenter().y == center.y ) {
         return true;
     } else return false;
 }
 
+/**
+ * Computes a string designating the tile's type/element for saving purposes
+ * @param stream
+ * @param tile
+ * @return
+ */
 std::ostream &operator<<(std::ostream &stream, Tile &tile) {
     std::string type;
     if(tile.getType()==EMPTY){

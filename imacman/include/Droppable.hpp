@@ -18,7 +18,7 @@ public:
 
 class Fruit : public Droppable {
 public:
-    int drop(/*CactusMan &player*/);
+    int drop();
     void createRenderModel();
 };
 
@@ -31,10 +31,7 @@ public:
 class SuperGum : public Droppable {
 public:
     int drop();
-    const bool &getMood() {return SuperMoodOn;}
     void createRenderModel();
-private:
-    bool SuperMoodOn=false; //set true when cactus can eat ghosts
 };
 
 

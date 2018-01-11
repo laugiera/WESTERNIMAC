@@ -92,6 +92,11 @@ std::vector<std::string> Tools::stringToVector(std::string _data, std::string de
     return content_vector;
 }
 
+/**
+ * Computes Parent Folder path of the file (or folder) designated by the passed path
+ * @param filePath
+ * @return
+ */
 std::string Tools::getFolderPath(const std::string & filePath) {
 #ifdef _WIN32
     char pathSeparator = '\\';
