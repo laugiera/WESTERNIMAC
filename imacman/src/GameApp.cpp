@@ -48,10 +48,10 @@ int GameApp::MainMenu(){
     //load images paths
     std::string imgspaths[SRF_COUNT];
 
-    imgspaths[SRF_MenuPlay] = "images/menu/MMP.bmp";
-    imgspaths[SRF_MenuInstructions] = "images/menu/MMI.bmp";
-    imgspaths[SRF_MenuQuit] = "images/menu/MMQ.bmp";
-    imgspaths[SRF_Instructions] = "images/menu/INS.bmp";
+    imgspaths[SRF_MenuPlay] = "images/menu/MMP.png";
+    imgspaths[SRF_MenuInstructions] = "images/menu/MMI.png";
+    imgspaths[SRF_MenuQuit] = "images/menu/MMQ.png";
+    imgspaths[SRF_Instructions] = "images/menu/INS.png";
 
 
     //show the cube with initial image
@@ -142,7 +142,6 @@ int GameApp::MainMenu(){
 }
 
 void GameApp::appLoop() {
-
 
     if(MainMenu()==ST_Play){
         if(loadMode){
