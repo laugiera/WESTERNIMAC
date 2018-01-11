@@ -5,7 +5,6 @@
 #include "WaitingState.hpp"
 
 WaitingState::WaitingState(int timer) : GhostState(timer, -1) {
-
 }
 
 void WaitingState::move(glm::vec2 &position, Tile *&currentTile) {

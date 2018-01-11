@@ -140,9 +140,7 @@ void GameBoard::changeCamera() {
     }
 }
 
-GameBoard::~GameBoard() {
 
-}
 
 
 void GameBoard::updateScore(std::string filePath){
@@ -184,25 +182,20 @@ void GameBoard::dezoom() {
     cam2D->zoom(1);
 }
 
-void GameBoard::destroyCamera() {
+GameBoard::~GameBoard() {
     currentCam = nullptr;
     delete(cam2D);
     delete(camFPS);
-}
-
-void GameBoard::destroyTiles() {
     for (std::vector<Tile*>& tileLine: tiles) {
         for(Tile * tile: tileLine ){
             delete(tile);
         }
         tileLine.clear(); // should check if useful
     }
-
-}
-
-void GameBoard::destroy() {
-    destroyCamera();
-    destroyTiles();
+    for(Ghost * ghost : ghosts){
+        delete ghost;
+    }
+    delete player;
 }
 
 bool GameBoard::hasWon() {

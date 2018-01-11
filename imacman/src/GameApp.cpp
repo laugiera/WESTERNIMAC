@@ -6,8 +6,8 @@
 
 
 GameApp::GameApp(const std::string &appPath) : appPath(appPath),
-                                               windowManager(Utils::windowWidth, Utils::windowHeight, "GLImac")
-{
+                                               windowManager(Utils::windowWidth, Utils::windowHeight, "GLImac"),
+                                               gameboard(nullptr){
     OpenGlManager::getInstance().init(appPath.c_str());
     std::string filePath;
     if (loadMode){
@@ -69,14 +69,10 @@ void GameApp::appLoop() {
 
         if(gameboard->hasWon() || gameboard->hasLost()) done = true;
     }
-    destroy();
 
 }
 
 GameApp::~GameApp() {
+    delete gameboard;
 }
 
-void GameApp::destroy() {
-    gameboard->destroy();
-    delete(gameboard);
-}

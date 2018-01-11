@@ -48,12 +48,6 @@ public:
 
     void changeCamera();
 
-    void destroyCamera();
-
-    void destroyTiles();
-
-    void destroy();
-
     bool hasWon();
 
     bool hasLost();

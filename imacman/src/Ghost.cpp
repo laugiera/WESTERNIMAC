@@ -27,7 +27,7 @@ void Ghost::move() {
     }
 }
 
-int Ghost::collide(/*CactusMan &Player*/){
+int Ghost::collide(){
     return state->getCollisionReturn();
 
 }
@@ -70,7 +70,7 @@ void Ghost::setScaredState() {
 }
 
 void Ghost::setBaseState() {
-    //delete state; -> bugs the game
+    //delete state; //-> bugs the game
     switch(baseState) {
         case INKY :
             state = new InkyState();
