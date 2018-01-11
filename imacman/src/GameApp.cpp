@@ -297,6 +297,8 @@ void GameApp::appLoop() {
     OpenGlManager::getInstance().addRenderModel(lifePannel.getRenderModel());
     lifePannel.getRenderModel()->setTexture(appFolderPath+"/textures/lifes.png");
 
+    unsigned  int lives, positionX, positionY;
+
     if(MainMenu()==ST_Play){
         if(loadMode){
             gameboard->updateScore("/data/saveGame.txt");
@@ -357,8 +359,11 @@ void GameApp::appLoop() {
             //2D AND MENUS RENDERING
 
             //gameboard->getPlayer()->getLives();
-            lifePannel.getRenderModel()->transform(glm::vec3(8.5,1,-1.9),0,glm::vec3(1,0,0),glm::vec3(0.8));
-            
+
+            positionX = gameboard->getPlayer()->getPosition().x;
+            positionY = gameboard->getPlayer()->getPosition().y ;
+            lifePannel.getRenderModel()->transform(glm::vec3(0+positionX,0,-1.9+positionY*.15),0,glm::vec3(1,0,0),glm::vec3(0.8));
+
 
             //GAME ELEMENT RENDERING
             gameboard->handleCamera();

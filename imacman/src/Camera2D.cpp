@@ -37,6 +37,6 @@ glm::mat4 Camera2D::getViewMatrix() const{
  */
 void Camera2D::follow(const CactusMan &player) {
     positionX = player.getPosition().x * (OpenGlManager::getInstance().getConversionFactor());
-    positionY = player.getPosition().y * (OpenGlManager::getInstance().getConversionFactor());
+    positionY = player.getPosition().y ;
     m_fAngleY = player.getRotation();
 }

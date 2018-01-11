@@ -14,6 +14,5 @@ uniform sampler2D uTexture;
 
 void main() {
 
-   fsColor =   texture(uTexture, vTexCoords_vs).xyz *
-                                     color ;
+   fsColor =   texture(uTexture, vTexCoords_vs).xyz ;
 }
