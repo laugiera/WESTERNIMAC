@@ -2,8 +2,8 @@
 // Created by Amel on 9/1/2018.
 //
 
-#ifndef IMACMAN_SAVE_H
-#define IMACMAN_SAVE_H
+#ifndef IMACMAN_SAVE_HPP
+#define IMACMAN_SAVE_HPP
 
 #include "CactusMan.hpp"
 
@@ -19,4 +19,4 @@ public:
 };
 
 
-#endif //IMACMAN_SAVE_H
+#endif //IMACMAN_SAVE_HPP

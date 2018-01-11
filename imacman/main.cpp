@@ -19,6 +19,8 @@
 using namespace glimac;
 
 int main(int argc, char** argv) {
+
+
     GameApp app(argv[0]);
     app.appLoop();
     return EXIT_SUCCESS;
