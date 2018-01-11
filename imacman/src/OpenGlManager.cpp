@@ -4,7 +4,7 @@
 
 #include "OpenGlManager.hpp"
 
-OpenGlManager::OpenGlManager() : light(glm::vec3(1.5),"global"), playerLight(glm::vec3(2),"player"), models() {}
+OpenGlManager::OpenGlManager() : lightLeft(glm::vec3(1.6),"global_left"), lightRight(glm::vec3(1),"global_right"), playerLight(glm::vec3(2),"player"), models() {}
 int OpenGlManager::init(const char* argv0){
 
     appFolderPath = Tools::getFolderPath(argv0);
@@ -25,13 +25,18 @@ void OpenGlManager::drawAll(glimac::SDLWindowManager &windowManager, glm::mat4 &
     glClearColor(0.7, 0.3, 0.2, 1);
 
     //transformation
-    light.setDirection(viewMatrix * glm::vec4(1,1,1,0));
-    light.transform(glm::vec3(0),windowManager.getTime(),glm::vec3(0,0,1),glm::vec3(1));
-    playerLight.setDirection(viewMatrix * glm::vec4(1,1,1,1));
+    lightRight.setDirection( glm::vec4(5,3,-25,0));
+    lightRight.setDirection(viewMatrix * lightRight.getDirection());
+
+    lightLeft.setDirection(glm::vec4(10,20,20,0));
+
+
+    playerLight.setDirection(glm::vec4(playerPosition.x,1,1,1));
     playerLight.transform(glm::vec3(0),windowManager.getTime(),glm::vec3(0,0,1),glm::vec3(1));
+    playerLight.setDirection(viewMatrix * playerLight.getDirection());
 
     for (int it = 0; it < models.size() ; ++it) {
-        models[it]->render(viewMatrix,light,playerLight);
+        models[it]->render(viewMatrix,lightRight,playerLight,lightLeft);
     }
 
     // Update the display
@@ -39,7 +44,7 @@ void OpenGlManager::drawAll(glimac::SDLWindowManager &windowManager, glm::mat4 &
 }
 
 void OpenGlManager::addRenderModel(RenderModel *model) {
-    model->addProgramUniforms(light,playerLight);
+    model->addProgramUniforms(lightRight,playerLight,lightLeft);
     models.push_back(model);
 }
 

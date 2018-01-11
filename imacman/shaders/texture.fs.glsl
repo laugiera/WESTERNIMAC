@@ -10,8 +10,10 @@ out vec3 fsColor;
 uniform vec3 uKd;
 uniform vec3 uKs;
 uniform float uShininess;
-uniform  vec3 uLightDir_vs_global;
-uniform vec3 uLightIntensity_global;
+uniform  vec3 uLightDir_vs_global_left;
+uniform vec3 uLightIntensity_global_left;
+uniform  vec3 uLightDir_vs_global_right;
+uniform vec3 uLightIntensity_global_right;
 uniform vec3 color;
 
 uniform sampler2D uTexture;
@@ -43,8 +45,10 @@ vec3 multiplyTexture(vec3 color, vec4 textureAlpha) {
 
 void main() {
 
-   fsColor = blinnPhong(uLightDir_vs_global,uLightIntensity_global) *
-                        texture(uTexture, vTexCoords_vs).xyz *
-                        color ;
+   fsColor = ( blinnPhong(uLightDir_vs_global_left,uLightIntensity_global_left) +
+               blinnPhong(uLightDir_vs_global_right,uLightIntensity_global_right)
+             ) *
+             texture(uTexture, vTexCoords_vs).xyz *
+             color ;
 
 }

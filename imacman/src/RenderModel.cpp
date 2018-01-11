@@ -26,7 +26,7 @@ void RenderModel::setTexture(const std::string filePath){
      texture = new glcustom::Texture(filePath);
 }
 
-void RenderModel::addProgramUniforms(Light &light,Light &playerLight){
+void RenderModel::addProgramUniforms( Light &globalRight, Light &playerLight, Light &globalLeft){
     std::vector<std::string> uniformVariables;
     uniformVariables.push_back("uMVPMatrix");
     uniformVariables.push_back("uMVMatrix");
@@ -39,14 +39,15 @@ void RenderModel::addProgramUniforms(Light &light,Light &playerLight){
         uniformVariables.push_back("uTexture");
 
     program.addUniforms(uniformVariables);
-    light.addLightUniforms(program);
+    globalLeft.addLightUniforms(program);
+    globalRight.addLightUniforms(program);
     playerLight.addLightUniforms(program);
 }
 
 void RenderModel::setModelMatrix(const glm::mat4 _modelMatrix){
     modelMatrix = _modelMatrix;
 }
-void RenderModel::render(const glm::mat4 &viewMatrix, Light &globalLight, Light &playerLight){
+void RenderModel::render(const glm::mat4 &viewMatrix, Light &globalRight, Light &playerLight, Light &globalLeft){
     program.use();
 
     glm::mat4 projMatrix = glm::perspective(glm::radians(70.f), Utils::windowWidth/Utils::windowHeight, 0.1f, 500.f);
@@ -67,7 +68,8 @@ void RenderModel::render(const glm::mat4 &viewMatrix, Light &globalLight, Light 
     program.sendUniformVec3("uKs",model.getKs());
     program.sendUniform1f("uShininess", 64);
     program.sendUniformVec3("color", model.getColor());
-    globalLight.sendLightUniforms(program);
+    globalLeft.sendLightUniforms(program);
+    globalRight.sendLightUniforms(program);
     playerLight.sendLightUniforms(program);
 
     vao.bind();
