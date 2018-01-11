@@ -272,7 +272,7 @@ int GameApp::PauseMenu(){
 
                         case SDLK_ESCAPE:
                         {
-                            cubeMenu.getRenderModel()->transform(glm::vec3(0,0,0),0,glm::vec3(1,0,0),glm::vec3(3.62));
+                            cubeMenu.getRenderModel()->transform(glm::vec3(0,1000,0),0,glm::vec3(1,0,0),glm::vec3(3.62));
                             return ST_Play;
                         }
 
