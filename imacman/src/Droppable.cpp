@@ -8,21 +8,9 @@ void Droppable::render(glm::vec2 position) {
     renderModel->transform(glm::vec3(position.x, 0.5, position.y), -40, glm::vec3(1,1,0), glm::vec3(0.8));
 }
 
-int Droppable::drop(/*CactusMan &player*/) {
-
-
+int Droppable::drop() {
 }
 
-/*void Droppable::createRenderModel() {
-    std::string appFolderPath = OpenGlManager::getInstance().getAppFolderPath();
-    try {
-        renderModel = new RenderModel(appFolderPath + "/models/droppable", appFolderPath + "/imacman", "3D2", "directionallight");
-        renderModel->setModelColor(glm::vec3(1,0,0),glm::vec3(1),glm::vec3(1));
-        OpenGlManager::getInstance().addRenderModel(renderModel);
-    } catch (std::runtime_error &e){
-        std::cerr << e.what() << std::endl;
-    }
-}*/
 void Fruit::createRenderModel(){
     std::string appFolderPath = OpenGlManager::getInstance().getAppFolderPath();
     try {
@@ -56,21 +44,14 @@ void SuperGum::createRenderModel(){
     }
 }
 
-int Fruit::drop(/*CactusMan &player*/){
+int Fruit::drop(){
     return FRUIT;
-    //int currentScore=player.getScore();
-    //player.setScore(currentScore+500);
 }
 
-int Gum::drop(/*CactusMan &player*/){
+int Gum::drop(){
     return GUM;
-    //int currentScore=player.getScore();
-    //player.setScore(currentScore+10);
 }
 
-int SuperGum::drop(/*CactusMan &player*/){
+int SuperGum::drop(){
     return SUPERGUM;
-    //int currentScore=player.getScore();
-    //player.setScore(currentScore+200);
-    //SuperMoodOn=true;
 }

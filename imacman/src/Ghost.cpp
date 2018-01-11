@@ -5,7 +5,7 @@
 #include "Ghost.hpp"
 
 
-Ghost::Ghost(Tile *tile, int baseState) : startingTile(tile), tile(tile), baseState(baseState) {
+Ghost::Ghost(Tile *tile, int baseState) : startingTile(tile), tile(tile), baseState(baseState), state(nullptr) {
     state = new WaitingState(baseState*100);
     renderModel = nullptr;
     position = tile->getCenter();
@@ -70,7 +70,7 @@ void Ghost::setScaredState() {
 }
 
 void Ghost::setBaseState() {
-    //delete state; bug why?
+    //delete state; -> bugs the game
     switch(baseState) {
         case INKY :
             state = new InkyState();
@@ -84,6 +84,8 @@ void Ghost::setBaseState() {
         case CLYDE :
             state = new ClydeState();
             break;
+        default:
+            state = new WaitingState(1000);
     }
     state->setColor(renderModel);
 }

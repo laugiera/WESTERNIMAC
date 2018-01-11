@@ -34,7 +34,7 @@ public:
 
     bool isAligned(Tile * tile);
 
-    int type(); //returns tile type
+    int getType(); //returns tile type
 
     int getInitialState() const;
 

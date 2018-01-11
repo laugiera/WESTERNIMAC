@@ -15,27 +15,13 @@ Tile::Tile(int id, const glm::vec2 &center, const std::vector<Tile **> &neighbou
     changeElement(initiateState);
 }
 
-//sert à rien test remova
-std::ostream &operator<<(std::ostream &stream, Tile &tile) {
-    std::string symbol;
-    if(tile.initialState == WALL){
-        symbol = "=";
-    } else if (tile.initialState == GUM){
-        symbol = ".";
-    } else if (tile.initialState == SUPERGUM){
-        symbol = "*";
-    }
-    stream << symbol;
-    return stream;
-}
-
 
 /**
  * Update the Tile's owned game element
  * @param elementType enum const representing a gameElement
  */
 void Tile::changeElement(int elementType) {
-    delete element; //bug
+    delete element;
     if (elementType == WALL){
         element = new Wall();
     } else if(elementType == GUM){
@@ -70,19 +56,17 @@ void Tile::render() {
  * @param player
  */
 int Tile::drop() {
-    int type;
-    if(element){
-        type = element->drop();
-    } else type = EMPTY;
+    int type = getType();
     if(type == GUM || type == SUPERGUM || type == FRUIT){
         changeElement(EMPTY);
     }
     return type;
 }
 
-int Tile::type(){
-
-    return 0; //need to add later
+int Tile::getType(){
+    if(element){
+        return element->drop();
+    } else return EMPTY;
 }
 
 int Tile::getInitialState() const {
@@ -111,22 +95,19 @@ void Tile::createRenderModel() {
     } catch (std::runtime_error &e){
         std::cerr << e.what() << std::endl;
     }
-
-
 }
-
 
 const int &Tile::getId() const {
     return id;
 }
 
 Tile::~Tile() {
-    /*
+    delete element;
     if(renderModel){
         OpenGlManager::getInstance().removeRenderModel(renderModel);
         delete renderModel;
     }
-     */
+
 }
 
 bool Tile::isAligned(Tile *tile) {
@@ -135,3 +116,22 @@ bool Tile::isAligned(Tile *tile) {
     } else return false;
 }
 
+std::ostream &operator<<(std::ostream &stream, Tile &tile) {
+    std::string type;
+    if(tile.getType()==EMPTY){
+        type = "EMPTY";
+    } else if(tile.getType()== WALL){
+        type = "WALL";
+    } else if(tile.getType()== GUM){
+        type = "GUM";
+    } else if(tile.getType()== SUPERGUM){
+        type = "SUPERGUM";
+    } else if(tile.getType()== FRUIT){
+        type = "FRUIT";
+    } else if(tile.getType()== PORTAL){
+        type = "PORTAL";
+    }
+    stream << type;
+    return stream;
+
+}

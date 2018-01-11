@@ -7,7 +7,10 @@
 GameBoard::GameBoard(const std::string &boardPath) : boardPath(boardPath),
                                                      cam2D(new Camera2D()),
                                                      camFPS(new CameraFPS()),
-                                                     gumNumber(0)
+                                                     gumNumber(0),
+                                                     tiles(),
+                                                     player(nullptr),
+                                                     ghosts()
 {
 
     try {

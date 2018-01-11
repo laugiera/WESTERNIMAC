@@ -12,7 +12,7 @@
 class Droppable : public GameElement{
 public:
     void render(glm::vec2);
-    virtual int drop();
+    virtual int drop() = 0;
     virtual void createRenderModel() = 0;
 };
 
