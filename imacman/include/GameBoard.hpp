@@ -69,6 +69,8 @@ public:
 
     void setCurrentCam(Camera *currentCam);
 
+    CactusMan *getPlayer() const;
+
 
 private:
     CactusMan * player;

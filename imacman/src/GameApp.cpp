@@ -294,6 +294,8 @@ void GameApp::appLoop() {
     std::string appFolderPath = OpenGlManager::getInstance().getAppFolderPath();
     Plane2D lifePannel = Plane2D();
     lifePannel.createRenderModel();
+    OpenGlManager::getInstance().addRenderModel(lifePannel.getRenderModel());
+    lifePannel.getRenderModel()->setTexture(appFolderPath+"/textures/lifes.png");
 
     if(MainMenu()==ST_Play){
         if(loadMode){
@@ -353,9 +355,10 @@ void GameApp::appLoop() {
                 }
             }
             //2D AND MENUS RENDERING
-/*            lifePannel.getRenderModel()->transform(glm::vec3(8.5,1,-1.9),0,glm::vec3(1,0,0),glm::vec3(0.8));
-            lifePannel.getRenderModel()->setTexture(appFolderPath+"/textures/lifes.png");
-            OpenGlManager::getInstance().addRenderModel(lifePannel.getRenderModel());*/
+
+            //gameboard->getPlayer()->getLives();
+            lifePannel.getRenderModel()->transform(glm::vec3(8.5,1,-1.9),0,glm::vec3(1,0,0),glm::vec3(0.8));
+            
 
             //GAME ELEMENT RENDERING
             gameboard->handleCamera();

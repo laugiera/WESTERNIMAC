@@ -112,6 +112,10 @@ void GameBoard::handleCollisions() {
     player->testGhostEncounter(ghosts);
 }
 
+CactusMan *GameBoard::getPlayer() const {
+    return player;
+}
+
 void GameBoard::render(glimac::SDLWindowManager & windowManager) {
     for (std::vector<Tile*>& tileLine: tiles) {
         for(Tile * tile: tileLine ){
