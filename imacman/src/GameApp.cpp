@@ -86,7 +86,7 @@ int GameApp::MainMenu(){
         while (SDL_PollEvent(&e))
         {
             cubeMenu.render();
-
+            cubeMenu.getRenderModel()->transform(glm::vec3(0),0,glm::vec3(1,0,0),glm::vec3(3.605));
             if (e.type == SDL_QUIT)
             {
                 loop1 = 0;
@@ -161,10 +161,9 @@ int GameApp::MainMenu(){
 
 void GameApp::appLoop() {
 
-    glm::mat4 viewMatrix;
-    CubeMenu cubeMenu = CubeMenu();
-    cubeMenu.createRenderModel();
-    cubeMenu.getRenderModel()->transform(glm::vec3(0),0,glm::vec3(0,0,0),glm::vec3(0.5));
+    std::string appFolderPath = OpenGlManager::getInstance().getAppFolderPath();
+    Plane2D lifePannel = Plane2D();
+    lifePannel.createRenderModel();
 
     if(MainMenu()==ST_Play){
         if(loadMode){
@@ -203,9 +202,10 @@ void GameApp::appLoop() {
                 }
             }
             //2D AND MENUS RENDERING
-            cubeMenu.render();
-            viewMatrix = gameboard->getCurrentCamMatrix();
-            OpenGlManager::getInstance().drawMenu(windowManager,cubeMenu.getRenderModel(),viewMatrix);
+          //  lifePannel.render();
+            lifePannel.getRenderModel()->transform(glm::vec3(8.5,1,-1.9),0,glm::vec3(1,0,0),glm::vec3(0.8));
+            lifePannel.getRenderModel()->setTexture(appFolderPath+"/textures/lifes.png");
+            OpenGlManager::getInstance().addRenderModel(lifePannel.getRenderModel());
 
             //GAME ELEMENT RENDERING
             gameboard->handleCamera();

@@ -22,7 +22,7 @@ void CubeMenu::createRenderModel() {
  * Updates the RenderModel with the player's coordinates, rotation and scale
  */
 void CubeMenu::render() {
-        renderModel->transform(glm::vec3(0), 0, glm::vec3(1,0,0), glm::vec3(3.65));
+        renderModel->transform(glm::vec3(0), 0, glm::vec3(1,0,0), glm::vec3(1));
 }
 
 RenderModel *CubeMenu::getRenderModel()  {

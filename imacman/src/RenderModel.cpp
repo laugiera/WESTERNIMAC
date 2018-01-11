@@ -79,6 +79,7 @@ void RenderModel::render(const glm::mat4 &viewMatrix, Light &globalLight, Light 
 
 }
 
+
 void RenderModel::transform(const glm::vec3 &translate, const float angle, const glm::vec3 &axesRotation,
                             const glm::vec3 &scale) {
     glm::mat4 transformation = glm::mat4(1.f);
