@@ -28,7 +28,7 @@ public:
     //returns vector of path from s to d
     void createRenderModel();
     void render();
-    int Dijkstra(int A, int B, std::vector<std::vector<int>> neighbours);
+
     const glm::vec2 &getPosition() const;
 
 private:

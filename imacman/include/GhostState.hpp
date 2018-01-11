@@ -20,6 +20,7 @@ public:
     virtual void setColor(RenderModel * renderModel) = 0;
     void countDown();
     bool isOnTile(glm::vec2 &position, const Tile *tile);
+    int Dijkstra(int A, int B, std::vector<std::vector<int>> neighbours);
 
     int getTimer() const;
     int getCollisionReturn() const;
