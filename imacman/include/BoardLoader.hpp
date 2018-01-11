@@ -19,6 +19,9 @@ public:
 
     std::vector<std::string> load(std::string filePath);
 
+    static unsigned int getScoreMax();
+    static void setScoreMax(unsigned int scoreMax);
+
 private:
     std::vector<std::vector<std::string>> loadDataMatrix(std::string filePath);
 
@@ -27,6 +30,8 @@ private:
 
     std::vector<Tile **>
     findNeighbours(int i, int j, std::vector<std::vector<Tile*>> &tiles, std::vector<std::vector<std::string>> &dataMatrix);
+    static unsigned int scoreMax;
+
 };
 
 

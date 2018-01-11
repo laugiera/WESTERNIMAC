@@ -116,6 +116,8 @@ CactusMan *GameBoard::getPlayer() const {
     return player;
 }
 
+
+
 CameraFPS *GameBoard::getCamFPS() const {
     return camFPS;
 }

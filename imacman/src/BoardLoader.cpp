@@ -4,6 +4,8 @@
 
 #include "BoardLoader.hpp"
 
+unsigned int BoardLoader::scoreMax = 0;
+
 /**
  * Loads the content of a file in a vector of strings, each strings represents a line
  * @param filePath path to the file
@@ -90,10 +92,12 @@ Tile * BoardLoader::createTile(std::string type, int id, glm::vec2 center, std::
     } else if (type == "WALL") {
         return new Tile(id, center, neighbours, WALL);
     } else if (type == "GUM") {
+        BoardLoader::setScoreMax(BoardLoader::getScoreMax()+50);
         return new Tile(id, center, neighbours, GUM);
     } else if (type == "SUPERGUM") {
         return new Tile(id, center, neighbours, SUPERGUM);
     } else if (type == "FRUIT") {
+        BoardLoader::setScoreMax(BoardLoader::getScoreMax()+500);
         return new Tile(id, center, neighbours, FRUIT);
     } else if (type == "GHOST") {
         return new Tile(id, center, neighbours, GHOST);
@@ -135,6 +139,14 @@ std::vector<Tile **> BoardLoader::findNeighbours(int i, int j, std::vector<std::
         }
     }
     return neighbours;
+}
+
+unsigned int BoardLoader::getScoreMax() {
+    return BoardLoader::scoreMax;
+}
+
+void BoardLoader::setScoreMax(unsigned int scoreMax) {
+    BoardLoader::scoreMax = scoreMax;
 }
 
 

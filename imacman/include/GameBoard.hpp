@@ -74,6 +74,7 @@ public:
     CameraFPS *getCamFPS() const;
 
 
+
 private:
     CactusMan * player;
     std::vector<std::vector<Tile *>> tiles;

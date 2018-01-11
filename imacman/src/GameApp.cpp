@@ -295,12 +295,17 @@ void GameApp::appLoop() {
     Plane2D lifePannel = Plane2D();
     lifePannel.createRenderModel();
     OpenGlManager::getInstance().addRenderModel(lifePannel.getRenderModel());
-    lifePannel.getRenderModel()->setTexture(appFolderPath+"/textures/lifes.png");
+    lifePannel.getRenderModel()->setTexture(appFolderPath + "/textures/lifes3.png");
 
-    unsigned  int lives, positionX, positionY;
+    Plane2D scorePannel = Plane2D();
+    scorePannel.createRenderModel();
+    OpenGlManager::getInstance().addRenderModel(scorePannel.getRenderModel());
+    scorePannel.getRenderModel()->setTexture(appFolderPath + "/textures/score0.png");
 
-    if(MainMenu()==ST_Play){
-        if(loadMode){
+    unsigned int lives, positionX, positionY, score;
+
+    if (MainMenu() == ST_Play) {
+        if (loadMode) {
             gameboard->updateScore("/data/saveGame.txt");
             // need to add line to reload the board
         }
@@ -324,30 +329,28 @@ void GameApp::appLoop() {
 
 
         bool done = false;
-        while(!done) {
+        while (!done) {
             // Event loop:
             SDL_Event e;
             while (windowManager.pollEvent(e)) {
 
                 if (e.type == SDL_KEYDOWN) {
-                    if (e.key.keysym.sym == SDLK_q){
+                    if (e.key.keysym.sym == SDLK_q) {
                         gameboard->moveLeft();
-                    } else if (e.key.keysym.sym == SDLK_d){
+                    } else if (e.key.keysym.sym == SDLK_d) {
                         gameboard->moveRight();
-                    } else if (e.key.keysym.sym == SDLK_z){
+                    } else if (e.key.keysym.sym == SDLK_z) {
                         gameboard->moveUp();
-                    } else if (e.key.keysym.sym == SDLK_s){
+                    } else if (e.key.keysym.sym == SDLK_s) {
                         gameboard->moveDown();
-                    } else if (e.key.keysym.sym == SDLK_UP){
+                    } else if (e.key.keysym.sym == SDLK_UP) {
                         gameboard->zoom();
-                    } else if (e.key.keysym.sym == SDLK_DOWN){
+                    } else if (e.key.keysym.sym == SDLK_DOWN) {
                         gameboard->dezoom();
-                    }
-                    else if (e.key.keysym.sym == SDLK_c) {
+                    } else if (e.key.keysym.sym == SDLK_c) {
                         gameboard->changeCamera();
-                    }
-                    else if (e.key.keysym.sym == SDLK_ESCAPE){
-                        if(PauseMenu()==ST_Play){ }
+                    } else if (e.key.keysym.sym == SDLK_ESCAPE) {
+                        if (PauseMenu() == ST_Play) {}
                     }
                 } else if (e.wheel.y == 1)
                     gameboard->zoom();
@@ -358,28 +361,37 @@ void GameApp::appLoop() {
                 }
             }
             //2D AND MENUS RENDERING
-            if(gameboard->getCamFPS() != nullptr){
-                switch (gameboard->getPlayer()->getLives()){
+            if (gameboard->getCamFPS() != nullptr) {
+                switch (gameboard->getPlayer()->getLives()) {
                     case 1:
-                        lifePannel.getRenderModel()->setTexture(appFolderPath+"/textures/lifes1.png");
+                        lifePannel.getRenderModel()->setTexture(appFolderPath + "/textures/lifes1.png");
                         break;
                     case 2:
-                        lifePannel.getRenderModel()->setTexture(appFolderPath+"/textures/lifes2.png");
-                        break;
-                    case 3:
-                        lifePannel.getRenderModel()->setTexture(appFolderPath+"/textures/lifes3.png");
+                        lifePannel.getRenderModel()->setTexture(appFolderPath + "/textures/lifes2.png");
                         break;
                     default:
                         break;
 
                 }
+                score = gameboard->getPlayer()->getScore();
+                if (score > BoardLoader::getScoreMax() * (1 / 4.f)){
+                    scorePannel.getRenderModel()->setTexture(appFolderPath + "/textures/score1.png");
+                } else if (score > BoardLoader::getScoreMax() * (1 / 2.f)){
+                    scorePannel.getRenderModel()->setTexture(appFolderPath + "/textures/score2.png");
+                }else if (score > BoardLoader::getScoreMax() * (3 / 4.f)){
+                    scorePannel.getRenderModel()->setTexture(appFolderPath + "/textures/score3.png");
+                } else if (score > BoardLoader::getScoreMax()){
+                    scorePannel.getRenderModel()->setTexture(appFolderPath + "/textures/score4.png");
+                }
 
                 positionX = gameboard->getPlayer()->getPosition().x;
                 positionY = gameboard->getPlayer()->getPosition().y ;
-                lifePannel.getRenderModel()->transform(glm::vec3(2.5+positionX*.8,4,positionY*.15),0,glm::vec3(1,0,0),glm::vec3(0.2,0.2,0.15));
+                lifePannel.getRenderModel()->transform(glm::vec3(2.5+positionX*.8,4,-1.5+positionY*.15),0,glm::vec3(1,0,0),glm::vec3(0.2,0.2,0.15));
+                scorePannel.getRenderModel()->transform(glm::vec3(2.5+positionX*.8,4,-1.2+positionY*.15),0,glm::vec3(1,0,0),glm::vec3(0.08,0.1,0.1));
             }
             else {
                 lifePannel.getRenderModel()->transform(glm::vec3(10000),0,glm::vec3(1,0,0),glm::vec3(1));
+                scorePannel.getRenderModel()->transform(glm::vec3(10000),0,glm::vec3(1,0,0),glm::vec3(1));
             }
 
             //GAME ELEMENT RENDERING
