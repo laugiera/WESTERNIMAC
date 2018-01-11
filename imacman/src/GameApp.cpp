@@ -24,7 +24,7 @@ GameApp::GameApp(const std::string &appPath) : appPath(appPath),
     if (loadMode){
         filePath =  "/data/saveGame.txt";
     }
-    else filePath =  "/data/board01.txt";
+    else filePath =  "/data/board00.txt";
     boardPath = Tools::getFolderPath(appPath) +filePath;
     try {
         gameboard = new GameBoard(boardPath);
@@ -46,12 +46,12 @@ int GameApp::MainMenu(){
     int menuIdx = 0;
 
     //load images paths
-    std::string imgspaths[SRF_COUNT];
+    std::string ImagesPaths[SRF_COUNT];
 
-    imgspaths[SRF_MenuPlay] = "images/menu/MMP.png";
-    imgspaths[SRF_MenuInstructions] = "images/menu/MMI.png";
-    imgspaths[SRF_MenuQuit] = "images/menu/MMQ.png";
-    imgspaths[SRF_Instructions] = "images/menu/INS.png";
+    ImagesPaths[SRF_MenuPlay] = "/images/menu/MMP.png";
+    ImagesPaths[SRF_MenuInstructions] = "/images/menu/MMI.png";
+    ImagesPaths[SRF_MenuQuit] = "/images/menu/MMQ.png";
+    ImagesPaths[SRF_Instructions] = "/images/menu/INS.png";
 
 
     //show the cube with initial image
@@ -62,8 +62,7 @@ int GameApp::MainMenu(){
     cubeMenu.createRenderModel();
 
     //pour changer la texture :
-    //cubeMenu.getRenderModel()->setTexture(appFolderPath + "/images/menu/MMI.png");
-
+    bool stateChanged=false;
     while (loop1)
     {
         // Update surface.
@@ -78,6 +77,10 @@ int GameApp::MainMenu(){
 
         //Update Screen
         //update texture from table
+        if(stateChanged){
+            cubeMenu.getRenderModel()->setTexture(appFolderPath + ImagesPaths[srfIdx]);
+            stateChanged= false;
+        }
 
         SDL_Event e;
         while (SDL_PollEvent(&e))
@@ -98,6 +101,7 @@ int GameApp::MainMenu(){
                             if (state == ST_Menu)
                             {
                                 menuIdx = (3 + menuIdx - 1) % 3;
+                                stateChanged=true;
                             }
                             break;
                         }
@@ -106,6 +110,7 @@ int GameApp::MainMenu(){
                             if (state == ST_Menu)
                             {
                                 menuIdx = (menuIdx + 1) % 3;
+                                stateChanged=true;
                             }
                             break;
                         }
@@ -116,13 +121,13 @@ int GameApp::MainMenu(){
                             {
                                 if (menuIdx == 0 )
                                 {
-                                    state = ST_Play;
-                                    return state;
-                                    loop1=0;
+                                    cubeMenu.getRenderModel()->transform(glm::vec3(10,10,10), 0, glm::vec3(1,0,0), glm::vec3(3.65));
+                                    //return ST_Play;
                                 }
                                 else if (menuIdx == 1)
                                 {
                                     state = ST_Instructions;
+                                    stateChanged=true;
                                 }
                                 else if (menuIdx == 2)
                                 {
@@ -135,6 +140,7 @@ int GameApp::MainMenu(){
                         case SDLK_BACKSPACE:
                         {
                             state = ST_Menu;
+                            stateChanged=true;
                             break;
                         }
 

@@ -11,7 +11,7 @@ void CubeMenu::createRenderModel() {
     try {
         renderModel = new RenderModel(appFolderPath + "/models/cubeMenu", appFolderPath + "/imacman", "3D2", "texture");
         renderModel->setModelColor(glm::vec3(0.5,0.5,0.5),glm::vec3(1),glm::vec3(1));
-        renderModel->setTexture(appFolderPath + "/images/menu/MMI.png");
+        renderModel->setTexture(appFolderPath + "/images/menu/MMP.png");
         OpenGlManager::getInstance().addRenderModel(renderModel);
     } catch (std::runtime_error &e){
         std::cerr << e.what() << std::endl;
