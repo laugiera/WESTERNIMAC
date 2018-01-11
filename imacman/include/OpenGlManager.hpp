@@ -38,7 +38,8 @@ public:
 
 private :
     float conversionFactor = 15.0;
-    Light light;
+    Light lightLeft;
+    Light lightRight;
     Light playerLight;
     std::vector<RenderModel*> models;
     std::string appFolderPath;

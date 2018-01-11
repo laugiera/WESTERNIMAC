@@ -21,10 +21,10 @@ public :
                 const glimac::FilePath appPath, const std::string &vertexShader, const std::string &fragmentShader);
     void setModelColor(glm::vec3 _color, glm::vec3 _kd, glm::vec3 _ks);
     void setTexture(const std::string filePath);
-    void addProgramUniforms(Light &light,Light &playerLight);
+    void addProgramUniforms( Light &globalRight, Light &playerLight, Light &globalLeft);
     void transform(const glm::vec3 &translate, const float angle, const glm::vec3 &axesRotation,
                        const glm::vec3 &scale);
-    void render(const glm::mat4 &viewMatrix, Light &light,Light &playerLight);
+    void render(const glm::mat4 &viewMatrix, Light &globalRight, Light &playerLight, Light &globalLeft);
     void setModelMatrix(const glm::mat4 _modelMatrix = glm::mat4(1.f));
 
 
