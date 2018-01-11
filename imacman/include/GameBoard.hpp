@@ -71,6 +71,8 @@ public:
 
     CactusMan *getPlayer() const;
 
+    CameraFPS *getCamFPS() const;
+
 
 private:
     CactusMan * player;

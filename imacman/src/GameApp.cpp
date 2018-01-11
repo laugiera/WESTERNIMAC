@@ -328,6 +328,7 @@ void GameApp::appLoop() {
             // Event loop:
             SDL_Event e;
             while (windowManager.pollEvent(e)) {
+
                 if (e.type == SDL_KEYDOWN) {
                     if (e.key.keysym.sym == SDLK_q){
                         gameboard->moveLeft();
@@ -357,13 +358,29 @@ void GameApp::appLoop() {
                 }
             }
             //2D AND MENUS RENDERING
+            if(gameboard->getCamFPS() != nullptr){
+                switch (gameboard->getPlayer()->getLives()){
+                    case 1:
+                        lifePannel.getRenderModel()->setTexture(appFolderPath+"/textures/lifes1.png");
+                        break;
+                    case 2:
+                        lifePannel.getRenderModel()->setTexture(appFolderPath+"/textures/lifes2.png");
+                        break;
+                    case 3:
+                        lifePannel.getRenderModel()->setTexture(appFolderPath+"/textures/lifes3.png");
+                        break;
+                    default:
+                        break;
 
-            //gameboard->getPlayer()->getLives();
+                }
 
-            positionX = gameboard->getPlayer()->getPosition().x;
-            positionY = gameboard->getPlayer()->getPosition().y ;
-            lifePannel.getRenderModel()->transform(glm::vec3(0+positionX,0,-1.9+positionY*.15),0,glm::vec3(1,0,0),glm::vec3(0.8));
-
+                positionX = gameboard->getPlayer()->getPosition().x;
+                positionY = gameboard->getPlayer()->getPosition().y ;
+                lifePannel.getRenderModel()->transform(glm::vec3(2.5+positionX*.8,4,positionY*.15),0,glm::vec3(1,0,0),glm::vec3(0.2,0.2,0.15));
+            }
+            else {
+                lifePannel.getRenderModel()->transform(glm::vec3(10000),0,glm::vec3(1,0,0),glm::vec3(1));
+            }
 
             //GAME ELEMENT RENDERING
             gameboard->handleCamera();

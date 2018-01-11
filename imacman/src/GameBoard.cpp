@@ -116,6 +116,10 @@ CactusMan *GameBoard::getPlayer() const {
     return player;
 }
 
+CameraFPS *GameBoard::getCamFPS() const {
+    return camFPS;
+}
+
 void GameBoard::render(glimac::SDLWindowManager & windowManager) {
     for (std::vector<Tile*>& tileLine: tiles) {
         for(Tile * tile: tileLine ){
