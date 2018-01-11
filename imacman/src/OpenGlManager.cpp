@@ -37,6 +37,21 @@ void OpenGlManager::drawAll(glimac::SDLWindowManager &windowManager, glm::mat4 &
     // Update the display
     windowManager.swapBuffers();
 }
+void OpenGlManager::drawMenu(glimac::SDLWindowManager &windowManager, RenderModel *model, glm::mat4 &viewMatrix){
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClearColor(0.7, 0.3, 0.2, 1);
+
+    //transformation
+    light.setDirection(viewMatrix * glm::vec4(1,1,1,0));
+    light.transform(glm::vec3(0),windowManager.getTime(),glm::vec3(0,0,1),glm::vec3(1));
+    playerLight.setDirection(viewMatrix * glm::vec4(1,1,1,1));
+    playerLight.transform(glm::vec3(0),windowManager.getTime(),glm::vec3(0,0,1),glm::vec3(1));
+
+    model->render(viewMatrix,light,playerLight);
+
+    // Update the display
+    windowManager.swapBuffers();
+}
 
 void OpenGlManager::addRenderModel(RenderModel *model) {
     model->addProgramUniforms(light,playerLight);

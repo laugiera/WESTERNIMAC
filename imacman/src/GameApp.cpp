@@ -24,7 +24,7 @@ GameApp::GameApp(const std::string &appPath) : appPath(appPath),
     if (loadMode){
         filePath =  "/data/saveGame.txt";
     }
-    else filePath =  "/data/board02.txt";
+    else filePath =  "/data/board01.txt";
     boardPath = Tools::getFolderPath(appPath) +filePath;
     try {
         gameboard = new GameBoard(boardPath);
@@ -55,7 +55,14 @@ int GameApp::MainMenu(){
 
 
     //show the cube with initial image
+    std::string appFolderPath = OpenGlManager::getInstance().getAppFolderPath();
+    Camera2D camMenu = Camera2D();
+    glm::mat4 viewMatrix;
+    CubeMenu cubeMenu = CubeMenu();
+    cubeMenu.createRenderModel();
 
+    //pour changer la texture :
+    //cubeMenu.getRenderModel()->setTexture(appFolderPath + "/images/menu/MMI.png");
 
     while (loop1)
     {
@@ -135,6 +142,10 @@ int GameApp::MainMenu(){
                             break;
                     }
             }
+            viewMatrix = camMenu.getViewMatrix();
+            cubeMenu.render();
+            OpenGlManager::getInstance().drawMenu(windowManager,cubeMenu.getRenderModel(),viewMatrix);
+
         }
 
     }
@@ -179,10 +190,10 @@ void GameApp::appLoop() {
                     done = true; // Leave the loop after this iteration
                 }
             }
-            gameboard->handleCamera();
+/*            gameboard->handleCamera();
             gameboard->handleGhosts();
             gameboard->handleCollisions();
-            gameboard->render(windowManager);
+            gameboard->render(windowManager);*/
 
             if(gameboard->hasWon() || gameboard->hasLost()) done = true;
         }

@@ -7,6 +7,7 @@
 
 #include "GameBoard.hpp"
 #include "Save.hpp"
+#include "CubeMenu.hpp"
 
 
 

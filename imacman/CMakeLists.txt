@@ -4,7 +4,7 @@ file(GLOB_RECURSE HEADER_FILES *.hpp)
 file(GLOB_RECURSE SRC_FILES *.cpp)
 file(GLOB_RECURSE SHADER_FILES *.glsl)
 
-set(MAIN main.cpp src/Menu.cpp include/Menu.hpp)
+set(MAIN main.cpp)
 set(OUTPUT imacman)
 
 add_executable(${OUTPUT} ${MAIN} ${SRC_FILES} ${HEADER_FILES} ${SHADER_FILES})
@@ -14,3 +14,4 @@ file(COPY shaders DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 file(COPY models DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 file(COPY data DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 file(COPY textures DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+file(COPY images DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
