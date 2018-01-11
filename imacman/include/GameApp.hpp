@@ -25,6 +25,9 @@ public:
     void destroy();
 
     int MainMenu();
+
+    int PauseMenu();
+
 private:
     GameBoard * gameboard;
     std::string boardPath;
@@ -32,6 +35,7 @@ private:
 
     glimac::SDLWindowManager windowManager;
 
+    char *SoundFilePath;
     //Save Saving;
     bool saveMode;
     bool loadMode;
