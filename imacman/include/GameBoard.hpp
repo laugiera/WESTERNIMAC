@@ -65,6 +65,10 @@ public:
 
     void handleCamera();
 
+    glm::mat4 getCurrentCamMatrix()  const;
+
+    void setCurrentCam(Camera *currentCam);
+
 
 private:
     CactusMan * player;

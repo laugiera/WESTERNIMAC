@@ -234,6 +234,14 @@ void GameBoard::handleCamera() {
     camFPS->follow(*player);
 }
 
+glm::mat4 GameBoard::getCurrentCamMatrix() const {
+    return currentCam->getViewMatrix();
+}
+
+void GameBoard::setCurrentCam(Camera *currentCam) {
+    GameBoard::currentCam = currentCam;
+}
+
 
 
 

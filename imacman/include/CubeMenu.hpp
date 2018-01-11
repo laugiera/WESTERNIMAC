@@ -19,6 +19,8 @@ public:
 
     RenderModel *getRenderModel() ;
 
+    void setRenderModel(RenderModel *renderModel);
+
 private:
     RenderModel * renderModel;
 

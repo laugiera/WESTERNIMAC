@@ -24,7 +24,7 @@ GameApp::GameApp(const std::string &appPath) : appPath(appPath),
     if (loadMode){
         filePath =  "/data/saveGame.txt";
     }
-    else filePath =  "/data/board00.txt";
+    else filePath =  "/data/board01.txt";
     boardPath = Tools::getFolderPath(appPath) +filePath;
     try {
         gameboard = new GameBoard(boardPath);
@@ -85,6 +85,8 @@ int GameApp::MainMenu(){
         SDL_Event e;
         while (SDL_PollEvent(&e))
         {
+            cubeMenu.render();
+
             if (e.type == SDL_QUIT)
             {
                 loop1 = 0;
@@ -121,8 +123,8 @@ int GameApp::MainMenu(){
                             {
                                 if (menuIdx == 0 )
                                 {
-                                    cubeMenu.getRenderModel()->transform(glm::vec3(10,10,10), 0, glm::vec3(1,0,0), glm::vec3(3.65));
-                                    //return ST_Play;
+                                    cubeMenu.getRenderModel()->transform(glm::vec3(0,1000,0), 0, glm::vec3(1,0,0), glm::vec3(1));
+                                    return ST_Play;
                                 }
                                 else if (menuIdx == 1)
                                 {
@@ -149,7 +151,6 @@ int GameApp::MainMenu(){
                     }
             }
             viewMatrix = camMenu.getViewMatrix();
-            cubeMenu.render();
             OpenGlManager::getInstance().drawMenu(windowManager,cubeMenu.getRenderModel(),viewMatrix);
 
         }
@@ -159,6 +160,11 @@ int GameApp::MainMenu(){
 }
 
 void GameApp::appLoop() {
+
+    glm::mat4 viewMatrix;
+    CubeMenu cubeMenu = CubeMenu();
+    cubeMenu.createRenderModel();
+    cubeMenu.getRenderModel()->transform(glm::vec3(0),0,glm::vec3(0,0,0),glm::vec3(0.5));
 
     if(MainMenu()==ST_Play){
         if(loadMode){
@@ -196,10 +202,16 @@ void GameApp::appLoop() {
                     done = true; // Leave the loop after this iteration
                 }
             }
-/*            gameboard->handleCamera();
+            //2D AND MENUS RENDERING
+            cubeMenu.render();
+            viewMatrix = gameboard->getCurrentCamMatrix();
+            OpenGlManager::getInstance().drawMenu(windowManager,cubeMenu.getRenderModel(),viewMatrix);
+
+            //GAME ELEMENT RENDERING
+            gameboard->handleCamera();
             gameboard->handleGhosts();
             gameboard->handleCollisions();
-            gameboard->render(windowManager);*/
+            gameboard->render(windowManager);
 
             if(gameboard->hasWon() || gameboard->hasLost()) done = true;
         }

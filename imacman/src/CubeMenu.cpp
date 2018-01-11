@@ -23,9 +23,12 @@ void CubeMenu::createRenderModel() {
  */
 void CubeMenu::render() {
         renderModel->transform(glm::vec3(0), 0, glm::vec3(1,0,0), glm::vec3(3.65));
-
 }
 
 RenderModel *CubeMenu::getRenderModel()  {
     return renderModel;
+}
+
+void CubeMenu::setRenderModel(RenderModel *renderModel) {
+    CubeMenu::renderModel = renderModel;
 }
