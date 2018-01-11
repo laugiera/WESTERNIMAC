@@ -108,7 +108,7 @@ int GameApp::MainMenu(){
         while (SDL_PollEvent(&e))
         {
             cubeMenu.render();
-            cubeMenu.getRenderModel()->transform(glm::vec3(0),0,glm::vec3(1,0,0),glm::vec3(3.605));
+            cubeMenu.getRenderModel()->transform(glm::vec3(0,0,0),0,glm::vec3(1,0,0),glm::vec3(3.62));
             if (e.type == SDL_QUIT)
             {
                 loop1 = 0;
@@ -224,6 +224,7 @@ int GameApp::PauseMenu(){
         while (SDL_PollEvent(&e))
         {
             cubeMenu.render();
+            cubeMenu.getRenderModel()->transform(glm::vec3(0),0,glm::vec3(1,0,0),glm::vec3(3.6055));
 
             if (e.type == SDL_QUIT)
             {
@@ -271,7 +272,7 @@ int GameApp::PauseMenu(){
 
                         case SDLK_ESCAPE:
                         {
-                            cubeMenu.getRenderModel()->transform(glm::vec3(0,1000,0), 0, glm::vec3(1,0,0), glm::vec3(1));
+                            cubeMenu.getRenderModel()->transform(glm::vec3(0,0,0),0,glm::vec3(1,0,0),glm::vec3(3.62));
                             return ST_Play;
                         }
 
@@ -300,7 +301,7 @@ void GameApp::appLoop() {
             // need to add line to reload the board
         }
         int rightPressed = 0;
-
+/*
         //SOUND
         SDL_Init(SDL_INIT_AUDIO);
         // load WAV file
@@ -315,7 +316,7 @@ void GameApp::appLoop() {
         SDL_AudioDeviceID deviceId = SDL_OpenAudioDevice(NULL, 0, &wavSpec, NULL, 0);
         // play audio
         int success = SDL_QueueAudio(deviceId, wavBuffer, wavLength);
-        SDL_PauseAudioDevice(deviceId, 0);
+        SDL_PauseAudioDevice(deviceId, 0);*/
 
 
         bool done = false;
@@ -352,10 +353,9 @@ void GameApp::appLoop() {
                 }
             }
             //2D AND MENUS RENDERING
-          //  lifePannel.render();
-            lifePannel.getRenderModel()->transform(glm::vec3(8.5,1,-1.9),0,glm::vec3(1,0,0),glm::vec3(0.8));
+/*            lifePannel.getRenderModel()->transform(glm::vec3(8.5,1,-1.9),0,glm::vec3(1,0,0),glm::vec3(0.8));
             lifePannel.getRenderModel()->setTexture(appFolderPath+"/textures/lifes.png");
-            OpenGlManager::getInstance().addRenderModel(lifePannel.getRenderModel());
+            OpenGlManager::getInstance().addRenderModel(lifePannel.getRenderModel());*/
 
             //GAME ELEMENT RENDERING
             gameboard->handleCamera();
@@ -366,8 +366,8 @@ void GameApp::appLoop() {
             if(gameboard->hasWon() || gameboard->hasLost()) done = true;
         }
         destroy();
-        SDL_CloseAudioDevice(deviceId);
-        SDL_FreeWAV(wavBuffer);
+  /*      SDL_CloseAudioDevice(deviceId);
+        SDL_FreeWAV(wavBuffer);*/
     }
 
 }
