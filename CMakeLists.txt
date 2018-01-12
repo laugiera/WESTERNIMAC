@@ -25,7 +25,6 @@ endif(WIN32)
 add_subdirectory(glimac)
 add_subdirectory(glcustom)
 add_subdirectory(imacman)
-add_subdirectory(tests)
 
 #if all files grey in CLion and red cross on build (or debug not found) -> build, click "build" in error popup, click ok -> let it do its thing -> try to build again
 #if findXXX.cmake not included error -> look up a def of said file on the internet and include in CMake folder
