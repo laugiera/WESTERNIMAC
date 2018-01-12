@@ -377,8 +377,6 @@ void GameApp::appLoop() {
                     scorePannel.getRenderModel()->setTexture(appFolderPath + "/textures/score2.png");
                 }else if (score > BoardLoader::getScoreMax() * (3 / 4.f)){
                     scorePannel.getRenderModel()->setTexture(appFolderPath + "/textures/score3.png");
-                } else if (score > BoardLoader::getScoreMax()){
-                    scorePannel.getRenderModel()->setTexture(appFolderPath + "/textures/score4.png");
                 }
 
                 positionX = gameboard->getPlayer()->getPosition().x;
