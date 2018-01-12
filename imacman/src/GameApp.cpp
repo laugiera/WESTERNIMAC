@@ -5,6 +5,9 @@
 #include "GameApp.hpp"
 
 // State Main Menu
+/**
+ * ENUMS FOR MENU
+ */
 enum {
     ST_Menu, ST_Play, ST_Instructions
 };
@@ -21,7 +24,11 @@ enum {
     SRF_COUNT1
 };
 
-
+/**
+ * Constructor
+ * Initialise window and load a data file
+ * @param appPath
+ */
 GameApp::GameApp(const std::string &appPath) : appPath(appPath),
                                                windowManager(Utils::windowWidth, Utils::windowHeight, "GLImac")
 {
@@ -41,7 +48,11 @@ GameApp::GameApp(const std::string &appPath) : appPath(appPath),
     saveMode=false;
     loadMode=false;
 }
-
+/**
+ * MainMenu()
+ *
+ * @return
+ */
 int GameApp::MainMenu(){
 
     int i;
@@ -74,7 +85,7 @@ int GameApp::MainMenu(){
     int success = SDL_QueueAudio(deviceId, wavBuffer, wavLength);
     SDL_PauseAudioDevice(deviceId, 0);
 
-    //show the cube with initial image
+    //show the image cube with initial image
     std::string appFolderPath = OpenGlManager::getInstance().getAppFolderPath();
     Camera2D camMenu = Camera2D();
     glm::mat4 viewMatrix;
@@ -82,8 +93,6 @@ int GameApp::MainMenu(){
     cubeMenu.createRenderModel();
 
 
-
-    //pour changer la texture :
     bool stateChanged=false;
     while (loop1)
     {
@@ -182,7 +191,11 @@ int GameApp::MainMenu(){
     }
 
 }
-
+/**
+ * PauseMenu()
+ * Save/Load/Exit
+ * @return int
+ */
 int GameApp::PauseMenu(){
 
     int srfIdx=0;
@@ -293,7 +306,10 @@ int GameApp::PauseMenu(){
 
 }
 
-
+/**
+ * winLose()
+ * sounds and images for win or lose situations
+ */
 void GameApp::winLose(){
 
     int loop1 = 1;
@@ -373,9 +389,12 @@ void GameApp::winLose(){
     }
 
 }
-
+/**
+ * appLoop()
+ */
 void GameApp::appLoop() {
 
+    //2D AFFICHAGES
     std::string appFolderPath = OpenGlManager::getInstance().getAppFolderPath();
     Plane2D lifePannel = Plane2D();
     lifePannel.createRenderModel();
@@ -442,7 +461,7 @@ void GameApp::appLoop() {
                     done = true; // Leave the loop after this iteration
                 }
             }
-            //2D AND MENUS RENDERING
+            //2D AND MENUS RENDERING (ONLY ON CAM2D)
             if (gameboard->getCamFPS() != nullptr) {
                 switch (gameboard->getPlayer()->getLives()) {
                     case 1:

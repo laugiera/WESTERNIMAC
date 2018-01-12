@@ -3,6 +3,12 @@
 //
 
 #include "ObjectModel.hpp"
+
+/**
+ * Constructor
+ * Load a model with .obj and .mtl files
+ * @param _path
+ */
 ObjectModel::ObjectModel(const std::string &_path):objPath(_path+".obj"),mtlPath(_path+".mtl"), object(){
     try{
         object.loadOBJ(objPath,mtlPath,false);
@@ -23,16 +29,20 @@ ObjectModel::ObjectModel(const std::string &_path):objPath(_path+".obj"),mtlPath
         Print::printErrorMessage(e.what());
     }
 }
+/**
+ * Destructor
+ */
 ObjectModel::~ObjectModel(){
     vertices_vector.clear();
     indices_vector.clear();
 
 }
-
+/**
+ * Getters & setters
+ */
 const glm::vec3 &ObjectModel::getColor() const {
     return color;
 }
-
 
 const glm::vec3 &ObjectModel::getKs() const {
     return ks;

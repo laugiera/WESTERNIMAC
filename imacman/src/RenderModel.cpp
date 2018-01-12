@@ -5,6 +5,17 @@
 #include <OpenGlManager.hpp>
 #include "RenderModel.hpp"
 
+/**
+ * Constructor
+ * Initialise GPUProgram with shaders paths
+ * Initialise ObjectModel with model path
+ * Fill buffers
+ * set the model matrix
+ * @param _modelPath
+ * @param appPath
+ * @param vertexShader
+ * @param fragmentShader
+ */
 RenderModel::RenderModel(const std::string &_modelPath,
                          const glimac::FilePath appPath, const std::string &vertexShader, const std::string &fragmentShader)
         : model(ObjectModel(_modelPath)), vbo(), ibo(), vao(), program(glcustom::GPUProgram(appPath,vertexShader,fragmentShader))
@@ -17,15 +28,30 @@ RenderModel::RenderModel(const std::string &_modelPath,
 
     setModelMatrix();
 }
-
+/**
+ * setModelColor()
+ * @param _color
+ * @param _kd
+ * @param _ks
+ */
 void RenderModel::setModelColor(glm::vec3 _color, glm::vec3 _kd, glm::vec3 _ks){
     model.setColor(_color,_kd,_ks);
 }
-
+/**
+ * setTexture()
+ * @param filePath
+ */
 void RenderModel::setTexture(const std::string filePath){
      texture = new glcustom::Texture(filePath);
 }
-
+/**
+ * addProgramUniforms
+ * add uniforms variables to the GPUProgram
+ * add lights uniforms to the GPUProgram
+ * @param globalRight
+ * @param playerLight
+ * @param globalLeft
+ */
 void RenderModel::addProgramUniforms( Light &globalRight, Light &playerLight, Light &globalLeft){
     std::vector<std::string> uniformVariables;
     uniformVariables.push_back("uMVPMatrix");
@@ -43,10 +69,21 @@ void RenderModel::addProgramUniforms( Light &globalRight, Light &playerLight, Li
     globalRight.addLightUniforms(program);
     playerLight.addLightUniforms(program);
 }
-
+/**
+ * setModelMatrix
+ * @param _modelMatrix
+ */
 void RenderModel::setModelMatrix(const glm::mat4 _modelMatrix){
     modelMatrix = _modelMatrix;
 }
+/**
+ * Render
+ * Render a ObjectModel with lights and viewMatrix
+ * @param viewMatrix
+ * @param globalRight
+ * @param playerLight
+ * @param globalLeft
+ */
 void RenderModel::render(const glm::mat4 &viewMatrix, Light &globalRight, Light &playerLight, Light &globalLeft){
     program.use();
 
@@ -80,7 +117,14 @@ void RenderModel::render(const glm::mat4 &viewMatrix, Light &globalRight, Light 
         texture->debind();
 
 }
-
+/**
+ * transform()
+ * apply a transformation to the modelMatrix
+ * @param translate
+ * @param angle
+ * @param axesRotation
+ * @param scale
+ */
 void RenderModel::transform(const glm::vec3 &translate, const float angle, const glm::vec3 &axesRotation,
                             const glm::vec3 &scale) {
     glm::mat4 transformation = glm::mat4(1.f);
