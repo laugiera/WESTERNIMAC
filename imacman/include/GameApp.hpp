@@ -28,13 +28,15 @@ public:
 
     int PauseMenu();
 
+    void winLose();
+
 private:
     GameBoard * gameboard;
     std::string boardPath;
     std::string appPath;
 
     glimac::SDLWindowManager windowManager;
-
+    bool win;
     char *SoundFilePath;
     //Save Saving;
     bool saveMode;

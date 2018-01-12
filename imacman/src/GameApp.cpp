@@ -66,7 +66,7 @@ int GameApp::MainMenu(){
     Uint32 wavLength;
     Uint8 *wavBuffer;
 
-    SDL_LoadWAV("sounds/test.wav", &wavSpec, &wavBuffer, &wavLength);
+    SDL_LoadWAV("sounds/menu.wav", &wavSpec, &wavBuffer, &wavLength);
 
     // open audio device
     SDL_AudioDeviceID deviceId = SDL_OpenAudioDevice(NULL, 0, &wavSpec, NULL, 0);
@@ -257,10 +257,14 @@ int GameApp::PauseMenu(){
                             if (menuIdx == 0 )
                             {
                                 //save
+                                cubeMenu.getRenderModel()->transform(glm::vec3(0,1000,0),0,glm::vec3(1,0,0),glm::vec3(1));
+                                return ST_Play;
                             }
                             else if (menuIdx == 1)
                             {
                                 //load
+                                cubeMenu.getRenderModel()->transform(glm::vec3(0,1000,0),0,glm::vec3(1,0,0),glm::vec3(1));
+                                return ST_Play;
                             }
                             else if (menuIdx == 2)
                             {
@@ -274,6 +278,87 @@ int GameApp::PauseMenu(){
                         {
                             cubeMenu.getRenderModel()->transform(glm::vec3(0,1000,0),0,glm::vec3(1,0,0),glm::vec3(1));
                             return ST_Play;
+                        }
+
+                        default:
+                            break;
+                    }
+            }
+            viewMatrix = camMenu.getViewMatrix();
+            OpenGlManager::getInstance().drawMenu(windowManager,cubeMenu.getRenderModel(),viewMatrix);
+
+        }
+
+    }
+
+}
+
+
+void GameApp::winLose(){
+
+    int loop1 = 1;
+
+    //SOUND
+    SDL_Init(SDL_INIT_AUDIO);
+    // load WAV file
+
+    SDL_AudioSpec wavSpec;
+    Uint32 wavLength;
+    Uint8 *wavBuffer;
+
+    //show the cube with initial image
+    std::string appFolderPath = OpenGlManager::getInstance().getAppFolderPath();
+    Camera2D camMenu = Camera2D();
+    glm::mat4 viewMatrix;
+    CubeMenu cubeMenu = CubeMenu();
+    cubeMenu.createRenderModel();
+
+    if(win){
+        cubeMenu.getRenderModel()->setTexture(appFolderPath + "/images/menu/win.jpg");
+        SDL_LoadWAV("sounds/Win.wav", &wavSpec, &wavBuffer, &wavLength);
+
+    }
+    else{
+    cubeMenu.getRenderModel()->setTexture(appFolderPath + "/images/menu/gameover.jpg");
+        SDL_LoadWAV("sounds/Lose.wav", &wavSpec, &wavBuffer, &wavLength);
+
+    }
+    // open audio device
+    SDL_AudioDeviceID deviceId = SDL_OpenAudioDevice(NULL, 0, &wavSpec, NULL, 0);
+    // play audio
+    int success = SDL_QueueAudio(deviceId, wavBuffer, wavLength);
+    SDL_PauseAudioDevice(deviceId, 0);
+
+
+    while (loop1)
+    {
+
+        SDL_Event e;
+        while (SDL_PollEvent(&e))
+        {
+            cubeMenu.render();
+            cubeMenu.getRenderModel()->transform(glm::vec3(0),0,glm::vec3(1,0,0),glm::vec3(4.48));
+
+            if (e.type == SDL_QUIT)
+            {
+                loop1 = 0;
+                break;
+            }
+
+            switch (e.type)
+            {
+                case SDL_KEYDOWN:
+                    switch (e.key.keysym.sym)
+                    {
+
+                        case SDLK_ESCAPE:
+                        {
+                            cubeMenu.getRenderModel()->transform(glm::vec3(0,1000,0),0,glm::vec3(1,0,0),glm::vec3(1));
+                            SDL_CloseAudioDevice(deviceId);
+                            SDL_FreeWAV(wavBuffer);
+                            appLoop();
+                            loop1=0;
+                            break;
                         }
 
                         default:
@@ -310,19 +395,19 @@ void GameApp::appLoop() {
             // need to add line to reload the board
         }
         int rightPressed = 0;
-/*
+
         //SOUND
         SDL_Init(SDL_INIT_AUDIO);
         // load WAV file
         SDL_AudioSpec wavSpec;
         Uint32 wavLength;
         Uint8 *wavBuffer;
-        SDL_LoadWAV("sounds/test.wav", &wavSpec, &wavBuffer, &wavLength);
+        SDL_LoadWAV("sounds/GameSong.wav", &wavSpec, &wavBuffer, &wavLength);
         // open audio device
         SDL_AudioDeviceID deviceId = SDL_OpenAudioDevice(NULL, 0, &wavSpec, NULL, 0);
         // play audio
         int success = SDL_QueueAudio(deviceId, wavBuffer, wavLength);
-        SDL_PauseAudioDevice(deviceId, 0);*/
+        SDL_PauseAudioDevice(deviceId, 0);
 
 
         bool done = false;
@@ -395,11 +480,24 @@ void GameApp::appLoop() {
             gameboard->handleCollisions();
             gameboard->render(windowManager);
 
-            if(gameboard->hasWon() || gameboard->hasLost()) done = true;
+            if(gameboard->hasWon())
+            {
+                win=true;
+                SDL_CloseAudioDevice(deviceId);
+                SDL_FreeWAV(wavBuffer);
+                winLose();
+            }
+            else if(gameboard->hasLost())
+            {
+                win=false;
+                SDL_CloseAudioDevice(deviceId);
+                SDL_FreeWAV(wavBuffer);
+                winLose();
+            }
         }
         destroy();
-        /*      SDL_CloseAudioDevice(deviceId);
-              SDL_FreeWAV(wavBuffer);*/
+             SDL_CloseAudioDevice(deviceId);
+              SDL_FreeWAV(wavBuffer);
     }
 
 }
