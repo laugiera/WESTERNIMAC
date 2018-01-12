@@ -383,8 +383,8 @@ void GameApp::appLoop() {
 
                 positionX = gameboard->getPlayer()->getPosition().x;
                 positionY = gameboard->getPlayer()->getPosition().y ;
-                lifePannel.getRenderModel()->transform(glm::vec3(2.5+positionX*.8,4,-1.5+positionY*.15),0,glm::vec3(1,0,0),glm::vec3(0.2,0.2,0.15));
-                scorePannel.getRenderModel()->transform(glm::vec3(2.5+positionX*.8,4,-1.2+positionY*.15),0,glm::vec3(1,0,0),glm::vec3(0.08,0.1,0.1));
+                lifePannel.getRenderModel()->transform(glm::vec3(3+abs(positionX),3,-2+abs(positionY)),0,glm::vec3(1,0,0),glm::vec3(0.4,0.4,0.3));
+                scorePannel.getRenderModel()->transform(glm::vec3(3+abs(positionX),3,-1+abs(positionY)),0,glm::vec3(1,0,0),glm::vec3(0.2,0.3,0.3));
             }
             else {
                 lifePannel.getRenderModel()->transform(glm::vec3(10000),0,glm::vec3(1,0,0),glm::vec3(1));
