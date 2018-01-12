@@ -294,13 +294,6 @@ void GameApp::winLose(){
 
     int loop1 = 1;
 
-    //load images paths
-    std::string ImagesPaths[SRF_COUNT1];
-
-    ImagesPaths[SRF_Save] = "/images/menu/PMS.png";
-    ImagesPaths[SRF_Load] = "/images/menu/PML.png";
-    ImagesPaths[SRF_Exit] = "/images/menu/PMQ.png";
-
     //SOUND
     SDL_Init(SDL_INIT_AUDIO);
     // load WAV file
@@ -309,27 +302,25 @@ void GameApp::winLose(){
     Uint32 wavLength;
     Uint8 *wavBuffer;
 
-
-    // open audio device
-    SDL_AudioDeviceID deviceId = SDL_OpenAudioDevice(NULL, 0, &wavSpec, NULL, 0);
-
-
     //show the cube with initial image
     std::string appFolderPath = OpenGlManager::getInstance().getAppFolderPath();
     Camera2D camMenu = Camera2D();
     glm::mat4 viewMatrix;
     CubeMenu cubeMenu = CubeMenu();
     cubeMenu.createRenderModel();
+
     if(win){
         cubeMenu.getRenderModel()->setTexture(appFolderPath + "/images/menu/win.jpg");
         SDL_LoadWAV("sounds/Win.wav", &wavSpec, &wavBuffer, &wavLength);
 
     }
     else{
-    cubeMenu.getRenderModel()->setTexture(appFolderPath + "/images/menu/gaveover.jpg");
+    cubeMenu.getRenderModel()->setTexture(appFolderPath + "/images/menu/gameover.jpg");
         SDL_LoadWAV("sounds/Lose.wav", &wavSpec, &wavBuffer, &wavLength);
 
     }
+    // open audio device
+    SDL_AudioDeviceID deviceId = SDL_OpenAudioDevice(NULL, 0, &wavSpec, NULL, 0);
     // play audio
     int success = SDL_QueueAudio(deviceId, wavBuffer, wavLength);
     SDL_PauseAudioDevice(deviceId, 0);
@@ -361,7 +352,7 @@ void GameApp::winLose(){
                             cubeMenu.getRenderModel()->transform(glm::vec3(0,1000,0),0,glm::vec3(1,0,0),glm::vec3(1));
                             SDL_CloseAudioDevice(deviceId);
                             SDL_FreeWAV(wavBuffer);
-                            glutMainLoop();
+                            appLoop();
                             break;
                         }
 
