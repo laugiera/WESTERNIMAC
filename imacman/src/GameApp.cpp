@@ -314,7 +314,7 @@ void GameApp::winLose(){
     cubeMenu.createRenderModel();
 
     if(win){
-        cubeMenu.getRenderModel()->setTexture(appFolderPath + "/images/menu/win.jpg");
+        cubeMenu.getRenderModel()->setTexture(appFolderPath + "/images/menu/win.png");
         SDL_LoadWAV("sounds/Win.wav", &wavSpec, &wavBuffer, &wavLength);
 
     }
