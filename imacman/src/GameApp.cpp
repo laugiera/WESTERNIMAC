@@ -30,7 +30,7 @@ GameApp::GameApp(const std::string &appPath) : appPath(appPath),
     if (loadMode){
         filePath =  "/data/saveGame.txt";
     }
-    else filePath =  "/data/board01.txt";
+    else filePath =  "/data/board02.txt";
     boardPath = Tools::getFolderPath(appPath) +filePath;
     try {
         gameboard = new GameBoard(boardPath);
