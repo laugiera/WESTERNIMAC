@@ -129,6 +129,27 @@ void GameBoard::handleCollisions() {
     player->testGhostEncounter(ghosts);
 }
 
+void GameBoard::destroyCamera() {
+    currentCam = nullptr;
+    delete(cam2D);
+    delete(camFPS);
+}
+
+void GameBoard::destroyTiles() {
+    for (std::vector<Tile*>& tileLine: tiles) {
+        for(Tile * tile: tileLine ){
+            delete(tile);
+        }
+        tileLine.clear(); // should check if useful
+    }
+
+}
+
+void GameBoard::destroy() {
+    destroyCamera();
+    destroyTiles();
+}
+
 /**
  * Call the render methodes of the gameboard's Tiles, Ghosts and Player to update their renderModels
  * then call the OpengkManager's drawAll() method to effectively draw all the elements of the game in the window
@@ -256,6 +277,22 @@ void GameBoard::handlePortal() {
 void GameBoard::handleCamera() {
     cam2D->follow(*player);
     camFPS->follow(*player);
+}
+
+
+CactusMan *GameBoard::getPlayer() const {
+    return player;
+}
+
+CameraFPS *GameBoard::getCamFPS() const {
+    return camFPS;
+}
+glm::mat4 GameBoard::getCurrentCamMatrix() const {
+    return currentCam->getViewMatrix();
+}
+
+void GameBoard::setCurrentCam(Camera *currentCam) {
+    GameBoard::currentCam = currentCam;
 }
 
 

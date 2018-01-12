@@ -7,6 +7,8 @@
 
 #include "GameBoard.hpp"
 #include "Save.hpp"
+#include "CubeMenu.hpp"
+#include "Plane2D.h"
 
 
 
@@ -20,6 +22,11 @@ public:
 
     void appLoop();
 
+    void destroy();
+
+    int MainMenu();
+
+    int PauseMenu();
 
 private:
     GameBoard * gameboard;
@@ -28,6 +35,7 @@ private:
 
     glimac::SDLWindowManager windowManager;
 
+    char *SoundFilePath;
     //Save Saving;
     bool saveMode;
     bool loadMode;

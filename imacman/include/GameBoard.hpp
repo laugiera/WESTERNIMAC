@@ -57,6 +57,20 @@ public:
 
     void handleCamera();
 
+    void destroyCamera();
+
+    void destroyTiles();
+
+    void destroy();
+
+    glm::mat4 getCurrentCamMatrix()  const;
+
+    void setCurrentCam(Camera *currentCam);
+
+    CactusMan *getPlayer() const;
+
+    CameraFPS *getCamFPS() const;
+
 
 private:
     CactusMan * player;
