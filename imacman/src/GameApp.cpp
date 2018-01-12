@@ -257,10 +257,14 @@ int GameApp::PauseMenu(){
                             if (menuIdx == 0 )
                             {
                                 //save
+                                cubeMenu.getRenderModel()->transform(glm::vec3(0,1000,0),0,glm::vec3(1,0,0),glm::vec3(1));
+                                return ST_Play;
                             }
                             else if (menuIdx == 1)
                             {
                                 //load
+                                cubeMenu.getRenderModel()->transform(glm::vec3(0,1000,0),0,glm::vec3(1,0,0),glm::vec3(1));
+                                return ST_Play;
                             }
                             else if (menuIdx == 2)
                             {
@@ -353,6 +357,7 @@ void GameApp::winLose(){
                             SDL_CloseAudioDevice(deviceId);
                             SDL_FreeWAV(wavBuffer);
                             appLoop();
+                            loop1=0;
                             break;
                         }
 
@@ -390,7 +395,7 @@ void GameApp::appLoop() {
             // need to add line to reload the board
         }
         int rightPressed = 0;
-/*
+
         //SOUND
         SDL_Init(SDL_INIT_AUDIO);
         // load WAV file
@@ -402,7 +407,7 @@ void GameApp::appLoop() {
         SDL_AudioDeviceID deviceId = SDL_OpenAudioDevice(NULL, 0, &wavSpec, NULL, 0);
         // play audio
         int success = SDL_QueueAudio(deviceId, wavBuffer, wavLength);
-        SDL_PauseAudioDevice(deviceId, 0);*/
+        SDL_PauseAudioDevice(deviceId, 0);
 
 
         bool done = false;
@@ -480,17 +485,21 @@ void GameApp::appLoop() {
             if(gameboard->hasWon())
             {
                 win=true;
+                SDL_CloseAudioDevice(deviceId);
+                SDL_FreeWAV(wavBuffer);
                 winLose();
             }
             else if(gameboard->hasLost())
             {
                 win=false;
+                SDL_CloseAudioDevice(deviceId);
+                SDL_FreeWAV(wavBuffer);
                 winLose();
             }
         }
         destroy();
-        /*      SDL_CloseAudioDevice(deviceId);
-              SDL_FreeWAV(wavBuffer);*/
+             SDL_CloseAudioDevice(deviceId);
+              SDL_FreeWAV(wavBuffer);
     }
 
 }
